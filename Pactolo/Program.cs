@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pactolo.scr.testes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace Pactolo {
 		/// </summary>
 		[STAThread]
 		static void Main() {
+			TestesGerais.Testes();
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new Form1());

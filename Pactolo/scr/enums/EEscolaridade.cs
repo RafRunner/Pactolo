@@ -30,7 +30,7 @@ namespace Pactolo.scr.enums {
 		};
 
 		public static List<string> Values() {
-			return Enum.GetNames(typeof(Escolaridade)).ToList<string>();
+			return ((Escolaridade[]) Enum.GetValues(typeof(Escolaridade))).Select(it => GetValue(it)).ToList();
 		}
 
 		public static string GetValue(Escolaridade escolaridade) {

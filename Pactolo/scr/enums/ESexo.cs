@@ -16,7 +16,7 @@ namespace Pactolo.scr.enums {
 		}
 
 		public static List<string> Values() {
-			return Enum.GetNames(typeof(Sexo)).ToList<string>();
+			return Enum.GetNames(typeof(Sexo)).ToList();
 		}
 
 		public static string ParseAndValidate(string sexo) {

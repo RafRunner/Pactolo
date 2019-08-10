@@ -68,6 +68,7 @@ namespace Pactolo.scr.testes {
 
 			Assert("Médio Incompleto" == EEscolaridade.GetValue(EEscolaridade.Escolaridade.MedioIncompleto), "Erro em Escolaridade.MedioIncompleto!");
 			Assert(!ESexo.Values().Any(it => ! new List<string> { "Feminino", "Masculino", "Outro" }.Contains(it) ), "Inconsistência nos valores de Sexo!");
+			EEscolaridade.Values();
 		}
 	}
 }

@@ -18,8 +18,12 @@ namespace Pactolo.scr.dominio {
 			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Nome");
 		}
 
-		// TODO fazer um validador de Email (decidir também se deve ser não nulo)
-		public string Email { get; set; }
+		// TODO decidir se deve ser não nulo
+		private string email;
+		public string Email {
+			get => email;
+			set => email = StringUtils.ValideEmail(value);
+		}
 
 		public override bool Equals(object obj) {
 			return Id == ((Pessoa) obj).Id;

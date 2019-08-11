@@ -20,7 +20,7 @@ namespace Pactolo.scr.enums {
 		}
 
 		public static string ParseAndValidate(string sexo) {
-			sexo = StringUtils.ValideNaoNuloNaoVazioENormalizeString(sexo, "Sexo");
+			sexo = StringUtils.ValideNaoNuloNaoVazioENormalize(sexo, "Sexo");
 			try {
 				string valorValidado;
 				valorValidado = Enum.Parse(typeof(Sexo), sexo).ToString();

@@ -8,8 +8,12 @@ namespace Pactolo.scr.utils {
 
 	class StringUtils {
 
-		public static string ValideNaoNuloNaoVazioENormalizeString(string palavra, string nomeCampo) {
-			string normalizada = palavra?.Trim();
+		public static string Normalize(string sequencia) {
+			return sequencia?.Trim();
+		}
+
+		public static string ValideNaoNuloNaoVazioENormalize(string sequencia, string nomeCampo) {
+			string normalizada = Normalize(sequencia);
 			if (string.IsNullOrEmpty(normalizada)) {
 				throw new Exception($"Campo normalizado {nomeCampo} está nulo ou vazio!");
 			}

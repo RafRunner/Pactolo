@@ -12,7 +12,8 @@ namespace Pactolo {
 		/// </summary>
 		[STAThread]
 		static void Main() {
-			TestesGerais.Testes();
+			var testes = new TestesGerais();
+			testes.TodosOsTestes();
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new Form1());

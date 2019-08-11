@@ -1,5 +1,6 @@
 ﻿using Pactolo.scr.dominio;
 using Pactolo.scr.enums;
+using Pactolo.scr.services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,20 @@ using System.Threading.Tasks;
 namespace Pactolo.scr.testes {
 
 	class TestesGerais {
+
+		Participante participante = new Participante {
+			Nome = "Rafael Nunes Santana",
+			Email = "rafaelns.br@gmail.com",
+			Idade = 21,
+			Escolaridade = EEscolaridade.Escolaridade.SuperiorIncompleto.ToString(),
+			Sexo = ESexo.Sexo.Masculino.ToString()
+		};
+
+		Experimentador experimentador = new Experimentador {
+			Nome = "Rafael Nunes Santana",
+			Email = "rafaelns.br@gmail.com",
+			Projeto = "Pactolo"
+		};
 
 		static void TesteIndividual(Func<object, object> funcao, object parametro, string mensagem, bool falharNoSucesso) {
 			bool excecaoLancada;
@@ -23,7 +38,8 @@ namespace Pactolo.scr.testes {
 				if (!excecaoLancada) {
 					throw new Exception(mensagem);
 				}
-			} else {
+			}
+			else {
 				if (excecaoLancada) {
 					throw new Exception(mensagem);
 				}
@@ -38,27 +54,18 @@ namespace Pactolo.scr.testes {
 			TesteIndividual(funcao, parametro, mensagem, false);
 		}
 
-		static void Assert(bool expressao, string mensagem) {
+		static void Assert(bool expressao, string mensagem = "Falha de assert!") {
 			if (!expressao) {
 				throw new Exception(mensagem);
 			}
 		}
 
-		public static void Testes() {
-			Participante participante = new Participante {
-				Nome = "Rafael",
-				Email = "rafaelns.br@gmail.com",
-				Idade = 21,
-				Escolaridade = EEscolaridade.Escolaridade.SuperiorIncompleto.ToString(),
-				Sexo = ESexo.Sexo.Masculino.ToString()
-			};
+		public void TodosOsTestes() {
+			TestesDominio();
+			ExperimentadorServiceTestes();
+		}
 
-			Experimentador experimentador = new Experimentador {
-				Nome = "Rafael",
-				Email = "rafaelns.br@gmail.com",
-				Projeto = "Pactolo"
-			};
-
+		private void TestesDominio() {
 			TesteIndividualDeFalha(invalido => EEscolaridade.ParseAndValidate((string) invalido), "banana", "Deveria ter falhado para valor inválido de Escolaridade!");
 			TesteIndividualDeFalha(invalido => ESexo.ParseAndValidate((string) invalido), "Masc", "Deveria ter falhado para valor inválido de Sexo!");
 			TesteIndividualDeFalha(invalido => participante.Nome = (string) invalido, "", "Deveria ter falhado para valor em branco de nome em Participante!");
@@ -67,8 +74,29 @@ namespace Pactolo.scr.testes {
 			TesteIndividualDeFalha(invalido => participante.Idade = (int) invalido, 121, "Deveria ter falhado para valor acima de 120 anos de idade em Participante!");
 
 			Assert("Médio Incompleto" == EEscolaridade.GetValue(EEscolaridade.Escolaridade.MedioIncompleto), "Erro em Escolaridade.MedioIncompleto!");
-			Assert(!ESexo.Values().Any(it => ! new List<string> { "Feminino", "Masculino", "Outro" }.Contains(it) ), "Inconsistência nos valores de Sexo!");
+			Assert(!ESexo.Values().Any(it => !new List<string> { "Feminino", "Masculino", "Outro" }.Contains(it)), "Inconsistência nos valores de Sexo!");
 			EEscolaridade.Values();
+		}
+
+		private void ExperimentadorServiceTestes() {
+			ExperimentadorService.Deletar(experimentador);
+
+			experimentador = ExperimentadorService.Salvar(experimentador);
+			long id = experimentador.Id;
+			Assert(id != 0, "Falha ao inserir experimentador no banco!");
+
+			var experimentadorDoBanco = ExperimentadorService.GetById(id);
+			Assert(experimentador.Equals(experimentadorDoBanco), "Falha ao obter experimentador Pelo Id!");
+
+			experimentadorDoBanco = ExperimentadorService.GetByNome("Raf").First();
+			Assert(experimentador.Equals(experimentadorDoBanco), "Falha ao obter experimentador Pelo Nome!");
+
+			experimentador.Projeto = "Outro projeto";
+			experimentador = ExperimentadorService.Salvar(experimentador);
+			Assert(experimentador.Projeto == "Outro projeto", "Falha ao atualizar experimentador!");
+
+			ExperimentadorService.Deletar(experimentador);
+			Assert(experimentador.Id == 0, "Falha ao deletar experimentador!");
 		}
 	}
 }

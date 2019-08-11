@@ -28,7 +28,7 @@ namespace Pactolo.scr.dominio {
 		string sexo;
 		public string Sexo {
 			get => sexo;
-			set => ESexo.ParseAndValidate(value);
+			set => sexo = ESexo.ParseAndValidate(value);
 		}
 	}
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
     class Feedback {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public int ValorClick { get; set; }
         public Boolean Neutro { get; set; }
     }

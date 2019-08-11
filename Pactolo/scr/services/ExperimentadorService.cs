@@ -71,7 +71,7 @@ namespace Pactolo.scr.services {
 			}
 
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				cnn.Execute("DELETE FROM Participante WHERE Id = @Id", experimentador);
+				cnn.Execute("DELETE FROM Experimentador WHERE Id = @Id", experimentador);
 				experimentador.Id = 0;
 			}
 		}

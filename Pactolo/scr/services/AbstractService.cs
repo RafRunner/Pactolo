@@ -9,7 +9,7 @@ namespace Pactolo.scr.services {
 
 	abstract class AbstractService {
 
-		private static string GetConnectionString(string id = "Default") {
+		protected static string GetConnectionString(string id = "Default") {
 			return ConfigurationManager.ConnectionStrings[id].ConnectionString;
 		}
 	}

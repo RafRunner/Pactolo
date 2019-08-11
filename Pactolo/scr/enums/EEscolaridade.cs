@@ -38,7 +38,7 @@ namespace Pactolo.scr.enums {
 		}
 
 		public static string ParseAndValidate(string escolaridade) {
-			escolaridade = StringUtils.ValideNaoNuloNaoVazioENormalizeString(escolaridade, "Escolaridade");
+			escolaridade = StringUtils.ValideNaoNuloNaoVazioENormalize(escolaridade, "Escolaridade");
 			try {
 				string valorValidado;
 				valorValidado = GetValue((Escolaridade) Enum.Parse(typeof(Escolaridade), escolaridade));

@@ -63,6 +63,7 @@ namespace Pactolo.scr.testes {
 		public void TodosOsTestes() {
 			TestesDominio();
 			ExperimentadorServiceTestes();
+			ParticipanteServiceTestes();
 		}
 
 		private void TestesDominio() {
@@ -81,7 +82,7 @@ namespace Pactolo.scr.testes {
 		private void ExperimentadorServiceTestes() {
 			ExperimentadorService.Deletar(experimentador);
 
-			experimentador = ExperimentadorService.Salvar(experimentador);
+			ExperimentadorService.Salvar(experimentador);
 			long id = experimentador.Id;
 			Assert(id != 0, "Falha ao inserir experimentador no banco!");
 
@@ -92,11 +93,33 @@ namespace Pactolo.scr.testes {
 			Assert(experimentador.Equals(experimentadorDoBanco), "Falha ao obter experimentador Pelo Nome!");
 
 			experimentador.Projeto = "Outro projeto";
-			experimentador = ExperimentadorService.Salvar(experimentador);
+			ExperimentadorService.Salvar(experimentador);
 			Assert(experimentador.Projeto == "Outro projeto", "Falha ao atualizar experimentador!");
 
 			ExperimentadorService.Deletar(experimentador);
 			Assert(experimentador.Id == 0, "Falha ao deletar experimentador!");
+		}
+
+		private void ParticipanteServiceTestes() {
+			ParticipanteService.Deletar(participante);
+
+			ParticipanteService.Salvar(participante);
+			long id = participante.Id;
+			Assert(id != 0, "Falha ao inserir participante no banco!");
+
+			var participanteDoBanco = ParticipanteService.GetById(id);
+			Assert(participante.Equals(participanteDoBanco), "Falha ao obter participante Pelo Id!");
+
+			participanteDoBanco = ParticipanteService.GetByNome("Raf").First();
+			Assert(participante.Equals(participanteDoBanco), "Falha ao obter participante Pelo Nome!");
+
+			participante.Idade = 22;
+			participante.Escolaridade = EEscolaridade.Escolaridade.Superior.ToString();
+			ParticipanteService.Salvar(participante);
+			Assert(participante.Idade == 22 && participante.Escolaridade == EEscolaridade.Escolaridade.Superior.ToString(), "Falha ao atualizar participante!");
+
+			ParticipanteService.Deletar(participante);
+			Assert(participante.Id == 0, "Falha ao deletar participante!");
 		}
 	}
 }

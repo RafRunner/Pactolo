@@ -14,11 +14,12 @@ namespace Pactolo.scr.services {
 	class ExperimentadorService : AbstractService {
 
 		public static Experimentador GetById(long id) {
-			if (id <= 0) {
+			if (id == 0) {
 				return null;
 			}
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				return cnn.Query<Experimentador>("SELECT * FROM Experimentador WHERE Id = @Id", new { Id = id })?.Single();
+				IEnumerable<Experimentador> pessoa = cnn.Query<Experimentador>("SELECT * FROM Experimentador WHERE Id = @Id", new { Id = id });
+				return pessoa.Count() > 0 ? pessoa.Single() : null;
 			}
 		}
 
@@ -36,44 +37,41 @@ namespace Pactolo.scr.services {
 
 		public static Experimentador GetByPropriedades(Experimentador experimentador) {
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				return cnn.Query<Experimentador>("SELECT * FROM Experimentador WHERE Nome = @Nome AND Email = @Email AND Projeto = @Projeto", experimentador).Single();
+				IEnumerable<Experimentador> pessoa = cnn.Query<Experimentador>("SELECT * FROM Experimentador WHERE Nome = @Nome AND Email = @Email AND Projeto = @Projeto", experimentador);
+				return pessoa.Count() > 0 ? pessoa.Single() : null;
 			}
 		}
 
-		public static Experimentador Salvar(Experimentador experimentador) {
+		public static void Salvar(Experimentador experimentador) {
 			Experimentador experimentadorExistente = GetByPropriedades(experimentador);
-			if (experimentadorExistente != null) {
+			if (experimentador.Id == 0 && experimentadorExistente != null) {
 				throw new Exception("Experimentador já existe na base de dados!");
 			}
 
 			experimentadorExistente = GetById(experimentador.Id);
 
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				long id;
-
 				if (experimentadorExistente == null) {
-					id = cnn.Query<long>("INSERT INTO Experimentador (Nome, Email, Projeto) VALUES (@Nome, @Email, @Projeto); SELECT CAST(last_insert_rowid() as int)", experimentador).Single();
+					long id = cnn.Query<long>("INSERT INTO Experimentador (Nome, Email, Projeto) VALUES (@Nome, @Email, @Projeto); SELECT CAST(last_insert_rowid() as int)", experimentador).Single();
+					experimentador.Id = id;
 				}
 				else {
 					cnn.Execute("UPDATE Experimentador SET Nome = @Nome, Email = @Email, Projeto = @Projeto WHERE Id = @Id", experimentador);
-					id = experimentador.Id;
-					experimentador = GetById(id);
 				}
-
-				return GetById(id);
 			}
 		}
 
 		public static void Deletar(Experimentador experimentador) {
+			if (experimentador == null) {
+				return;
+			}
+			if (experimentador.Id == 0) {
+				Deletar(GetByPropriedades(experimentador));
+				return;
+			}
+
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				string command;
-				if (experimentador.Id <= 0) {
-					command = "DELETE FROM Experimentador WHERE Nome = @Nome AND Email = @Email AND Projeto = @Projeto";
-				}
-				else {
-					command = "DELETE FROM Experimentador WHERE Id = @Id";
-				}
-				cnn.Execute(command, experimentador);
+				cnn.Execute("DELETE FROM Experimentador WHERE Id = @Id", experimentador);
 				experimentador.Id = 0;
 			}
 		}

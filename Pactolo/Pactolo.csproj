@@ -63,9 +63,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="scr\dominio\Sessao.cs" />
+    <Compile Include="scr\dominio\Feedback.cs" />
+    <Compile Include="scr\dominio\ContingenciaColateral.cs" />
+    <Compile Include="scr\dominio\UnidadeDoExperimeto.cs" />
+    <Compile Include="scr\dominio\ContingenciaInstrucional.cs" />
     <Compile Include="scr\dominio\Experimentador.cs" />
     <Compile Include="scr\dominio\Participante.cs" />
     <Compile Include="scr\dominio\Pessoa.cs" />
+    <Compile Include="scr\enums\EOrdemExposicao.cs" />
     <Compile Include="scr\enums\EEscolaridade.cs" />
     <Compile Include="scr\enums\ESexo.cs" />
     <Compile Include="scr\services\AbstractService.cs" />

@@ -75,6 +75,8 @@
     <Compile Include="scr\enums\EEscolaridade.cs" />
     <Compile Include="scr\enums\ESexo.cs" />
     <Compile Include="scr\services\AbstractService.cs" />
+    <Compile Include="scr\services\ContingenciaInstrucionalService.cs" />
+    <Compile Include="scr\services\UnidadeDoExperimentoService.cs" />
     <Compile Include="scr\services\FeedbackService.cs" />
     <Compile Include="scr\services\ExperimentadorService.cs" />
     <Compile Include="scr\testes\TestesGerais.cs" />

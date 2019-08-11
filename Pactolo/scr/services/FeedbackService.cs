@@ -37,7 +37,7 @@ namespace Pactolo.scr.services {
         public static void Deletar(Feedback feedback) {
             using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
                 string command;
-                command = "DELETE FROM Experimentador WHERE Id = @Id";    
+                command = "DELETE FROM Feedback WHERE Id = @Id";    
                 cnn.Execute(command, feedback);
                 feedback.Id = 0;
             }

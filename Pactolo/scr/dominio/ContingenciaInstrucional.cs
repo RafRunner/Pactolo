@@ -15,13 +15,13 @@ namespace Pactolo.scr.dominio {
             set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Nome");
         }
 
-        protected UnidadeDoExperimeto tato1;
         public UnidadeDoExperimeto Tato1 {get;set;}
+        public long Tato1Id { get; set; }
 
-        protected UnidadeDoExperimeto autoclitico;
         public UnidadeDoExperimeto Autoclitico { get; set; }
+        public long AutocliticoId { get; set; }
 
-        protected UnidadeDoExperimeto tato2;
         public UnidadeDoExperimeto Tato2 { get; set; }
+        public long Tato2Id { get; set; }
     }
 }

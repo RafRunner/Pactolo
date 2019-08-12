@@ -46,17 +46,12 @@ namespace Pactolo.scr.services {
 				throw new Exception("Experimentador já existe na base de dados!");
 			}
 
-			experimentadorExistente = GetById(experimentador.Id);
-
-			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				if (experimentadorExistente == null) {
-					long id = cnn.Query<long>("INSERT INTO Experimentador (Nome, Email, Projeto) VALUES (@Nome, @Email, @Projeto); SELECT CAST(last_insert_rowid() as int)", experimentador).Single();
-					experimentador.Id = id;
-				}
-				else {
-					cnn.Execute("UPDATE Experimentador SET Nome = @Nome, Email = @Email, Projeto = @Projeto WHERE Id = @Id", experimentador);
-				}
-			}
+			AbstractService.Salvar<Experimentador>(
+				experimentador,
+				"Experimentador",
+				"INSERT INTO Experimentador(Nome, Email, Projeto) VALUES(@Nome, @Email, @Projeto); SELECT CAST(last_insert_rowid() as int)",
+				"UPDATE Experimentador SET Nome = @Nome, Email = @Email, Projeto = @Projeto WHERE Id = @Id"
+			);
 		}
 
 		public static void Deletar(Experimentador experimentador) {

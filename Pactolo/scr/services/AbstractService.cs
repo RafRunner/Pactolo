@@ -33,6 +33,20 @@ namespace Pactolo.scr.services {
 			}
 		}
 
+		protected static void Salvar<T>(T objeto, string nomeTabela, string sqlInsert, string sqlUpdate) where T : ElementoDeBanco {
+			T objetoExistente = GetById<T>(objeto.Id, nomeTabela);
+
+			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
+				if (objetoExistente == null) {
+					long id = cnn.Query<long>(sqlInsert, objeto).Single();
+					objeto.Id = id;
+				}
+				else {
+					cnn.Execute(sqlUpdate, objeto);
+				}
+			}
+		}
+
 		protected static void Deletar(ElementoDeBanco objeto, string nomeTabela) {
 			if (objeto == null) {
 				return;

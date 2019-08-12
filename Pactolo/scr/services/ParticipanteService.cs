@@ -45,17 +45,12 @@ namespace Pactolo.scr.services {
 				throw new Exception("Participante já existe na base de dados!");
 			}
 
-			participanteExistente = GetById(participante.Id);
-
-			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				if (participanteExistente == null) {
-					long id = cnn.Query<long>("INSERT INTO Participante (Nome, Email, Idade, Escolaridade, Sexo) VALUES (@Nome, @Email, @Idade, @Escolaridade, @Sexo); SELECT CAST(last_insert_rowid() as int)", participante).Single();
-					participante.Id = id;
-				}
-				else {
-					cnn.Execute("UPDATE Participante SET Nome = @Nome, Email = @Email, Idade = @Idade, Escolaridade = @Escolaridade, Sexo = @Sexo WHERE Id = @Id", participante);
-				}
-			}
+			AbstractService.Salvar<Participante>(
+				participante,
+				"Participante",
+				"INSERT INTO Participante (Nome, Email, Idade, Escolaridade, Sexo) VALUES (@Nome, @Email, @Idade, @Escolaridade, @Sexo); SELECT CAST(last_insert_rowid() as int)",
+				"UPDATE Participante SET Nome = @Nome, Email = @Email, Idade = @Idade, Escolaridade = @Escolaridade, Sexo = @Sexo WHERE Id = @Id"
+			);
 		}
 
 		public static void Deletar(Participante participante) {

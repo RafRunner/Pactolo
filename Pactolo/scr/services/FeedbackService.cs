@@ -6,9 +6,9 @@ using System.Data.SQLite;
 using System.Linq;
 
 namespace Pactolo.scr.services {
-    class FeedbackService : AbstractService {
+	class FeedbackService : AbstractService {
 
-        public static Feedback GetById(long id) {
+		public static Feedback GetById(long id) {
 			return AbstractService.GetById<Feedback>(id, "Feedback");
 		}
 
@@ -17,21 +17,16 @@ namespace Pactolo.scr.services {
 		}
 
 		public static void Salvar(Feedback feedback) {
+			AbstractService.Salvar<Feedback>(
+				feedback,
+				"Feedback",
+				"INSERT INTO Feedback (ValorClick, Neutro) VALUES (@ValorClick, @Neutro); SELECT CAST(last_insert_rowid() as int)",
+				"UPDATE Feedback SET ValorClick = @ValorClick, Neutro = @Neutro WHERE Id = @Id"
+			);
+		}
 
-            Feedback feedbackExistente = GetById(feedback.Id);
-            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-
-                if (feedbackExistente == null) {
-					long id = cnn.Query<long>("INSERT INTO Feedback (ValorClick, Neutro) VALUES (@ValorClick, @Neutro); SELECT CAST(last_insert_rowid() as int)", feedback).Single();
-					feedback.Id = id;
-				} else {
-                    cnn.Execute("UPDATE Feedback SET ValorClick = @ValorClick, Neutro = @Neutro WHERE Id = @Id", feedback);
-                }
-            }
-        }
-
-        public static void Deletar(Feedback feedback) {
+		public static void Deletar(Feedback feedback) {
 			AbstractService.Deletar(feedback, "Feedback");
 		}
-    }
+	}
 }

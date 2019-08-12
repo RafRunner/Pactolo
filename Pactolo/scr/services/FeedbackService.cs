@@ -12,7 +12,11 @@ namespace Pactolo.scr.services {
 			return AbstractService.GetById<Feedback>(id, "Feedback");
 		}
 
-        public static void Salvar(Feedback feedback) {
+		public static List<Feedback> GetAll() {
+			return AbstractService.GetAll<Feedback>("Feedback");
+		}
+
+		public static void Salvar(Feedback feedback) {
 
             Feedback feedbackExistente = GetById(feedback.Id);
             using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {

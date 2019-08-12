@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="scr\dominio\ElementoDeBanco.cs" />
     <Compile Include="scr\dominio\Sessao.cs" />
     <Compile Include="scr\dominio\Feedback.cs" />
     <Compile Include="scr\dominio\ContingenciaColateral.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="scr\services\UnidadeDoExperimentoService.cs" />
     <Compile Include="scr\services\FeedbackService.cs" />
     <Compile Include="scr\services\ExperimentadorService.cs" />
+    <Compile Include="scr\services\ParticipanteService.cs" />
     <Compile Include="scr\testes\TestesGerais.cs" />
     <Compile Include="scr\utils\NumericUtils.cs" />
     <Compile Include="scr\utils\StringUtils.cs" />

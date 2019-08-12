@@ -1,46 +1,32 @@
 ﻿using Dapper;
 using Pactolo.scr.dominio;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
 
 namespace Pactolo.scr.services {
-    class FeedbackService : AbstractService {
+	class FeedbackService : AbstractService {
 
-        public static Feedback GetById(long id) {
-            if (id <= 0) {
-                return null;
-            }
-            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                return cnn.Query<Feedback>("SELECT * FROM Feedback WHERE Id = @Id", new { Id = id })?.Single();
-            }
-        }
+		public static Feedback GetById(long id) {
+			return AbstractService.GetById<Feedback>(id, "Feedback");
+		}
 
-        public static Feedback Salvar(Feedback feedback) {
+		public static List<Feedback> GetAll() {
+			return AbstractService.GetAll<Feedback>("Feedback");
+		}
 
-            Feedback feedbackExistente = GetById(feedback.Id);
-            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                long id;
+		public static void Salvar(Feedback feedback) {
+			AbstractService.Salvar<Feedback>(
+				feedback,
+				"Feedback",
+				"INSERT INTO Feedback (ValorClick, Neutro) VALUES (@ValorClick, @Neutro); SELECT CAST(last_insert_rowid() as int)",
+				"UPDATE Feedback SET ValorClick = @ValorClick, Neutro = @Neutro WHERE Id = @Id"
+			);
+		}
 
-                if (feedbackExistente == null) {
-                    id = cnn.Query<long>("INSERT INTO Feedback (ValorClick, Neutro) VALUES (@ValorClick, @Neutro); SELECT CAST(last_insert_rowid() as int)", feedback).Single();
-                } else {
-                    cnn.Execute("UPDATE Feedback SET ValorClick = @ValorClick, Neutro = @Neutro WHERE Id = @Id", feedback);
-                    id = feedback.Id;
-                    feedback = GetById(id);
-                }
-
-                return GetById(id);
-            }
-        }
-
-        public static void Deletar(Feedback feedback) {
-            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                string command;
-                command = "DELETE FROM Feedback WHERE Id = @Id";    
-                cnn.Execute(command, feedback);
-                feedback.Id = 0;
-            }
-        }
-    }
+		public static void Deletar(Feedback feedback) {
+			AbstractService.Deletar(feedback, "Feedback");
+		}
+	}
 }

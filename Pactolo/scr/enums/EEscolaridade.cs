@@ -37,14 +37,20 @@ namespace Pactolo.scr.enums {
 			return equivalencia[escolaridade];
 		}
 
+		// Tenta obter string de equivalência de Escolaridade como foram declarados no Enum e depois como foram declarados em Equivalência. Se não conseguir retorna erro
 		public static string ParseAndValidate(string escolaridade) {
 			escolaridade = StringUtils.ValideNaoNuloNaoVazioENormalize(escolaridade, "Escolaridade");
+			string valorValidado;
 			try {
-				string valorValidado;
 				valorValidado = GetValue((Escolaridade) Enum.Parse(typeof(Escolaridade), escolaridade));
 				return valorValidado;
 			} catch (Exception ignored) {
-				throw new Exception($"Valor {escolaridade} não é válido para Escolaridade!");
+				try {
+					valorValidado = equivalencia.Values.First(it => it.Equals(escolaridade));
+					return valorValidado;
+				} catch (Exception ignored1) {
+					throw new Exception($"Valor {escolaridade} não é válido para Escolaridade!");
+				}
 			}
 		}
 	}

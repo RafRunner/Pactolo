@@ -9,14 +9,8 @@ namespace Pactolo.scr.services {
     class FeedbackService : AbstractService {
 
         public static Feedback GetById(long id) {
-            if (id == 0) {
-                return null;
-            }
-            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                IEnumerable<Feedback> feedback = cnn.Query<Feedback>("SELECT * FROM Feedback WHERE Id = @Id", new { Id = id });
-				return feedback.Count() > 0 ? feedback.Single() : null;
-            }
-        }
+			return AbstractService.GetById<Feedback>(id, "Feedback");
+		}
 
         public static void Salvar(Feedback feedback) {
 
@@ -33,10 +27,7 @@ namespace Pactolo.scr.services {
         }
 
         public static void Deletar(Feedback feedback) {
-            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                cnn.Execute("DELETE FROM Feedback WHERE Id = @Id", feedback);
-                feedback.Id = 0;
-            }
-        }
+			AbstractService.Deletar(feedback, "Feedback");
+		}
     }
 }

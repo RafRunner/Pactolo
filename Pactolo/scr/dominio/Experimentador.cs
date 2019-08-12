@@ -14,10 +14,5 @@ namespace Pactolo.scr.dominio {
 			get => projeto;
 			set => projeto = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Projeto");
 		}
-
-		public override bool Equals(object obj) {
-			Experimentador o = (Experimentador) obj;
-			return base.Equals(obj) || (Nome == o.Nome && Email == o.Email && Projeto == o.Projeto);
-		}
 	}
 }

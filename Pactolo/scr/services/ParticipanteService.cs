@@ -13,13 +13,7 @@ namespace Pactolo.scr.services {
 	class ParticipanteService : AbstractService {
 
 		public static Participante GetById(long id) {
-			if (id == 0) {
-				return null;
-			}
-			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				IEnumerable<Participante> pessoa = cnn.Query<Participante>("SELECT * FROM Participante WHERE Id = @Id", new { Id = id });
-				return pessoa.Count() > 0 ? pessoa.Single() : null;
-			}
+			return AbstractService.GetById<Participante>(id, "Participante");
 		}
 
 		public static List<Participante> GetByNome(string nome) {
@@ -61,18 +55,7 @@ namespace Pactolo.scr.services {
 		}
 
 		public static void Deletar(Participante participante) {
-			if (participante == null) {
-				return;
-			}
-			if (participante.Id == 0) {
-				Deletar(GetByPropriedades(participante));
-				return;
-			}
-
-			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				cnn.Execute("DELETE FROM Participante WHERE Id = @Id", participante);
-				participante.Id = 0;
-			}
+			AbstractService.Deletar(participante, "Participante");
 		}
 	}
 }

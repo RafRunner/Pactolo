@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
-    class Feedback {
-        public long Id { get; set; }
+
+    class Feedback : ElementoDeBanco {
+
         public int ValorClick { get; set; }
         public Boolean Neutro { get; set; }
     }

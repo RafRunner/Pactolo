@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
-    class ContingenciaInstrucional {
-        public int Id { get; set; }
+
+    class ContingenciaInstrucional : ElementoDeBanco {
 
         protected string nome;
         public string Nome {
@@ -16,7 +16,7 @@ namespace Pactolo.scr.dominio {
         }
 
         protected UnidadeDoExperimeto tato1;
-        public UnidadeDoExperimeto Tato1 {get;set;}
+        public UnidadeDoExperimeto Tato1  {get; set; }
 
         protected UnidadeDoExperimeto autoclitico;
         public UnidadeDoExperimeto Autoclitico { get; set; }

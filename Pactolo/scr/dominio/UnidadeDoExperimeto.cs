@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
-    class UnidadeDoExperimeto {
-        public int Id { get; set; }
+
+    class UnidadeDoExperimeto : ElementoDeBanco {
+
         // TODO decidir se vamos pegar imagem por nome em uma pasta ou salvar no banco com Id
         // TODO fazer um validador dos foramatos de imagens
         protected string nomeImagem;

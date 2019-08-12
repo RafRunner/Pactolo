@@ -10,9 +10,6 @@ namespace Pactolo.scr.dominio {
 
 	class Participante : Pessoa {
 
-		readonly List<string> listSexo = new List<string> { "Feminino", "Masculino", "Outro" };
-		readonly List<string> listEscolaridade = new List<string> { };
-
 		int idade;
 		public int Idade {
 			get => idade;

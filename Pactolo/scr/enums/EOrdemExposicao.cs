@@ -16,14 +16,13 @@ namespace Pactolo.scr.enums {
             return Enum.GetNames(typeof(OrdemExposicao)).ToList();
         }
 
-        public static string ParseAndValidate(string OrdemExposicao) {
-            OrdemExposicao = StringUtils.ValideNaoNuloNaoVazioENormalize(OrdemExposicao, "Sexo");
+        public static string ParseAndValidate(string ordemExposicao) {
+            ordemExposicao = StringUtils.ValideNaoNuloNaoVazioENormalize(ordemExposicao, "Ordem de Exposição");
             try {
-                string valorValidado;
-                valorValidado = Enum.Parse(typeof(OrdemExposicao), OrdemExposicao).ToString();
+				string valorValidado = Enum.Parse(typeof(OrdemExposicao), ordemExposicao).ToString();
                 return valorValidado;
             } catch (Exception ignored) {
-                throw new Exception($"Valor {OrdemExposicao} não é válido para Sexo!");
+                throw new Exception($"Valor {ordemExposicao} não é válido para Ordem de Exposição!");
             }
         }
     }

@@ -80,8 +80,6 @@ namespace Pactolo.scr.testes {
 		}
 
 		private void ExperimentadorServiceTestes() {
-			ExperimentadorService.Deletar(experimentador);
-
 			ExperimentadorService.Salvar(experimentador);
 			long id = experimentador.Id;
 			Assert(id != 0, "Falha ao inserir experimentador no banco!");
@@ -101,8 +99,6 @@ namespace Pactolo.scr.testes {
 		}
 
 		private void ParticipanteServiceTestes() {
-			ParticipanteService.Deletar(participante);
-
 			ParticipanteService.Salvar(participante);
 			long id = participante.Id;
 			Assert(id != 0, "Falha ao inserir participante no banco!");

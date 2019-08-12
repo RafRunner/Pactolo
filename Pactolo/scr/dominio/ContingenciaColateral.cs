@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
-    class ContingenciaColateral {
-        public int Id { get; set; }
+
+    class ContingenciaColateral : ElementoDeBanco {
+
         protected string nome;
         public string Nome {
             get => nome;

@@ -9,8 +9,7 @@ using Pactolo.scr.utils;
 namespace Pactolo.scr.dominio {
     //Me parece pelo menu que o examinador pode cadastrar uma Contingencia Instritucional aqui tambem, 
     //mas não faz sentido. Validar!
-    class Sessao {
-        public int Id { get; set; }
+    class Sessao : ElementoDeBanco {
 
         //Parece que ele coloca nome nas seções mas no layout da tela não teria como
         protected string nome;

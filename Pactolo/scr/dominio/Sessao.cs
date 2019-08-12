@@ -10,15 +10,15 @@ namespace Pactolo.scr.dominio {
 	//Me parece pelo menu que o examinador pode cadastrar uma Contingencia Instritucional aqui tambem, 
 	//mas não faz sentido. Validar!
 	class Sessao : ElementoDeBanco {
-
-		//Parece que ele coloca nome nas seções mas no layout da tela não teria como
-		protected string nome;
+        public long Id { get; set; }
+        //Parece que ele coloca nome nas seções mas no layout da tela não teria como
+        protected string nome;
 		public string Nome {
 			get => nome;
 			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Nome");
 		}
 
-		IList<ContingenciaColateral> CCs { get; set; }
+		public IList<ContingenciaColateral> CCs { get; set; }
 
 		private string ordemExposicao;
 		public string OrdemExposicao {

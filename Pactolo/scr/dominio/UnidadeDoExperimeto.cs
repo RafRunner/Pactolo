@@ -1,6 +1,7 @@
 ﻿using Pactolo.scr.utils;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,22 +9,18 @@ using System.Threading.Tasks;
 namespace Pactolo.scr.dominio {
 
 	class UnidadeDoExperimeto : ElementoDeBanco {
-
-		// TODO decidir se vamos pegar imagem por nome em uma pasta ou salvar no banco com Id
+	
 		// TODO fazer um validador dos foramatos de imagens
-		protected string nomeImagem;
-		public string NomeImagem {
-			get => nomeImagem;
-			set => nomeImagem = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Titulo da Imagem");
-		}
+		public Image Imagem { get; set; }
 
-		public Feedback feedback { get; set; }
+        public long FeedbackId { get; set; }
+		private Feedback feedback;
+        public Feedback Feedback {
+			get => feedback;
+			set { feedback = value; FeedbackId = GetId(value); }
+		}
 
 		// TODO decidir se vamos pegar audio por nome em uma pasta ou salvar no banco com Id
-		protected string nomeArquivoAudio;
-		public string NomeArquivoAudio {
-			get => nomeArquivoAudio;
-			set => nomeArquivoAudio = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Titulo da Audio");
-		}
-	}
+		public long AudioId { get; set; }
+    }
 }

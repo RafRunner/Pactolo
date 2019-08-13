@@ -77,6 +77,13 @@ namespace Pactolo.scr.testes {
 			Assert("Médio Incompleto" == EEscolaridade.GetValue(EEscolaridade.Escolaridade.MedioIncompleto), "Erro em Escolaridade.MedioIncompleto!");
 			Assert(!ESexo.Values().Any(it => !new List<string> { "Feminino", "Masculino", "Outro" }.Contains(it)), "Inconsistência nos valores de Sexo!");
 			EEscolaridade.Values();
+
+			var feed1 = new Feedback { Id = 1, ValorClick = 3, Neutro = false };
+			var feed2 = new Feedback { Id = 2, ValorClick = 2, Neutro = false };
+			var foo = new UnidadeDoExperimeto { Id = 3, Feedback = feed1 };
+			Assert(foo.FeedbackId == feed1.Id && foo.Feedback.ValorClick == feed1.ValorClick);
+			foo.Feedback = feed2;
+			Assert(foo.FeedbackId == feed2.Id && foo.Feedback.ValorClick == feed2.ValorClick);
 		}
 
 		private void ExperimentadorServiceTestes() {

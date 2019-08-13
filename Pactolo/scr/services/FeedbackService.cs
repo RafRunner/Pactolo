@@ -12,10 +12,6 @@ namespace Pactolo.scr.services {
 			return AbstractService.GetById<Feedback>(id, "Feedback");
 		}
 
-		public static List<Feedback> GetAll() {
-			return AbstractService.GetAll<Feedback>("Feedback");
-		}
-
 		public static void Salvar(Feedback feedback) {
 			AbstractService.Salvar<Feedback>(
 				feedback,

@@ -15,7 +15,7 @@ namespace Pactolo.scr.dominio {
 			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Nome");
 		}
 
-		// TODO decidir se deve ser não nulo
+		// TODO para participante é obrigatório, para experimentador não
 		private string email;
 		public string Email {
 			get => email;

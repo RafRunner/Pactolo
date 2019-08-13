@@ -19,35 +19,35 @@ namespace Pactolo.scr.dominio {
 		private UnidadeDoExperimeto _sModelo;
         public UnidadeDoExperimeto sModelo {
 			get => _sModelo;
-			set => _sModelo = ElementoDeBanco.Set<UnidadeDoExperimeto>(sModeloId, value);
+			set { _sModelo = value; sModeloId = GetId(value); }
 		}
         //Decidir se pode ser guardado em uma lista: Acho melhor não, já que vão ser sempre 3
         public long SC1Id { get; set; }
 		private UnidadeDoExperimeto sC1;
 		public UnidadeDoExperimeto SC1 {
 			get => sC1;
-			set => sC1 = ElementoDeBanco.Set<UnidadeDoExperimeto>(SC1Id, value);
+			set { sC1 = value; SC1Id = GetId(value); }
 		}
 
         public long SC2Id { get; set; }
 		private UnidadeDoExperimeto sC2;
 		public UnidadeDoExperimeto SC2 {
 			get => sC2;
-			set => sC2 = ElementoDeBanco.Set<UnidadeDoExperimeto>(SC2Id, value);
+			set { sC2 = value; SC2Id = GetId(value); }
 		}
 
         public long SC3Id { get; set; }
 		private UnidadeDoExperimeto sC3;
 		public UnidadeDoExperimeto SC3 {
 			get => sC3;
-			set => sC3 = ElementoDeBanco.Set<UnidadeDoExperimeto>(SC3Id, value);
+			set { sC3 = value; SC3Id = GetId(value); }
 		}
 
         public long CIId { get; set; }
 		private ContingenciaInstrucional cI;
 		public ContingenciaInstrucional CI {
 			get => cI;
-			set => cI = ElementoDeBanco.Set<ContingenciaInstrucional>(CIId, value);
+			set { cI = value; CIId = GetId(value); }
 		}
 
 		//Colocar validação de probabilidade que deve ser entre 0 e 1

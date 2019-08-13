@@ -12,14 +12,13 @@ namespace Pactolo.scr.dominio {
 		// Além disso ao salvar uma nova pessoa no banco seu id passa de 0 para seu id no banco
 		public long Id { get; set; }
 
-		public static T Set<T> (long id, T value) where T : ElementoDeBanco {
+		public long GetId(ElementoDeBanco value) {
 			if (value == null) {
-				id = 0;
-				}
-			else {
-				id = value.Id;
+				return 0;
 			}
-			return value;
+			else {
+				return value.Id;
+			}
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace Pactolo.scr.dominio {
 		private Feedback feedback;
         public Feedback Feedback {
 			get => feedback;
-			set => feedback = ElementoDeBanco.Set<Feedback>(FeedbackId, value);
+			set { feedback = value; FeedbackId = GetId(value); }
 		}
 
 		// TODO decidir se vamos pegar audio por nome em uma pasta ou salvar no banco com Id

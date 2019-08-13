@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Pactolo.scr.services {
+
 	class ParticipanteService : AbstractService {
 
 		public static Participante GetById(long id) {

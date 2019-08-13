@@ -15,13 +15,12 @@ namespace Pactolo.scr.services {
         // ATENCAOOOO!!! ESSE METODO NÃO ESTA PRONTO É NECESSARIO FAZER UMA RELAÇÃO ENTRE SESSAO E CC
         public static void ObterObjetosFilhos(Sessao sessao) {
             sessao.CCs = ContingenciaColateralService.GetAll();
-            return;
         }
 
         protected static List<Sessao> GetAll() {
             List<Sessao> sessoes = AbstractService.GetAll<Sessao>("Sessao");
-            for (int i = 0; i < sessoes.Count; i++) {
-                ObterObjetosFilhos(sessoes[i]);
+            foreach (Sessao sessao in sessoes) {
+                ObterObjetosFilhos(sessao);
             }
             return sessoes;
         }

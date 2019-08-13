@@ -16,12 +16,24 @@ namespace Pactolo.scr.dominio {
 		}
 
 		public long Tato1Id { get; set; }
-        public UnidadeDoExperimeto Tato1 { get; set; }
+		private UnidadeDoExperimeto tato1;
+		public UnidadeDoExperimeto Tato1 {
+			get => tato1;
+			set => tato1 = ElementoDeBanco.Set<UnidadeDoExperimeto>(Tato1Id, value);
+		}
 
         public long AutocliticoId { get; set; }
-        public UnidadeDoExperimeto Autoclitico { get; set; }
+		private UnidadeDoExperimeto autoclitico;
+		public UnidadeDoExperimeto Autoclitico {
+			get => autoclitico;
+			set => autoclitico = ElementoDeBanco.Set<UnidadeDoExperimeto>(AutocliticoId, value);
+		}
 
         public long Tato2Id { get; set; }
-        public UnidadeDoExperimeto Tato2 { get; set; }
+		private UnidadeDoExperimeto tato2;
+		public UnidadeDoExperimeto Tato2 {
+			get => tato2;
+			set => tato2 = ElementoDeBanco.Set<UnidadeDoExperimeto>(Tato2Id, value);
+		}
 	}
 }

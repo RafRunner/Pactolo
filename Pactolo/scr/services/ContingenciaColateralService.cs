@@ -4,8 +4,9 @@ using System.Collections.Generic;
 namespace Pactolo.scr.services {
 
     class ContingenciaColateralService : AbstractService {
+
         public static ContingenciaColateral GetById(long id) {
-            if (id <= 0) {
+            if (id == 0) {
                 return null;
             }
             ContingenciaColateral contingenciaColateral = AbstractService.GetById<ContingenciaColateral>(id, "ContingenciaColateral");
@@ -13,23 +14,23 @@ namespace Pactolo.scr.services {
             return contingenciaColateral;
         }
 
-        public static void ObterObjetosFilhos(ContingenciaColateral contingenciaColateral) {
+        private static void ObterObjetosFilhos(ContingenciaColateral contingenciaColateral) {
             contingenciaColateral.sModelo = UnidadeDoExperimentoService.GetById(contingenciaColateral.sModeloId);
             contingenciaColateral.SC1 = UnidadeDoExperimentoService.GetById(contingenciaColateral.SC1Id);
             contingenciaColateral.SC2 = UnidadeDoExperimentoService.GetById(contingenciaColateral.SC2Id);
             contingenciaColateral.SC3 = UnidadeDoExperimentoService.GetById(contingenciaColateral.SC3Id);
             contingenciaColateral.CI = ContingenciaInstrucionalService.GetById(contingenciaColateral.CIId);
-            return;
         }
 
         public static List<ContingenciaColateral> GetAll() {
             List<ContingenciaColateral> contingenciasColaterais = AbstractService.GetAll<ContingenciaColateral>("ContingenciaColateral");
-            for (int i = 0; i < contingenciasColaterais.Count; i++) {
-                ObterObjetosFilhos(contingenciasColaterais[i]);
+            foreach (ContingenciaColateral CC in contingenciasColaterais) {
+                ObterObjetosFilhos(CC);
             }
             return contingenciasColaterais;
         }
 
+		// TODO ao salvar o objeto pai, deverá dar cascade nos objetos filhos e salvar eles também? Acho melhor sim
         public static void Salvar(ContingenciaColateral contingenciaColateral) {
             AbstractService.Salvar(contingenciaColateral,
                 "ContingenciaColateral",

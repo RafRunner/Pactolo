@@ -1,11 +1,10 @@
 ﻿using Dapper;
 using Pactolo.scr.dominio;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 
 namespace Pactolo.scr.services {
+
     class ContingenciaInstrucionalService : AbstractService{
 
         public static ContingenciaInstrucional GetById(long id) {
@@ -17,11 +16,10 @@ namespace Pactolo.scr.services {
             return contingenciaInstrucional;
         }
 
-        public static void ObterObjetosFilhos(ContingenciaInstrucional contingenciaInstrucional) {
+        private static void ObterObjetosFilhos(ContingenciaInstrucional contingenciaInstrucional) {
             contingenciaInstrucional.Tato1 = UnidadeDoExperimentoService.GetById(contingenciaInstrucional.Tato1Id);
             contingenciaInstrucional.Autoclitico = UnidadeDoExperimentoService.GetById(contingenciaInstrucional.AutocliticoId);
             contingenciaInstrucional.Tato2 = UnidadeDoExperimentoService.GetById(contingenciaInstrucional.Tato2Id);
-            return;
         }
 
         protected static List<ContingenciaInstrucional> GetAll(){

@@ -5,10 +5,11 @@ using System.Data.SQLite;
 using System.Linq;
 
 namespace Pactolo.scr.services {
+
     class UnidadeDoExperimentoService : AbstractService {
 
         public static UnidadeDoExperimeto GetById(long id) {
-            if (id <= 0) {
+            if (id == 0) {
                 return null;
             }
             UnidadeDoExperimeto unidadeDoExperimeto = AbstractService.GetById<UnidadeDoExperimeto>(id, "UnidadeDoExperimeto");

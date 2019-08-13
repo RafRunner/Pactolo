@@ -14,7 +14,11 @@ namespace Pactolo.scr.dominio {
 		public Image Imagem { get; set; }
 
         public long FeedbackId { get; set; }
-        public Feedback Feedback { get; set; }
+		private Feedback feedback;
+        public Feedback Feedback {
+			get => feedback;
+			set => feedback = ElementoDeBanco.Set<Feedback>(FeedbackId, value);
+		}
 
 		// TODO decidir se vamos pegar audio por nome em uma pasta ou salvar no banco com Id
 		public long AudioId { get; set; }

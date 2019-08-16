@@ -16,8 +16,8 @@ namespace Pactolo.scr.dominio {
 		}
 
 		// TODO para participante é obrigatório, para experimentador não
-		private string email;
-		public string Email {
+		protected string email;
+		public virtual string Email {
 			get => email;
 			set => email = StringUtils.ValideEmail(value);
 		}

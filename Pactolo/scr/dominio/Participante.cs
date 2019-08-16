@@ -10,6 +10,11 @@ namespace Pactolo.scr.dominio {
 
 	class Participante : Pessoa {
 
+        public override string Email {
+            get => email;
+            set => StringUtils.ValideEmail(StringUtils.ValideNaoNuloNaoVazioENormalize(value, "email"));
+        }
+
 		int idade;
 		public int Idade {
 			get => idade;

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Pactolo.scr.dominio;
+using Pactolo.scr.dominio.DTOs;
 using Pactolo.scr.utils;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,11 @@ namespace Pactolo.scr.services {
 			}
 		}
 
-		public static void Salvar(Experimentador experimentador) {
+        public static List<Experimentador> GetByDTO(DTOExperimentador dto) {
+            return AbstractService.GetByObj<Experimentador>("SELECT * FROM Experimentador WHERE Nome = @Nome AND Email = @Email AND Projeto = @Projeto", dto);
+        }
+
+        public static void Salvar(Experimentador experimentador) {
 			Experimentador experimentadorExistente = GetByPropriedades(experimentador);
 			if (experimentador.Id == 0 && experimentadorExistente != null) {
 				throw new Exception("Experimentador já existe na base de dados!");

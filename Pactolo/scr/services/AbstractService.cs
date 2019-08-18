@@ -27,6 +27,12 @@ namespace Pactolo.scr.services {
 			}
 		}
 
+        protected static List<T> GetByObj<T>(string sql, object obj) {
+            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
+                return cnn.Query<T>(sql, obj).ToList();
+            }
+        }
+
 		protected static List<T> GetAll<T>(string nomeTabela) where T : ElementoDeBanco {
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
 				return cnn.Query<T>($"SELECT * FROM {nomeTabela}").ToList<T>();

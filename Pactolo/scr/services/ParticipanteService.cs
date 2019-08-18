@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Pactolo.scr.dominio;
+using Pactolo.scr.dominio.DTOs;
 using Pactolo.scr.utils;
 using System;
 using System.Collections.Generic;
@@ -33,9 +34,13 @@ namespace Pactolo.scr.services {
 			}
 		}
 
-		public static Participante GetByPropriedades(Participante participante) {
+        public static List<Participante> GetByDTO(DTOPessoa dto) {
+            return AbstractService.GetByObj<Participante>("SELECT * FROM Participante WHERE Nome = @Nome AND Email = @Email", dto);
+        }
+
+		private static Participante GetByPropriedades(Participante participante) {
 			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				IEnumerable<Participante> pessoa = cnn.Query<Participante>("SELECT * FROM Participante WHERE Nome = @Nome AND Email = @Email AND Sexo = @Sexo", participante);
+				IEnumerable<Participante> pessoa = cnn.Query<Participante>("SELECT * FROM Participante WHERE Nome = @Nome AND Email = @Email", participante);
 				return pessoa.Count() > 0 ? pessoa.Single() : null;
 			}
 		}

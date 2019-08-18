@@ -18,7 +18,7 @@ namespace Pactolo.scr.dominio {
 		}
 
 		//TODO ver como que vai ficar a referência a esses objetos. QUando der set na lista provalvel que vai ter que salvar em uma lista de ids
-		public IList<ContingenciaColateral> CCs { get; set; }
+		public List<ContingenciaColateral> CCs { get; set; }
 
 		private string ordemExposicao;
 		public string OrdemExposicao {

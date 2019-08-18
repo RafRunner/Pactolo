@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="scr\dominio\CCPorSessao.cs" />
     <Compile Include="scr\dominio\DTOs\DTOExperimentador.cs" />
     <Compile Include="scr\dominio\DTOs\DTOPessoa.cs" />
     <Compile Include="scr\dominio\ElementoDeBanco.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="scr\enums\EEscolaridade.cs" />
     <Compile Include="scr\enums\ESexo.cs" />
     <Compile Include="scr\services\AbstractService.cs" />
+    <Compile Include="scr\services\CCPorSessaoService.cs" />
     <Compile Include="scr\services\SessaoService.cs" />
     <Compile Include="scr\services\ContingenciaColateralService.cs" />
     <Compile Include="scr\services\ContingenciaInstrucionalService.cs" />

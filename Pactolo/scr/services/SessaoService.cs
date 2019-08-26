@@ -12,9 +12,9 @@ namespace Pactolo.scr.services {
             ObterObjetosFilhos(sessao);
             return sessao;
         }
-        // ATENCAOOOO!!! ESSE METODO NÃO ESTA PRONTO É NECESSARIO FAZER UMA RELAÇÃO ENTRE SESSAO E CC
+
         public static void ObterObjetosFilhos(Sessao sessao) {
-            sessao.CCs = ContingenciaColateralService.GetAll();
+            sessao.CCs = CCPorSessaoService.GetAllCCBySessaoId(sessao.Id);
         }
 
         protected static List<Sessao> GetAll() {
@@ -25,15 +25,16 @@ namespace Pactolo.scr.services {
             return sessoes;
         }
 
-        // ATENCAOOOO!!! ESSE METODO NÃO ESTA PRONTO É NECESSARIO FAZER UMA RELAÇÃO ENTRE SESSAO E CC
         public static void Salvar(Sessao sessao) {
             AbstractService.Salvar(sessao,
                 "Sessao",
                 "INSERT INTO Sessao (Nome, OrdemExposicao, CriterioNumeroTentativas, NumeroTentativas, CriterioDuracaoSegundos, DuracaoSegundos, CriterioAcertosConcecutivos, AcertosConcecutivos) VALUES (@Nome, @OrdemExposicao, @CriterioNumeroTentativas, @NumeroTentativas, @CriterioDuracaoSegundos, @DuracaoSegundos, @CriterioAcertosConcecutivos, @AcertosConcecutivos); SELECT CAST(last_insert_rowid() as int)",
                 "UPDATE Sessao SET Nome = @Nome, OrdemExposicao = @OrdemExposicao, CriterioNumeroTentativas = @CriterioNumeroTentativas, NumeroTentativas = @NumeroTentativas, CriterioDuracaoSegundos = @CriterioDuracaoSegundos, DuracaoSegundos = @DuracaoSegundos, CriterioAcertosConcecutivos = @CriterioAcertosConcecutivos, AcertosConcecutivos = @AcertosConcecutivos WHERE Id = @Id");
+            CCPorSessaoService.SalvarAll(sessao.Id, sessao.CCs);
         }
 
         public static void Deletar(Sessao sessao) {
+            CCPorSessaoService.DeletarAllBySessaoId(sessao.Id);
             AbstractService.Deletar(sessao, "Sessao");
         }
     }

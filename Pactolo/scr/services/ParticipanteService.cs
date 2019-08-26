@@ -3,6 +3,7 @@ using Pactolo.scr.dominio;
 using Pactolo.scr.dominio.DTOs;
 using Pactolo.scr.utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
@@ -34,23 +35,12 @@ namespace Pactolo.scr.services {
 			}
 		}
 
-        public static List<Participante> GetByDTO(DTOPessoa dto) {
-            return AbstractService.GetByObj<Participante>("SELECT * FROM Participante WHERE Nome = @Nome AND Email = @Email", dto);
-        }
-
 		private static Participante GetByPropriedades(Participante participante) {
-			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				IEnumerable<Participante> pessoa = cnn.Query<Participante>("SELECT * FROM Participante WHERE Nome = @Nome AND Email = @Email", participante);
-				return pessoa.Count() > 0 ? pessoa.Single() : null;
-			}
+            IEnumerable<Participante> pessoa = AbstractService.GetByObj<Participante>("SELECT * FROM Participante WHERE Nome = @Nome AND Email = @Email", participante);
+			return pessoa.Count() > 0 ? pessoa.Single() : null;
 		}
 
 		public static void Salvar(Participante participante) {
-			Participante participanteExistente = GetByPropriedades(participante);
-			if (participante.Id == 0 && participanteExistente != null) {
-				throw new Exception("Participante já existe na base de dados!");
-			}
-
 			AbstractService.Salvar<Participante>(
 				participante,
 				"Participante",
@@ -61,6 +51,23 @@ namespace Pactolo.scr.services {
 
 		public static void Deletar(Participante participante) {
 			AbstractService.Deletar(participante, "Participante");
-		}
-	}
+        }
+
+        public static void DeletarPorId(long id) {
+            AbstractService.DeletarPorId(id, "Participante");
+        }
+
+        public static List<object> FilterDataTable(DTOFiltro dtoFiltro) {
+            List<Participante> experimentadores = dtoFiltro.Itens.Cast<Participante>().ToList();
+            string textoDeBusca = dtoFiltro.TextoDeBusca;
+
+            return experimentadores.FindAll(experimentador => {
+                if (experimentador.Nome.Contains(textoDeBusca) ||
+                experimentador.Email.Contains(textoDeBusca)) {
+                    return true;
+                }
+                return false;
+            }).Cast<object>().ToList();
+        }
+    }
 }

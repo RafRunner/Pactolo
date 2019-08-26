@@ -12,7 +12,7 @@ namespace Pactolo.scr.dominio {
 
         public override string Email {
             get => email;
-            set => StringUtils.ValideEmail(StringUtils.ValideNaoNuloNaoVazioENormalize(value, "email"));
+            set => email = StringUtils.ValideEmail(StringUtils.ValideNaoNuloNaoVazioENormalize(value, "email"));
         }
 
 		int idade;
@@ -32,5 +32,9 @@ namespace Pactolo.scr.dominio {
 			get => sexo;
 			set => sexo = ESexo.ParseAndValidate(value);
 		}
+
+        public static List<string> GetOrdemColunasGrid() {
+            return new List<string> { "Nome", "Email", "Idade", "Sexo", "Escolaridade" };
+        }
 	}
 }

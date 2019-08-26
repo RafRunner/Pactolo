@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Linq;
+using System.Data.OleDb;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -63,5 +65,11 @@ namespace Pactolo.scr.services {
 				objeto.Id = 0;
 			}
 		}
-	}
+
+        protected static void DeletarPorId(long id, string nomeTabela) {
+            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
+                cnn.Execute($"DELETE FROM {nomeTabela} WHERE Id = {id}");
+            }
+        }
+    }
 }

@@ -29,8 +29,8 @@ namespace Pactolo.scr.enums {
 			{ Escolaridade.Acima, "Acima" }
 		};
 
-		public static List<string> Values() {
-			return ((Escolaridade[]) Enum.GetValues(typeof(Escolaridade))).Select(it => GetValue(it)).ToList();
+		public static object[] Values() {
+			return ((Escolaridade[]) Enum.GetValues(typeof(Escolaridade))).Select(it => GetValue(it)).ToArray();
 		}
 
 		public static string GetValue(Escolaridade escolaridade) {

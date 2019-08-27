@@ -35,22 +35,11 @@ namespace Pactolo.scr.services {
 		}
 
 		public static Experimentador GetByPropriedades(Experimentador experimentador) {
-			using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-				IEnumerable<Experimentador> pessoa = cnn.Query<Experimentador>("SELECT * FROM Experimentador WHERE Nome = @Nome AND Email = @Email AND Projeto = @Projeto", experimentador);
-				return pessoa.Count() > 0 ? pessoa.Single() : null;
-			}
+            IEnumerable<Experimentador> pessoa = AbstractService.GetByObj<Experimentador>("SELECT * FROM Experimentador WHERE Nome = @Nome AND Email = @Email AND Projeto = @Projeto", experimentador);
+			return pessoa.Count() > 0 ? pessoa.Single() : null;
 		}
 
-        public static List<Experimentador> GetByDTO(DTOExperimentador dto) {
-            return AbstractService.GetByObj<Experimentador>("SELECT * FROM Experimentador WHERE Nome = @Nome AND Email = @Email AND Projeto = @Projeto", dto);
-        }
-
         public static void Salvar(Experimentador experimentador) {
-			Experimentador experimentadorExistente = GetByPropriedades(experimentador);
-			if (experimentador.Id == 0 && experimentadorExistente != null) {
-				throw new Exception("Experimentador já existe na base de dados!");
-			}
-
 			AbstractService.Salvar<Experimentador>(
 				experimentador,
 				"Experimentador",
@@ -62,5 +51,23 @@ namespace Pactolo.scr.services {
 		public static void Deletar(Experimentador experimentador) {
 			AbstractService.Deletar(experimentador, "Experimentador");
 		}
-	}
+
+        public static void DeletarPorId(long id) {
+            AbstractService.DeletarPorId(id, "Experimentador");
+        }
+
+        public static List<object> FilterDataTable(DTOFiltro dtoFiltro) {
+            List<Experimentador> experimentadores = dtoFiltro.Itens.Cast<Experimentador>().ToList();
+            string textoDeBusca = dtoFiltro.TextoDeBusca;
+
+            return experimentadores.FindAll(experimentador => {
+                if (experimentador.Nome.Contains(textoDeBusca) || 
+                experimentador.Email.Contains(textoDeBusca) ||
+                experimentador.Projeto.Contains(textoDeBusca)) {
+                    return true;
+                }
+                return false;
+            }).Cast<object>().ToList();
+        }
+    }
 }

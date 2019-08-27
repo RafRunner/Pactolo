@@ -14,5 +14,9 @@ namespace Pactolo.scr.dominio {
 			get => projeto;
 			set => projeto = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Projeto");
 		}
+
+        public static List<string> GetOrdemCulunasGrid() {
+            return new List<string>() { "Nome", "Email", "Projeto" };
+        }
 	}
 }

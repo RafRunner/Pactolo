@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio.DTOs {
-    class DTOPessoa {
-        public string Nome { get; set; }
-        public string Email { get; set; }
+    public class DTOFiltro {
+
+        public List<object> Itens { get; set; }
+        public string TextoDeBusca { get; set; }
     }
 }

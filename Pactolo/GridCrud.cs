@@ -13,23 +13,40 @@ using System.Windows.Forms;
 namespace Pactolo {
     public partial class GridCrud : Form {
 
+        private readonly Func<List<object>> funcaoCarregaDados;
         private List<object> tabelaCompleta;
 
-        private Func<DTOFiltro, List<object>> funcaoFiltro;
-        private Action<long> funcaoEditar;
-        private Action<long> funcaoDeletar;
+        private readonly Func<DTOFiltro, List<object>> funcaoFiltro;
+        private readonly Action<long> funcaoEditar;
+        private readonly Action<long> funcaoDeletar;
+        private readonly Action<long> funcaoSelecionar;
 
         private static readonly string colunaOculta = "Id";
 
-        public GridCrud(List<object> dados, List<string> ordemColunas, Func<DTOFiltro, List<object>> funcaoFiltro, Action<long> funcaoEditar, Action<long> funcaoDeletar) {
+        public GridCrud(
+            Func<List<object>> funcaoCarregaDados, 
+            List<string> ordemColunas, 
+            Func<DTOFiltro, List<object>> funcaoFiltro, 
+            Action<long> funcaoEditar, 
+            Action<long> funcaoDeletar,
+            Action<long> funcaoSelecionar) {
+
             InitializeComponent();
 
-            this.tabelaCompleta = dados;
+            this.tabelaCompleta = funcaoCarregaDados();
+            if (tabelaCompleta.Count == 0) {
+                MessageBox.Show("Não existe nenhum registro do tipo no momento!", "Advertência");
+                Close();
+                return;
+            }
+
+            this.funcaoCarregaDados = funcaoCarregaDados;
             this.funcaoFiltro = funcaoFiltro;
             this.funcaoEditar = funcaoEditar;
             this.funcaoDeletar = funcaoDeletar;
+            this.funcaoSelecionar = funcaoSelecionar;
 
-            dataGrid.DataSource = dados;
+            dataGrid.DataSource = tabelaCompleta;
             dataGrid.Columns[colunaOculta].Visible = false;
             for (int i = 0; i < ordemColunas.Count; i++) {
                 dataGrid.Columns[ordemColunas[i]].DisplayIndex = i;
@@ -47,28 +64,47 @@ namespace Pactolo {
             dataGrid.DataSource = tabelaCompleta;
         }
 
-        private void ButtonEditar_Click(object sender, EventArgs e) {
+        private bool VerifiqueQuantidadeColunasSelecionadasEAvise() {
             if (dataGrid.SelectedRows.Count == 0) {
                 MessageBox.Show("Por favor, selecione pelo menos um elemento (selecione toda a linha clicanco na primeira coluna (a vazia)) para editar!", "Atenção");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        private void ButtonEditar_Click(object sender, EventArgs e) {
+            if (!VerifiqueQuantidadeColunasSelecionadasEAvise()) {
                 return;
             }
 
-            funcaoEditar.Invoke(long.Parse(dataGrid.SelectedRows[0].Cells["Id"].Value.ToString()));
-            Close();
+            funcaoEditar.Invoke(GetIdColunaSelecionada());
+            tabelaCompleta = funcaoCarregaDados();
+            dataGrid.DataSource = tabelaCompleta;
+        }
+
+        private long GetIdColunaSelecionada() {
+            return long.Parse(dataGrid.SelectedRows[0].Cells["Id"].Value.ToString());
         }
 
         private void ButtonDeletar_Click(object sender, EventArgs e) {
-            if (dataGrid.SelectedRows.Count == 0) {
-                MessageBox.Show("Por favor, selecione pelo menos um elemento (selecione toda a linha clicanco na primeira coluna (a vazia)) para deletar!", "Atenção");
+            if (!VerifiqueQuantidadeColunasSelecionadasEAvise()) {
                 return;
             }
 
-            funcaoDeletar.Invoke(long.Parse(dataGrid.SelectedRows[0].Cells["Id"].Value.ToString()));
+            funcaoDeletar.Invoke(GetIdColunaSelecionada());
+            tabelaCompleta = funcaoCarregaDados();
+            dataGrid.DataSource = tabelaCompleta;
             MessageBox.Show("Registro deletado com sucesso!", "Sucesso");
-            if (dataGrid.Rows.Count == 1) {
-                Close();
+        }
+
+        private void ButtonSelecionar_Click(object sender, EventArgs e) {
+            if (!VerifiqueQuantidadeColunasSelecionadasEAvise()) {
+                return;
             }
-            dataGrid.Rows.Remove(dataGrid.SelectedRows[0]);
+            funcaoSelecionar.Invoke(GetIdColunaSelecionada());
+            Close();
         }
     }
 }

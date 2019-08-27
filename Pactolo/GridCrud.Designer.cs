@@ -29,6 +29,7 @@
             this.buttonLimpar = new System.Windows.Forms.Button();
             this.buttonEditar = new System.Windows.Forms.Button();
             this.buttonDeletar = new System.Windows.Forms.Button();
+            this.buttonSelecionar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,9 +58,9 @@
             // buttonFiltrar
             // 
             this.buttonFiltrar.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonFiltrar.Location = new System.Drawing.Point(817, 512);
+            this.buttonFiltrar.Location = new System.Drawing.Point(832, 512);
             this.buttonFiltrar.Name = "buttonFiltrar";
-            this.buttonFiltrar.Size = new System.Drawing.Size(104, 30);
+            this.buttonFiltrar.Size = new System.Drawing.Size(89, 30);
             this.buttonFiltrar.TabIndex = 2;
             this.buttonFiltrar.Text = "Filtrar";
             this.buttonFiltrar.UseVisualStyleBackColor = true;
@@ -68,9 +69,9 @@
             // buttonLimpar
             // 
             this.buttonLimpar.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLimpar.Location = new System.Drawing.Point(707, 512);
+            this.buttonLimpar.Location = new System.Drawing.Point(729, 512);
             this.buttonLimpar.Name = "buttonLimpar";
-            this.buttonLimpar.Size = new System.Drawing.Size(104, 30);
+            this.buttonLimpar.Size = new System.Drawing.Size(97, 30);
             this.buttonLimpar.TabIndex = 3;
             this.buttonLimpar.Text = "Limpar";
             this.buttonLimpar.UseVisualStyleBackColor = true;
@@ -79,11 +80,11 @@
             // buttonEditar
             // 
             this.buttonEditar.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonEditar.Location = new System.Drawing.Point(546, 512);
+            this.buttonEditar.Location = new System.Drawing.Point(519, 512);
             this.buttonEditar.Name = "buttonEditar";
-            this.buttonEditar.Size = new System.Drawing.Size(155, 30);
+            this.buttonEditar.Size = new System.Drawing.Size(88, 30);
             this.buttonEditar.TabIndex = 4;
-            this.buttonEditar.Text = "Editar/Selecionar";
+            this.buttonEditar.Text = "Editar";
             this.buttonEditar.UseVisualStyleBackColor = true;
             this.buttonEditar.Click += new System.EventHandler(this.ButtonEditar_Click);
             // 
@@ -92,17 +93,29 @@
             this.buttonDeletar.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDeletar.Location = new System.Drawing.Point(436, 512);
             this.buttonDeletar.Name = "buttonDeletar";
-            this.buttonDeletar.Size = new System.Drawing.Size(104, 30);
+            this.buttonDeletar.Size = new System.Drawing.Size(77, 30);
             this.buttonDeletar.TabIndex = 5;
             this.buttonDeletar.Text = "Deletar";
             this.buttonDeletar.UseVisualStyleBackColor = true;
             this.buttonDeletar.Click += new System.EventHandler(this.ButtonDeletar_Click);
+            // 
+            // buttonSelecionar
+            // 
+            this.buttonSelecionar.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSelecionar.Location = new System.Drawing.Point(613, 512);
+            this.buttonSelecionar.Name = "buttonSelecionar";
+            this.buttonSelecionar.Size = new System.Drawing.Size(110, 30);
+            this.buttonSelecionar.TabIndex = 6;
+            this.buttonSelecionar.Text = "Selecionar";
+            this.buttonSelecionar.UseVisualStyleBackColor = true;
+            this.buttonSelecionar.Click += new System.EventHandler(this.ButtonSelecionar_Click);
             // 
             // GridCrud
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 554);
+            this.Controls.Add(this.buttonSelecionar);
             this.Controls.Add(this.buttonDeletar);
             this.Controls.Add(this.buttonEditar);
             this.Controls.Add(this.buttonLimpar);
@@ -127,5 +140,6 @@
         private System.Windows.Forms.Button buttonLimpar;
         private System.Windows.Forms.Button buttonEditar;
         private System.Windows.Forms.Button buttonDeletar;
+        private System.Windows.Forms.Button buttonSelecionar;
     }
 }

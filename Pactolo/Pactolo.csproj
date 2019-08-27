@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditarParticipante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditarParticipante.Designer.cs">
+      <DependentUpon>EditarParticipante.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuInicial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,12 @@
     <Compile Include="scr\enums\ESexo.cs" />
     <Compile Include="scr\services\AbstractService.cs" />
     <Compile Include="scr\services\CCPorSessaoService.cs" />
+    <Compile Include="EditarExperimentador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditarExperimentador.Designer.cs">
+      <DependentUpon>EditarExperimentador.cs</DependentUpon>
+    </Compile>
     <Compile Include="scr\services\SessaoService.cs" />
     <Compile Include="scr\services\ContingenciaColateralService.cs" />
     <Compile Include="scr\services\ContingenciaInstrucionalService.cs" />
@@ -95,6 +107,9 @@
     <Compile Include="scr\testes\TestesGerais.cs" />
     <Compile Include="scr\utils\NumericUtils.cs" />
     <Compile Include="scr\utils\StringUtils.cs" />
+    <EmbeddedResource Include="EditarParticipante.resx">
+      <DependentUpon>EditarParticipante.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuInicial.resx">
       <DependentUpon>MenuInicial.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +125,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="EditarExperimentador.resx">
+      <DependentUpon>EditarExperimentador.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="localDB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

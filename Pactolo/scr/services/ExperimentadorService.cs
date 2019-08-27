@@ -18,8 +18,8 @@ namespace Pactolo.scr.services {
 			return AbstractService.GetById<Experimentador>(id, "Experimentador");
 		}
 
-		public static List<Experimentador> GetAll() {
-			return AbstractService.GetAll<Experimentador>("Experimentador");
+		public static List<object> GetAll() {
+			return AbstractService.GetAll<Experimentador>("Experimentador").Cast<object>().ToList();
 		}
 
 		public static List<Experimentador> GetByNome(string nome) {

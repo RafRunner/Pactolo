@@ -179,9 +179,9 @@ namespace Pactolo {
             this.buttonSalvarExperimentador.Location = new System.Drawing.Point(13, 182);
             this.buttonSalvarExperimentador.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonSalvarExperimentador.Name = "buttonSalvarExperimentador";
-            this.buttonSalvarExperimentador.Size = new System.Drawing.Size(87, 36);
+            this.buttonSalvarExperimentador.Size = new System.Drawing.Size(102, 36);
             this.buttonSalvarExperimentador.TabIndex = 6;
-            this.buttonSalvarExperimentador.Text = "Salvar";
+            this.buttonSalvarExperimentador.Text = "Cadastrar";
             this.buttonSalvarExperimentador.UseVisualStyleBackColor = true;
             this.buttonSalvarExperimentador.Click += new System.EventHandler(this.ButtonSalvarExperimentador_Click);
             // 
@@ -287,9 +287,9 @@ namespace Pactolo {
             this.buttonSalvarParticipante.Location = new System.Drawing.Point(13, 182);
             this.buttonSalvarParticipante.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonSalvarParticipante.Name = "buttonSalvarParticipante";
-            this.buttonSalvarParticipante.Size = new System.Drawing.Size(87, 36);
+            this.buttonSalvarParticipante.Size = new System.Drawing.Size(102, 36);
             this.buttonSalvarParticipante.TabIndex = 6;
-            this.buttonSalvarParticipante.Text = "Salvar";
+            this.buttonSalvarParticipante.Text = "Cadastrar";
             this.buttonSalvarParticipante.UseVisualStyleBackColor = true;
             this.buttonSalvarParticipante.Click += new System.EventHandler(this.ButtonSalvarParticipante_Click);
             // 

@@ -16,29 +16,29 @@ namespace Pactolo.scr.dominio {
 		}
 
         public long sModeloId { get; set; }
-		private UnidadeDoExperimeto _sModelo;
-        public UnidadeDoExperimeto sModelo {
+		private UnidadeDoExperimento _sModelo;
+        public UnidadeDoExperimento sModelo {
 			get => _sModelo;
 			set { _sModelo = value; sModeloId = GetId(value); }
 		}
         //Decidir se pode ser guardado em uma lista: Acho melhor não, já que vão ser sempre 3
         public long SC1Id { get; set; }
-		private UnidadeDoExperimeto sC1;
-		public UnidadeDoExperimeto SC1 {
+		private UnidadeDoExperimento sC1;
+		public UnidadeDoExperimento SC1 {
 			get => sC1;
 			set { sC1 = value; SC1Id = GetId(value); }
 		}
 
         public long SC2Id { get; set; }
-		private UnidadeDoExperimeto sC2;
-		public UnidadeDoExperimeto SC2 {
+		private UnidadeDoExperimento sC2;
+		public UnidadeDoExperimento SC2 {
 			get => sC2;
 			set { sC2 = value; SC2Id = GetId(value); }
 		}
 
         public long SC3Id { get; set; }
-		private UnidadeDoExperimeto sC3;
-		public UnidadeDoExperimeto SC3 {
+		private UnidadeDoExperimento sC3;
+		public UnidadeDoExperimento SC3 {
 			get => sC3;
 			set { sC3 = value; SC3Id = GetId(value); }
 		}
@@ -49,8 +49,5 @@ namespace Pactolo.scr.dominio {
 			get => cI;
 			set { cI = value; CIId = GetId(value); }
 		}
-
-		//Colocar validação de probabilidade que deve ser entre 0 e 1
-		public float ProbabilidadeComplementar { get; set; }
 	}
 }

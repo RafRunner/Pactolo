@@ -80,7 +80,7 @@ namespace Pactolo.scr.testes {
 
 			var feed1 = new Feedback { Id = 1, ValorClick = 3, Neutro = false };
 			var feed2 = new Feedback { Id = 2, ValorClick = 2, Neutro = false };
-			var foo = new UnidadeDoExperimeto { Id = 3, Feedback = feed1 };
+			var foo = new UnidadeDoExperimento { Id = 3, Feedback = feed1 };
 			Assert(foo.FeedbackId == feed1.Id && foo.Feedback.ValorClick == feed1.ValorClick);
 			foo.Feedback = feed2;
 			Assert(foo.FeedbackId == feed2.Id && foo.Feedback.ValorClick == feed2.ValorClick);

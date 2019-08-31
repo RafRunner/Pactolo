@@ -16,8 +16,8 @@ namespace Pactolo.scr.services {
 			AbstractService.Salvar<Feedback>(
 				feedback,
 				"Feedback",
-				"INSERT INTO Feedback (ValorClick, Neutro) VALUES (@ValorClick, @Neutro); SELECT CAST(last_insert_rowid() as int)",
-				"UPDATE Feedback SET ValorClick = @ValorClick, Neutro = @Neutro WHERE Id = @Id"
+				"INSERT INTO Feedback (ValorClick, Neutro) VALUES (@ValorClick, @Neutro, @SemCor); SELECT CAST(last_insert_rowid() as int)",
+				"UPDATE Feedback SET ValorClick = @ValorClick, Neutro = @Neutro, @SemCor WHERE Id = @Id"
 			);
 		}
 

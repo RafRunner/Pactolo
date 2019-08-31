@@ -51,6 +51,7 @@ namespace Pactolo {
             for (int i = 0; i < ordemColunas.Count; i++) {
                 dataGrid.Columns[ordemColunas[i]].DisplayIndex = i;
             }
+            ShowDialog();
         }
 
         private void ButtonFiltrar_Click(object sender, EventArgs e) {

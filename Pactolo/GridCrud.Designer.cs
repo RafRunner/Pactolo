@@ -123,6 +123,7 @@
             this.Controls.Add(this.textBoxFiltro);
             this.Controls.Add(this.dataGrid);
             this.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "GridCrud";
             this.Text = "Gerenciador";

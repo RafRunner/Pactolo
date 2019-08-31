@@ -31,11 +31,11 @@ namespace Pactolo.scr.services {
         }
 
 		// TODO ao salvar o objeto pai, deverá dar cascade nos objetos filhos e salvar eles também? Acho melhor sim
-        public static void Salvar(ContingenciaColateral contingenciaColateral) {
+        public static void Salvar(ContingenciaColateral contingenciaColateral) { 
             AbstractService.Salvar(contingenciaColateral,
                 "ContingenciaColateral",
-                "INSERT INTO ContingenciaColateral (Nome, sModeloId, SC1Id, SC2Id, SC3Id, CIId, ProbabilidadeComplementar) VALUES (@Nome, @sModelo, @SC1, @SC2, @SC3, @CI, @ProbabilidadeComplementar); SELECT CAST(last_insert_rowid() as int)",
-                "UPDATE ContingenciaColateral SET Nome = @Nome, sModeloId = @sModelo, SC1Id = @SC1, SC2Id = @SC2, SC3Id = @SC3, CIId = @CI, ProbabilidadeComplementar = @ProbabilidadeComplementar WHERE Id = @Id");
+                "INSERT INTO ContingenciaColateral (Nome, sModeloId, SC1Id, SC2Id, SC3Id, CIId) VALUES (@Nome, @sModeloId, @SC1Id, @SC2Id, @SC3Id, @CIId); SELECT CAST(last_insert_rowid() as int)",
+                "UPDATE ContingenciaColateral SET Nome = @Nome, sModeloId = @sModeloId, SC1Id = @SC1Id, SC2Id = @SC2Id, SC3Id = @SC3Id, CIId = @CIId WHERE Id = @Id");
         }
 
         public static void Deletar(ContingenciaColateral contingenciaColateral) {

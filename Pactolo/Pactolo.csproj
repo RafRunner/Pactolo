@@ -97,6 +97,7 @@
     <Compile Include="EditarExperimentador.Designer.cs">
       <DependentUpon>EditarExperimentador.cs</DependentUpon>
     </Compile>
+    <Compile Include="scr\services\ImagemService.cs" />
     <Compile Include="scr\services\SessaoService.cs" />
     <Compile Include="scr\services\ContingenciaColateralService.cs" />
     <Compile Include="scr\services\ContingenciaInstrucionalService.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="scr\services\ExperimentadorService.cs" />
     <Compile Include="scr\services\ParticipanteService.cs" />
     <Compile Include="scr\testes\TestesGerais.cs" />
+    <Compile Include="scr\utils\ImageUtils.cs" />
     <Compile Include="scr\utils\NumericUtils.cs" />
     <Compile Include="scr\utils\StringUtils.cs" />
     <EmbeddedResource Include="EditarParticipante.resx">

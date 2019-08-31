@@ -1,4 +1,5 @@
-﻿using Pactolo.scr.utils;
+﻿using Pactolo.scr.services;
+using Pactolo.scr.utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,10 +9,18 @@ using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
 
-	class UnidadeDoExperimeto : ElementoDeBanco {
+	class UnidadeDoExperimento : ElementoDeBanco {
 	
-		// TODO fazer um validador dos foramatos de imagens
-		public Image Imagem { get; set; }
+        public string CaminhoImagem { get; set; }
+        private Image cache;
+		public Image Imagem {
+            get {
+                if (cache == null) {
+                    cache = ImagemService.GetImageByName(CaminhoImagem);
+                }
+                return cache;
+            }
+        }
 
         public long FeedbackId { get; set; }
 		private Feedback feedback;
@@ -20,7 +29,6 @@ namespace Pactolo.scr.dominio {
 			set { feedback = value; FeedbackId = GetId(value); }
 		}
 
-		// TODO decidir se vamos pegar audio por nome em uma pasta ou salvar no banco com Id
-		public long AudioId { get; set; }
+		public string CaminhoAudio { get; set; }
     }
 }

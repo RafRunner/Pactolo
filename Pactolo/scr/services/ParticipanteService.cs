@@ -35,13 +35,18 @@ namespace Pactolo.scr.services {
 			}
 		}
 
-		private static Participante GetByPropriedades(Participante participante) {
+		public static Participante GetByPropriedades(Participante participante) {
             IEnumerable<Participante> pessoa = AbstractService.GetByObj<Participante>("SELECT * FROM Participante WHERE Nome = @Nome AND Email = @Email", participante);
 			return pessoa.Count() > 0 ? pessoa.Single() : null;
 		}
 
 		public static void Salvar(Participante participante) {
-			AbstractService.Salvar<Participante>(
+            Participante participanteExistente = GetByPropriedades(participante);
+            if (participante.Id == 0 && participanteExistente != null) {
+                throw new Exception("Participante já existe na base de dados!");
+            }
+
+            AbstractService.Salvar<Participante>(
 				participante,
 				"Participante",
 				"INSERT INTO Participante (Nome, Email, Idade, Escolaridade, Sexo) VALUES (@Nome, @Email, @Idade, @Escolaridade, @Sexo); SELECT CAST(last_insert_rowid() as int)",

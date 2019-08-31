@@ -1,4 +1,5 @@
 ﻿using Pactolo.scr.dominio;
+using Pactolo.scr.enums;
 using Pactolo.scr.services;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace Pactolo {
 
         public EditarParticipante(long id) {
             InitializeComponent();
+            comboBoxSexo.Items.AddRange(ESexo.Values());
+            comboBoxEscolaridade.Items.AddRange(EEscolaridade.Values());
+
             participante = ParticipanteService.GetById(id);
             CarregarCampos();
         }

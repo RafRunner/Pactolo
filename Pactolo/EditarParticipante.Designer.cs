@@ -69,10 +69,6 @@ namespace Pactolo {
             this.comboBoxSexo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxSexo.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxSexo.FormattingEnabled = true;
-            this.comboBoxSexo.Items.AddRange(new object[] {
-            "Feminino",
-            "Masculino",
-            "Outro"});
             this.comboBoxSexo.Location = new System.Drawing.Point(374, 132);
             this.comboBoxSexo.Name = "comboBoxSexo";
             this.comboBoxSexo.Size = new System.Drawing.Size(161, 29);
@@ -116,14 +112,6 @@ namespace Pactolo {
             // 
             this.comboBoxEscolaridade.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxEscolaridade.FormattingEnabled = true;
-            this.comboBoxEscolaridade.Items.AddRange(new object[] {
-            "Fundamental Incompleto",
-            "Fundamental",
-            "Médio Incompleto",
-            "Médio",
-            "Superior Incompleto",
-            "Superior",
-            "Acima"});
             this.comboBoxEscolaridade.Location = new System.Drawing.Point(107, 132);
             this.comboBoxEscolaridade.Name = "comboBoxEscolaridade";
             this.comboBoxEscolaridade.Size = new System.Drawing.Size(261, 29);
@@ -217,6 +205,7 @@ namespace Pactolo {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(569, 254);
             this.Controls.Add(this.panel2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "EditarParticipante";
             this.Text = "Editar Participante";
             this.panel2.ResumeLayout(false);

@@ -22,7 +22,7 @@ namespace Pactolo.scr.services {
             contingenciaInstrucional.Tato2 = UnidadeDoExperimentoService.GetById(contingenciaInstrucional.Tato2Id);
         }
 
-        protected static List<ContingenciaInstrucional> GetAll(){
+        public static List<ContingenciaInstrucional> GetAll(){
             List<ContingenciaInstrucional> contingenciasInstrucionais = AbstractService.GetAll<ContingenciaInstrucional>("ContingenciaInstrucional");
             for (int i = 0; i< contingenciasInstrucionais.Count; i++) {
                 ObterObjetosFilhos(contingenciasInstrucionais[i]);
@@ -33,8 +33,8 @@ namespace Pactolo.scr.services {
         public static void Salvar(ContingenciaInstrucional contingenciaInstrucional) {
             AbstractService.Salvar(contingenciaInstrucional,
                 "ContingenciaInstrucional",
-                "INSERT INTO ContingenciaInstrucional (Tato1Id, AutocliticoId, Tato2Id) VALUES (@Tato1, @Autoclitico, @Tato2); SELECT CAST(last_insert_rowid() as int)",
-                "UPDATE ContingenciaInstrucional SET Tato1Id = @Tato1, AutocliticoId = @Autoclitico, Tato2Id = @Tato2 WHERE Id = @Id");
+                "INSERT INTO ContingenciaInstrucional (Nome, Tato1Id, AutocliticoId, Tato2Id) VALUES (@Nome, @Tato1Id, @AutocliticoId, @Tato2Id); SELECT CAST(last_insert_rowid() as int)",
+                "UPDATE ContingenciaInstrucional SET Tato1Id = @Tato1Id, AutocliticoId = @AutocliticoId, Tato2Id = @Tato2Id WHERE Id = @Id");
         }
 
         public static void Deletar(ContingenciaInstrucional contingenciaInstrucional) {

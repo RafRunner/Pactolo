@@ -17,20 +17,15 @@ namespace Pactolo.scr.dominio {
 			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Nome");
 		}
 
-		//TODO ver como que vai ficar a referência a esses objetos. QUando der set na lista provalvel que vai ter que salvar em uma lista de ids
 		public List<ContingenciaColateral> CCs { get; set; }
+		public bool OrdemAleatoria { get; set; }
 
-		private string ordemExposicao;
-		public string OrdemExposicao {
-			get => ordemExposicao;
-			set => EOrdemExposicao.ParseAndValidate(value);
-		}
-		//Estudar se vale a pena criar objetos ao invez dessa declaração direta
-		public Boolean CriterioNumeroTentativas { get; set; }
-		public int NumeroTentativas { get; set; }
-		public Boolean CriterioDuracaoSegundos { get; set; }
+        public int CriterioNumeroTentativas { get; set; }
+        public long CriterioDuracaoSegundos { get; set; }
+        public int CriterioAcertosConcecutivos { get; set; }
+
+        public int NumeroTentativas { get; set; }
 		public long DuracaoSegundos { get; set; }
-		public Boolean CriterioAcertosConcecutivos { get; set; }
 		public int AcertosConcecutivos { get; set; }
 	}
 }

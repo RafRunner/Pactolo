@@ -50,7 +50,9 @@ namespace Pactolo {
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.buttonSelecionrCI = new System.Windows.Forms.Button();
             this.listViewCI = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label16 = new System.Windows.Forms.Label();
             this.buttonCadastrarCI = new System.Windows.Forms.Button();
             this.buttonApagarCI = new System.Windows.Forms.Button();
@@ -67,6 +69,13 @@ namespace Pactolo {
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label27 = new System.Windows.Forms.Label();
+            this.buttonSelecionarCC = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.numericProbabilidadeSC3 = new System.Windows.Forms.NumericUpDown();
+            this.numericProbabilidadeSC2 = new System.Windows.Forms.NumericUpDown();
+            this.numericProbabilidadeSC1 = new System.Windows.Forms.NumericUpDown();
             this.checkBoxSemCorSC3 = new System.Windows.Forms.CheckBox();
             this.checkBoxSemCorSC2 = new System.Windows.Forms.CheckBox();
             this.checkBoxSemCorSC1 = new System.Windows.Forms.CheckBox();
@@ -98,32 +107,60 @@ namespace Pactolo {
             this.buttonApagarCC = new System.Windows.Forms.Button();
             this.buttonCadastrarCC = new System.Windows.Forms.Button();
             this.listViewCC = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxCI = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.textBoxNomeCC = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.numericProbabilidadeSC1 = new System.Windows.Forms.NumericUpDown();
-            this.numericProbabilidadeSC2 = new System.Windows.Forms.NumericUpDown();
-            this.numericProbabilidadeSC3 = new System.Windows.Forms.NumericUpDown();
-            this.label26 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.buttonCadastrarSessao = new System.Windows.Forms.Button();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.numericDuracao = new System.Windows.Forms.NumericUpDown();
+            this.numericNTentativas = new System.Windows.Forms.NumericUpDown();
+            this.numericAcertosConsec = new System.Windows.Forms.NumericUpDown();
+            this.label30 = new System.Windows.Forms.Label();
+            this.checkBoxTentativasAgrp = new System.Windows.Forms.CheckBox();
+            this.checkBoxTentativasRand = new System.Windows.Forms.CheckBox();
+            this.buttonAddCC = new System.Windows.Forms.Button();
+            this.comboBoxCC = new System.Windows.Forms.ComboBox();
+            this.listViewCCSessao = new System.Windows.Forms.ListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.buttonSelecionrCI = new System.Windows.Forms.Button();
-            this.label25 = new System.Windows.Forms.Label();
-            this.buttonSelecionarCC = new System.Windows.Forms.Button();
-            this.label27 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.pictureBoxPactolo = new System.Windows.Forms.PictureBox();
+            this.listViewSessoes = new System.Windows.Forms.ListView();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listViewsessoesExecutadas = new System.Windows.Forms.ListView();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonIniciar = new System.Windows.Forms.Button();
+            this.buttonSelecioarSessao = new System.Windows.Forms.Button();
+            this.buttonExcluirSessao = new System.Windows.Forms.Button();
+            this.buttonAdicionarSessao = new System.Windows.Forms.Button();
+            this.label35 = new System.Windows.Forms.Label();
+            this.textBoxNomeSessao = new System.Windows.Forms.TextBox();
+            this.buttonRemoverSessao = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericIdade)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSC3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSC1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSC2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC3)).BeginInit();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericDuracao)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericNTentativas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericAcertosConsec)).BeginInit();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPactolo)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxNomeExperimentador
@@ -440,16 +477,38 @@ namespace Pactolo {
             this.panel3.Size = new System.Drawing.Size(942, 303);
             this.panel3.TabIndex = 14;
             // 
+            // buttonSelecionrCI
+            // 
+            this.buttonSelecionrCI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSelecionrCI.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSelecionrCI.Location = new System.Drawing.Point(184, 259);
+            this.buttonSelecionrCI.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonSelecionrCI.Name = "buttonSelecionrCI";
+            this.buttonSelecionrCI.Size = new System.Drawing.Size(155, 29);
+            this.buttonSelecionrCI.TabIndex = 26;
+            this.buttonSelecionrCI.Text = "Selecionar CI";
+            this.buttonSelecionrCI.UseVisualStyleBackColor = true;
+            this.buttonSelecionrCI.Click += new System.EventHandler(this.ButtonSelecionrCI_Click);
+            // 
             // listViewCI
             // 
-            this.listViewCI.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewCI.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listViewCI.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewCI.HideSelection = false;
             this.listViewCI.LabelWrap = false;
-            this.listViewCI.Location = new System.Drawing.Point(520, 46);
+            this.listViewCI.Location = new System.Drawing.Point(513, 46);
+            this.listViewCI.MultiSelect = false;
             this.listViewCI.Name = "listViewCI";
-            this.listViewCI.Size = new System.Drawing.Size(410, 242);
+            this.listViewCI.Size = new System.Drawing.Size(417, 242);
             this.listViewCI.TabIndex = 25;
             this.listViewCI.UseCompatibleStateImageBehavior = false;
+            this.listViewCI.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Nome:";
+            this.columnHeader1.Width = 403;
             // 
             // label16
             // 
@@ -685,6 +744,89 @@ namespace Pactolo {
             this.panel4.Padding = new System.Windows.Forms.Padding(5);
             this.panel4.Size = new System.Drawing.Size(1607, 246);
             this.panel4.TabIndex = 15;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(893, 82);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(48, 16);
+            this.label27.TabIndex = 65;
+            this.label27.Text = "Pontos:";
+            // 
+            // buttonSelecionarCC
+            // 
+            this.buttonSelecionarCC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSelecionarCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSelecionarCC.Location = new System.Drawing.Point(355, 153);
+            this.buttonSelecionarCC.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonSelecionarCC.Name = "buttonSelecionarCC";
+            this.buttonSelecionarCC.Size = new System.Drawing.Size(140, 29);
+            this.buttonSelecionarCC.TabIndex = 64;
+            this.buttonSelecionarCC.Text = "Selecionar CC";
+            this.buttonSelecionarCC.UseVisualStyleBackColor = true;
+            this.buttonSelecionarCC.Click += new System.EventHandler(this.ButtonSelecionarCC_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(20, 84);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(90, 16);
+            this.label25.TabIndex = 63;
+            this.label25.Text = "CC cadastradas:";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(1143, 82);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(84, 16);
+            this.label26.TabIndex = 62;
+            this.label26.Text = "Probabilidade:";
+            // 
+            // numericProbabilidadeSC3
+            // 
+            this.numericProbabilidadeSC3.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericProbabilidadeSC3.Location = new System.Drawing.Point(1146, 195);
+            this.numericProbabilidadeSC3.Name = "numericProbabilidadeSC3";
+            this.numericProbabilidadeSC3.Size = new System.Drawing.Size(81, 29);
+            this.numericProbabilidadeSC3.TabIndex = 60;
+            this.numericProbabilidadeSC3.UseWaitCursor = true;
+            this.numericProbabilidadeSC3.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // numericProbabilidadeSC2
+            // 
+            this.numericProbabilidadeSC2.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericProbabilidadeSC2.Location = new System.Drawing.Point(1146, 146);
+            this.numericProbabilidadeSC2.Name = "numericProbabilidadeSC2";
+            this.numericProbabilidadeSC2.Size = new System.Drawing.Size(81, 29);
+            this.numericProbabilidadeSC2.TabIndex = 59;
+            this.numericProbabilidadeSC2.UseWaitCursor = true;
+            this.numericProbabilidadeSC2.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // numericProbabilidadeSC1
+            // 
+            this.numericProbabilidadeSC1.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericProbabilidadeSC1.Location = new System.Drawing.Point(1146, 102);
+            this.numericProbabilidadeSC1.Name = "numericProbabilidadeSC1";
+            this.numericProbabilidadeSC1.Size = new System.Drawing.Size(81, 29);
+            this.numericProbabilidadeSC1.TabIndex = 58;
+            this.numericProbabilidadeSC1.UseWaitCursor = true;
+            this.numericProbabilidadeSC1.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // checkBoxSemCorSC3
             // 
@@ -1041,19 +1183,20 @@ namespace Pactolo {
             // 
             this.buttonApagarCC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonApagarCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonApagarCC.Location = new System.Drawing.Point(371, 206);
+            this.buttonApagarCC.Location = new System.Drawing.Point(356, 211);
             this.buttonApagarCC.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonApagarCC.Name = "buttonApagarCC";
-            this.buttonApagarCC.Size = new System.Drawing.Size(125, 29);
+            this.buttonApagarCC.Size = new System.Drawing.Size(140, 29);
             this.buttonApagarCC.TabIndex = 26;
             this.buttonApagarCC.Text = "Apagar CC";
             this.buttonApagarCC.UseVisualStyleBackColor = true;
+            this.buttonApagarCC.Click += new System.EventHandler(this.ButtonApagarCC_Click);
             // 
             // buttonCadastrarCC
             // 
             this.buttonCadastrarCC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCadastrarCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCadastrarCC.Location = new System.Drawing.Point(12, 206);
+            this.buttonCadastrarCC.Location = new System.Drawing.Point(355, 100);
             this.buttonCadastrarCC.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonCadastrarCC.Name = "buttonCadastrarCC";
             this.buttonCadastrarCC.Size = new System.Drawing.Size(140, 29);
@@ -1064,14 +1207,23 @@ namespace Pactolo {
             // 
             // listViewCC
             // 
-            this.listViewCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewCC.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
+            this.listViewCC.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewCC.HideSelection = false;
             this.listViewCC.LabelWrap = false;
-            this.listViewCC.Location = new System.Drawing.Point(13, 99);
+            this.listViewCC.Location = new System.Drawing.Point(13, 103);
+            this.listViewCC.MultiSelect = false;
             this.listViewCC.Name = "listViewCC";
-            this.listViewCC.Size = new System.Drawing.Size(482, 100);
+            this.listViewCC.Size = new System.Drawing.Size(336, 137);
             this.listViewCC.TabIndex = 26;
             this.listViewCC.UseCompatibleStateImageBehavior = false;
+            this.listViewCC.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Nome:";
+            this.columnHeader2.Width = 350;
             // 
             // label19
             // 
@@ -1124,116 +1276,367 @@ namespace Pactolo {
             this.label17.TabIndex = 26;
             this.label17.Text = "Contigências Colaterais";
             // 
-            // numericProbabilidadeSC1
-            // 
-            this.numericProbabilidadeSC1.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericProbabilidadeSC1.Location = new System.Drawing.Point(1146, 102);
-            this.numericProbabilidadeSC1.Name = "numericProbabilidadeSC1";
-            this.numericProbabilidadeSC1.Size = new System.Drawing.Size(81, 29);
-            this.numericProbabilidadeSC1.TabIndex = 58;
-            this.numericProbabilidadeSC1.UseWaitCursor = true;
-            this.numericProbabilidadeSC1.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // numericProbabilidadeSC2
-            // 
-            this.numericProbabilidadeSC2.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericProbabilidadeSC2.Location = new System.Drawing.Point(1146, 146);
-            this.numericProbabilidadeSC2.Name = "numericProbabilidadeSC2";
-            this.numericProbabilidadeSC2.Size = new System.Drawing.Size(81, 29);
-            this.numericProbabilidadeSC2.TabIndex = 59;
-            this.numericProbabilidadeSC2.UseWaitCursor = true;
-            this.numericProbabilidadeSC2.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // numericProbabilidadeSC3
-            // 
-            this.numericProbabilidadeSC3.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericProbabilidadeSC3.Location = new System.Drawing.Point(1146, 195);
-            this.numericProbabilidadeSC3.Name = "numericProbabilidadeSC3";
-            this.numericProbabilidadeSC3.Size = new System.Drawing.Size(81, 29);
-            this.numericProbabilidadeSC3.TabIndex = 60;
-            this.numericProbabilidadeSC3.UseWaitCursor = true;
-            this.numericProbabilidadeSC3.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(1143, 82);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(84, 16);
-            this.label26.TabIndex = 62;
-            this.label26.Text = "Probabilidade:";
-            // 
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Location = new System.Drawing.Point(972, 31);
+            this.panel5.Controls.Add(this.label35);
+            this.panel5.Controls.Add(this.buttonExcluirSessao);
+            this.panel5.Controls.Add(this.buttonCadastrarSessao);
+            this.panel5.Controls.Add(this.textBoxNomeSessao);
+            this.panel5.Controls.Add(this.label33);
+            this.panel5.Controls.Add(this.label32);
+            this.panel5.Controls.Add(this.label31);
+            this.panel5.Controls.Add(this.numericDuracao);
+            this.panel5.Controls.Add(this.numericNTentativas);
+            this.panel5.Controls.Add(this.numericAcertosConsec);
+            this.panel5.Controls.Add(this.label30);
+            this.panel5.Controls.Add(this.checkBoxTentativasAgrp);
+            this.panel5.Controls.Add(this.checkBoxTentativasRand);
+            this.panel5.Controls.Add(this.buttonAddCC);
+            this.panel5.Controls.Add(this.comboBoxCC);
+            this.panel5.Controls.Add(this.listViewCCSessao);
+            this.panel5.Controls.Add(this.label29);
+            this.panel5.Controls.Add(this.label28);
+            this.panel5.Location = new System.Drawing.Point(972, 12);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(317, 542);
+            this.panel5.Padding = new System.Windows.Forms.Padding(5);
+            this.panel5.Size = new System.Drawing.Size(317, 561);
             this.panel5.TabIndex = 16;
+            // 
+            // buttonCadastrarSessao
+            // 
+            this.buttonCadastrarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCadastrarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCadastrarSessao.Location = new System.Drawing.Point(206, 510);
+            this.buttonCadastrarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonCadastrarSessao.Name = "buttonCadastrarSessao";
+            this.buttonCadastrarSessao.Size = new System.Drawing.Size(101, 36);
+            this.buttonCadastrarSessao.TabIndex = 74;
+            this.buttonCadastrarSessao.Text = "Cadastrar";
+            this.buttonCadastrarSessao.UseVisualStyleBackColor = true;
+            this.buttonCadastrarSessao.Click += new System.EventHandler(this.ButtonCadastrarSessao_Click);
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.Location = new System.Drawing.Point(95, 468);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(183, 21);
+            this.label33.TabIndex = 73;
+            this.label33.Text = "Duração em Segundos";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(95, 424);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(179, 21);
+            this.label32.TabIndex = 72;
+            this.label32.Text = "Número de Tentativas";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(94, 378);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(172, 21);
+            this.label31.TabIndex = 71;
+            this.label31.Text = "Acertos Consecutivos";
+            // 
+            // numericDuracao
+            // 
+            this.numericDuracao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericDuracao.Location = new System.Drawing.Point(7, 466);
+            this.numericDuracao.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericDuracao.Name = "numericDuracao";
+            this.numericDuracao.Size = new System.Drawing.Size(81, 29);
+            this.numericDuracao.TabIndex = 70;
+            this.numericDuracao.UseWaitCursor = true;
+            // 
+            // numericNTentativas
+            // 
+            this.numericNTentativas.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericNTentativas.Location = new System.Drawing.Point(8, 422);
+            this.numericNTentativas.Name = "numericNTentativas";
+            this.numericNTentativas.Size = new System.Drawing.Size(81, 29);
+            this.numericNTentativas.TabIndex = 69;
+            this.numericNTentativas.UseWaitCursor = true;
+            // 
+            // numericAcertosConsec
+            // 
+            this.numericAcertosConsec.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericAcertosConsec.Location = new System.Drawing.Point(7, 376);
+            this.numericAcertosConsec.Name = "numericAcertosConsec";
+            this.numericAcertosConsec.Size = new System.Drawing.Size(81, 29);
+            this.numericAcertosConsec.TabIndex = 66;
+            this.numericAcertosConsec.UseWaitCursor = true;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(8, 346);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(213, 21);
+            this.label30.TabIndex = 68;
+            this.label30.Text = "Critérios de Encerramento:";
+            // 
+            // checkBoxTentativasAgrp
+            // 
+            this.checkBoxTentativasAgrp.AutoSize = true;
+            this.checkBoxTentativasAgrp.Checked = true;
+            this.checkBoxTentativasAgrp.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxTentativasAgrp.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxTentativasAgrp.Location = new System.Drawing.Point(13, 276);
+            this.checkBoxTentativasAgrp.Name = "checkBoxTentativasAgrp";
+            this.checkBoxTentativasAgrp.Size = new System.Drawing.Size(193, 25);
+            this.checkBoxTentativasAgrp.TabIndex = 67;
+            this.checkBoxTentativasAgrp.Text = "Tentativas Agrupadas";
+            this.checkBoxTentativasAgrp.UseVisualStyleBackColor = true;
+            this.checkBoxTentativasAgrp.CheckedChanged += new System.EventHandler(this.CheckBoxTentativasAgrp_CheckedChanged);
+            // 
+            // checkBoxTentativasRand
+            // 
+            this.checkBoxTentativasRand.AutoSize = true;
+            this.checkBoxTentativasRand.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxTentativasRand.Location = new System.Drawing.Point(12, 307);
+            this.checkBoxTentativasRand.Name = "checkBoxTentativasRand";
+            this.checkBoxTentativasRand.Size = new System.Drawing.Size(222, 25);
+            this.checkBoxTentativasRand.TabIndex = 66;
+            this.checkBoxTentativasRand.Text = "Tentativas Randomizadas";
+            this.checkBoxTentativasRand.UseVisualStyleBackColor = true;
+            this.checkBoxTentativasRand.CheckedChanged += new System.EventHandler(this.CheckBoxTentativasRand_CheckedChanged);
+            // 
+            // buttonAddCC
+            // 
+            this.buttonAddCC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAddCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAddCC.Location = new System.Drawing.Point(206, 233);
+            this.buttonAddCC.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonAddCC.Name = "buttonAddCC";
+            this.buttonAddCC.Size = new System.Drawing.Size(101, 36);
+            this.buttonAddCC.TabIndex = 16;
+            this.buttonAddCC.Text = "Add CC";
+            this.buttonAddCC.UseVisualStyleBackColor = true;
+            this.buttonAddCC.Click += new System.EventHandler(this.ButtonAddCC_Click);
+            // 
+            // comboBoxCC
+            // 
+            this.comboBoxCC.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.comboBoxCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxCC.FormattingEnabled = true;
+            this.comboBoxCC.Location = new System.Drawing.Point(7, 238);
+            this.comboBoxCC.Name = "comboBoxCC";
+            this.comboBoxCC.Size = new System.Drawing.Size(193, 29);
+            this.comboBoxCC.TabIndex = 66;
+            // 
+            // listViewCCSessao
+            // 
+            this.listViewCCSessao.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3});
+            this.listViewCCSessao.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewCCSessao.HideSelection = false;
+            this.listViewCCSessao.LabelWrap = false;
+            this.listViewCCSessao.Location = new System.Drawing.Point(8, 89);
+            this.listViewCCSessao.MultiSelect = false;
+            this.listViewCCSessao.Name = "listViewCCSessao";
+            this.listViewCCSessao.Size = new System.Drawing.Size(299, 137);
+            this.listViewCCSessao.TabIndex = 27;
+            this.listViewCCSessao.UseCompatibleStateImageBehavior = false;
+            this.listViewCCSessao.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Nome:";
+            this.columnHeader3.Width = 350;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(10, 75);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(64, 16);
+            this.label29.TabIndex = 1;
+            this.label29.Text = "Tentativas:";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(8, 4);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(199, 21);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "Características da Sessão";
             // 
             // panel6
             // 
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Location = new System.Drawing.Point(1304, 31);
+            this.panel6.Controls.Add(this.buttonRemoverSessao);
+            this.panel6.Controls.Add(this.buttonAdicionarSessao);
+            this.panel6.Controls.Add(this.buttonSelecioarSessao);
+            this.panel6.Controls.Add(this.buttonIniciar);
+            this.panel6.Controls.Add(this.listViewsessoesExecutadas);
+            this.panel6.Controls.Add(this.listViewSessoes);
+            this.panel6.Controls.Add(this.pictureBoxPactolo);
+            this.panel6.Controls.Add(this.label34);
+            this.panel6.Location = new System.Drawing.Point(1304, 11);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(317, 542);
+            this.panel6.Padding = new System.Windows.Forms.Padding(5);
+            this.panel6.Size = new System.Drawing.Size(317, 562);
             this.panel6.TabIndex = 17;
             // 
-            // buttonSelecionrCI
+            // label34
             // 
-            this.buttonSelecionrCI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelecionrCI.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSelecionrCI.Location = new System.Drawing.Point(184, 259);
-            this.buttonSelecionrCI.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonSelecionrCI.Name = "buttonSelecionrCI";
-            this.buttonSelecionrCI.Size = new System.Drawing.Size(155, 29);
-            this.buttonSelecionrCI.TabIndex = 26;
-            this.buttonSelecionrCI.Text = "Selecionar CI";
-            this.buttonSelecionrCI.UseVisualStyleBackColor = true;
-            this.buttonSelecionrCI.Click += new System.EventHandler(this.ButtonSelecionrCI_Click);
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(63, 191);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(199, 21);
+            this.label34.TabIndex = 75;
+            this.label34.Text = "Características da Sessão";
             // 
-            // label25
+            // pictureBoxPactolo
             // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(14, 80);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(90, 16);
-            this.label25.TabIndex = 63;
-            this.label25.Text = "CC cadastradas:";
+            this.pictureBoxPactolo.Location = new System.Drawing.Point(9, 7);
+            this.pictureBoxPactolo.Name = "pictureBoxPactolo";
+            this.pictureBoxPactolo.Size = new System.Drawing.Size(298, 174);
+            this.pictureBoxPactolo.TabIndex = 76;
+            this.pictureBoxPactolo.TabStop = false;
             // 
-            // buttonSelecionarCC
+            // listViewSessoes
             // 
-            this.buttonSelecionarCC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelecionarCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSelecionarCC.Location = new System.Drawing.Point(196, 206);
-            this.buttonSelecionarCC.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonSelecionarCC.Name = "buttonSelecionarCC";
-            this.buttonSelecionarCC.Size = new System.Drawing.Size(125, 29);
-            this.buttonSelecionarCC.TabIndex = 64;
-            this.buttonSelecionarCC.Text = "Selecionar CC";
-            this.buttonSelecionarCC.UseVisualStyleBackColor = true;
+            this.listViewSessoes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader4});
+            this.listViewSessoes.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewSessoes.HideSelection = false;
+            this.listViewSessoes.LabelWrap = false;
+            this.listViewSessoes.Location = new System.Drawing.Point(8, 217);
+            this.listViewSessoes.MultiSelect = false;
+            this.listViewSessoes.Name = "listViewSessoes";
+            this.listViewSessoes.Size = new System.Drawing.Size(299, 119);
+            this.listViewSessoes.TabIndex = 75;
+            this.listViewSessoes.UseCompatibleStateImageBehavior = false;
+            this.listViewSessoes.View = System.Windows.Forms.View.Details;
             // 
-            // label27
+            // columnHeader4
             // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(893, 82);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(48, 16);
-            this.label27.TabIndex = 65;
-            this.label27.Text = "Pontos:";
+            this.columnHeader4.Text = "Nome:";
+            this.columnHeader4.Width = 350;
+            // 
+            // listViewsessoesExecutadas
+            // 
+            this.listViewsessoesExecutadas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5});
+            this.listViewsessoesExecutadas.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewsessoesExecutadas.HideSelection = false;
+            this.listViewsessoesExecutadas.LabelWrap = false;
+            this.listViewsessoesExecutadas.Location = new System.Drawing.Point(8, 391);
+            this.listViewsessoesExecutadas.MultiSelect = false;
+            this.listViewsessoesExecutadas.Name = "listViewsessoesExecutadas";
+            this.listViewsessoesExecutadas.Size = new System.Drawing.Size(299, 119);
+            this.listViewsessoesExecutadas.TabIndex = 77;
+            this.listViewsessoesExecutadas.UseCompatibleStateImageBehavior = false;
+            this.listViewsessoesExecutadas.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Nome:";
+            this.columnHeader5.Width = 350;
+            // 
+            // buttonIniciar
+            // 
+            this.buttonIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonIniciar.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonIniciar.Location = new System.Drawing.Point(9, 517);
+            this.buttonIniciar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonIniciar.Name = "buttonIniciar";
+            this.buttonIniciar.Size = new System.Drawing.Size(298, 36);
+            this.buttonIniciar.TabIndex = 75;
+            this.buttonIniciar.Text = "INCIAR";
+            this.buttonIniciar.UseVisualStyleBackColor = true;
+            // 
+            // buttonSelecioarSessao
+            // 
+            this.buttonSelecioarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSelecioarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSelecioarSessao.Location = new System.Drawing.Point(9, 345);
+            this.buttonSelecioarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonSelecioarSessao.Name = "buttonSelecioarSessao";
+            this.buttonSelecioarSessao.Size = new System.Drawing.Size(99, 36);
+            this.buttonSelecioarSessao.TabIndex = 75;
+            this.buttonSelecioarSessao.Text = "Selecionar";
+            this.buttonSelecioarSessao.UseVisualStyleBackColor = true;
+            this.buttonSelecioarSessao.Click += new System.EventHandler(this.ButtonSelecioarSessao_Click);
+            // 
+            // buttonExcluirSessao
+            // 
+            this.buttonExcluirSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonExcluirSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExcluirSessao.Location = new System.Drawing.Point(8, 510);
+            this.buttonExcluirSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonExcluirSessao.Name = "buttonExcluirSessao";
+            this.buttonExcluirSessao.Size = new System.Drawing.Size(96, 36);
+            this.buttonExcluirSessao.TabIndex = 78;
+            this.buttonExcluirSessao.Text = "Excluir";
+            this.buttonExcluirSessao.UseVisualStyleBackColor = true;
+            this.buttonExcluirSessao.Click += new System.EventHandler(this.ButtonExcluirSessao_Click);
+            // 
+            // buttonAdicionarSessao
+            // 
+            this.buttonAdicionarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAdicionarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAdicionarSessao.Location = new System.Drawing.Point(205, 345);
+            this.buttonAdicionarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonAdicionarSessao.Name = "buttonAdicionarSessao";
+            this.buttonAdicionarSessao.Size = new System.Drawing.Size(102, 36);
+            this.buttonAdicionarSessao.TabIndex = 79;
+            this.buttonAdicionarSessao.Text = "Adicionar";
+            this.buttonAdicionarSessao.UseVisualStyleBackColor = true;
+            this.buttonAdicionarSessao.Click += new System.EventHandler(this.ButtonAdicionarSessao_Click);
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(10, 25);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(43, 16);
+            this.label35.TabIndex = 17;
+            this.label35.Text = "Nome:";
+            // 
+            // textBoxNomeSessao
+            // 
+            this.textBoxNomeSessao.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxNomeSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxNomeSessao.HideSelection = false;
+            this.textBoxNomeSessao.Location = new System.Drawing.Point(9, 42);
+            this.textBoxNomeSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxNomeSessao.MaxLength = 100;
+            this.textBoxNomeSessao.Name = "textBoxNomeSessao";
+            this.textBoxNomeSessao.Size = new System.Drawing.Size(298, 29);
+            this.textBoxNomeSessao.TabIndex = 16;
+            // 
+            // buttonRemoverSessao
+            // 
+            this.buttonRemoverSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoverSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoverSessao.Location = new System.Drawing.Point(114, 345);
+            this.buttonRemoverSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonRemoverSessao.Name = "buttonRemoverSessao";
+            this.buttonRemoverSessao.Size = new System.Drawing.Size(85, 36);
+            this.buttonRemoverSessao.TabIndex = 79;
+            this.buttonRemoverSessao.Text = "Remover";
+            this.buttonRemoverSessao.UseVisualStyleBackColor = true;
+            this.buttonRemoverSessao.Click += new System.EventHandler(this.ButtonRemoverSessao_Click);
             // 
             // MenuInicial
             // 
@@ -1264,12 +1667,20 @@ namespace Pactolo {
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSC3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSC1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericSC2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericProbabilidadeSC3)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericDuracao)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericNTentativas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericAcertosConsec)).EndInit();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPactolo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1365,6 +1776,37 @@ namespace Pactolo {
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Button buttonSelecionarCC;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ComboBox comboBoxCC;
+        private System.Windows.Forms.ListView listViewCCSessao;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.NumericUpDown numericDuracao;
+        private System.Windows.Forms.NumericUpDown numericNTentativas;
+        private System.Windows.Forms.NumericUpDown numericAcertosConsec;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.CheckBox checkBoxTentativasAgrp;
+        private System.Windows.Forms.CheckBox checkBoxTentativasRand;
+        private System.Windows.Forms.Button buttonAddCC;
+        private System.Windows.Forms.Button buttonCadastrarSessao;
+        private System.Windows.Forms.Button buttonAdicionarSessao;
+        private System.Windows.Forms.Button buttonExcluirSessao;
+        private System.Windows.Forms.Button buttonSelecioarSessao;
+        private System.Windows.Forms.Button buttonIniciar;
+        private System.Windows.Forms.ListView listViewsessoesExecutadas;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ListView listViewSessoes;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.PictureBox pictureBoxPactolo;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.TextBox textBoxNomeSessao;
+        private System.Windows.Forms.Button buttonRemoverSessao;
     }
 }
 

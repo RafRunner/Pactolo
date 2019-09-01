@@ -16,7 +16,7 @@ using System.Windows.Forms;
 namespace Pactolo {
     public partial class MenuInicial : Form {
 
-        private OpenFileDialog fileDialog = new OpenFileDialog();
+        private readonly OpenFileDialog fileDialog = new OpenFileDialog();
         private readonly string imageFilter = "JPEG|*.jpg;*.jpeg";
         private readonly string audioFilter = "MP3|*.mp3";
 
@@ -25,20 +25,50 @@ namespace Pactolo {
 
             List<ContingenciaInstrucional> CIs = ContingenciaInstrucionalService.GetAll();
             List<ContingenciaColateral> CCs = ContingenciaColateralService.GetAll();
+            List<Sessao> sessoes = SessaoService.GetAll();
 
             comboBoxSexo.Items.AddRange(ESexo.Values());
             comboBoxEscolaridade.Items.AddRange(EEscolaridade.Values());
             comboBoxCI.Items.AddRange(CIs.Cast<object>().ToArray());
             comboBoxCI.DisplayMember = "Nome";
+            comboBoxCC.Items.AddRange(CCs.Cast<object>().ToArray());
+            comboBoxCC.DisplayMember = "Nome";
 
-            listViewCI.Items.AddRange(CIs.Select(it => new ListViewItem(it.Nome, it.Id.ToString())).Cast<ListViewItem>().ToArray());
-            listViewCC.Items.AddRange(CCs.Select(it => new ListViewItem(it.Nome, it.Id.ToString())).Cast<ListViewItem>().ToArray());
+            listViewCI.Items.AddRange(CIs.Select(it => {
+                var item = new ListViewItem(it.Nome);
+                item.SubItems.Add(it.Id.ToString());
+                return item;
+            }).Cast<ListViewItem>().ToArray());
+
+            listViewCC.Items.AddRange(CCs.Select(it => {
+                var item = new ListViewItem(it.Nome);
+                item.SubItems.Add(it.Id.ToString());
+                return item;
+            }).Cast<ListViewItem>().ToArray());
+
+            listViewSessoes.Items.AddRange(sessoes.Select(it => {
+                var item = new ListViewItem(it.Nome);
+                item.SubItems.Add(it.Id.ToString());
+                return item;
+            }).Cast<ListViewItem>().ToArray());
         }
 
-        private void LimparCamposExperimentador() {
-            textBoxNomeExperimentador.Text = "";
-            textBoxEmailExperimentador.Text = "";
-            textBoxProjetoExperimentador.Text = "";
+        private void CheckBoxTentativasAgrp_CheckedChanged(object sender, EventArgs e) {
+            if (checkBoxTentativasAgrp.Checked) {
+                checkBoxTentativasRand.Checked = false;
+            }
+            else {
+                checkBoxTentativasRand.Checked = true;
+            }
+        }
+
+        private void CheckBoxTentativasRand_CheckedChanged(object sender, EventArgs e) {
+            if (checkBoxTentativasRand.Checked) {
+                checkBoxTentativasAgrp.Checked = false;
+            }
+            else {
+                checkBoxTentativasAgrp.Checked = true;
+            }
         }
 
         private Experimentador CriaExperimentadorPelosCampos() {
@@ -70,14 +100,6 @@ namespace Pactolo {
                 EditarExperimentador.CarregarParaEdicao,
                 ExperimentadorService.DeletarPorId,
                 CarregarExperimentador);
-        }
-
-        private void LimparCamposParticipante() {
-            textBoxNomeParticipante.Text = "";
-            textBoxEmailParticipante.Text = "";
-            numericIdade.Value = 0;
-            comboBoxSexo.SelectedIndex = -1;
-            comboBoxEscolaridade.SelectedIndex = -1;
         }
 
         private Participante CriarParticipantePelosCampos() {
@@ -168,15 +190,43 @@ namespace Pactolo {
             ContingenciaInstrucional CI = CriaCIPelosCampos();
             ContingenciaInstrucionalService.Salvar(CI);
             comboBoxCI.Items.Add(CI);
-            listViewCI.Items.Add(new ListViewItem(CI.Nome, CI.Id.ToString()));
+
+            ListViewItem itemCI = new ListViewItem(CI.Nome);
+            itemCI.SubItems.Add(CI.Id.ToString());
+            listViewCI.Items.Add(itemCI);
+        }
+
+        private ContingenciaInstrucional GetCISelecionada() {
+            if (listViewCI.SelectedItems.Count == 0) {
+                return null;
+            }
+
+            long id = long.Parse(listViewCI.SelectedItems[0].SubItems[1].Text);
+            ContingenciaInstrucional CI = ContingenciaInstrucionalService.GetById(id);
+            return CI;
         }
 
         private void ButtonSelecionrCI_Click(object sender, EventArgs e) {
+            ContingenciaInstrucional CI = GetCISelecionada();
+            if (CI == null) {
+                return;
+            }
 
+            textBoxNomeCI.Text = CI.Nome;
+            textBoxTato1CI.Text = CI.Tato1.CaminhoImagem;
+            textBoxAutocliticoCI.Text = CI.Autoclitico.CaminhoImagem;
+            textBoxTato2CI.Text = CI.Tato2.CaminhoImagem;
         }
 
         private void ButtonApagarCI_Click(object sender, EventArgs e) {
+            ContingenciaInstrucional CI = GetCISelecionada();
+            if (CI == null) {
+                return;
+            }
 
+            ContingenciaInstrucionalService.Deletar(CI);
+            listViewCI.Items.Remove(listViewCI.SelectedItems[0]);
+            comboBoxCI.Items.Remove(CI);
         }
 
         private ContingenciaColateral CriaCCPelosCampos() {
@@ -236,7 +286,64 @@ namespace Pactolo {
         private void ButtonCadastrarCC_Click(object sender, EventArgs e) {
             ContingenciaColateral CC = CriaCCPelosCampos();
             ContingenciaColateralService.Salvar(CC);
-            listViewCC.Items.Add(new ListViewItem(CC.Nome, CC.Id.ToString()));
+
+            ListViewItem itemCC = new ListViewItem(CC.Nome);
+            itemCC.SubItems.Add(CC.Id.ToString());
+            listViewCC.Items.Add(itemCC);
+            comboBoxCC.Items.Add(CC);
+        }
+
+        private ContingenciaColateral GetCCSelecionada() {
+            if (listViewCI.SelectedItems.Count == 0) {
+                return null;
+            }
+
+            long id = long.Parse(listViewCC.SelectedItems[0].SubItems[1].Text);
+            ContingenciaColateral CC = ContingenciaColateralService.GetById(id);
+            return CC;
+        }
+
+        private void ButtonSelecionarCC_Click(object sender, EventArgs e) {
+            ContingenciaColateral CC = GetCCSelecionada();
+            if (CC == null) {
+                return;
+            }
+
+            textBoxNomeCC.Text = CC.Nome;
+            comboBoxCI.SelectedItem = CC.CI;
+
+            textBoxModelo.Text = CC.sModelo.CaminhoImagem;
+            textBoxSC1.Text = CC.SC1.CaminhoImagem;
+            textBoxSC2.Text = CC.SC2.CaminhoImagem;
+            textBoxSC3.Text = CC.SC3.CaminhoImagem;
+            textBoxAudioSC1.Text = CC.SC1.CaminhoAudio;
+            textBoxAudioSC2.Text = CC.SC2.CaminhoAudio;
+            textBoxAudioSC3.Text = CC.SC3.CaminhoAudio;
+
+            checkBoxNeutroSC1.Checked = CC.SC1.Feedback.Neutro;
+            checkBoxNeutroSC2.Checked = CC.SC2.Feedback.Neutro;
+            checkBoxNeutroSC3.Checked = CC.SC3.Feedback.Neutro;
+            checkBoxSemCorSC1.Checked = CC.SC1.Feedback.SemCor;
+            checkBoxSemCorSC2.Checked = CC.SC2.Feedback.SemCor;
+            checkBoxSemCorSC3.Checked = CC.SC3.Feedback.SemCor;
+
+            numericProbabilidadeSC1.Value = CC.SC1.Feedback.ProbabilidadeComplementar;
+            numericProbabilidadeSC2.Value = CC.SC2.Feedback.ProbabilidadeComplementar;
+            numericProbabilidadeSC3.Value = CC.SC3.Feedback.ProbabilidadeComplementar;
+            numericSC1.Value = CC.SC1.Feedback.ValorClick;
+            numericSC2.Value = CC.SC2.Feedback.ValorClick;
+            numericSC3.Value = CC.SC3.Feedback.ValorClick;
+        }
+
+        private void ButtonApagarCC_Click(object sender, EventArgs e) {
+            ContingenciaColateral CC = GetCCSelecionada();
+            if (CC == null) {
+                return;
+            }
+
+            ContingenciaColateralService.Deletar(CC);
+            listViewCC.Items.Remove(listViewCC.SelectedItems[0]);
+            comboBoxCC.Items.Remove(CC);
         }
 
         private void ButtonCarregarModelo_Click(object sender, EventArgs e) {
@@ -265,6 +372,81 @@ namespace Pactolo {
 
         private void ButtonCarregarAudioSC3_Click(object sender, EventArgs e) {
             SelecionaArquivoComFiltro(textBoxAudioSC3, audioFilter);
+        }
+
+        private Sessao CriaSessaoPelosCampos() {
+            List<ContingenciaColateral> CCs = new List<ContingenciaColateral>();
+            foreach (ListViewItem item in listViewCCSessao.Items) {
+                long CCid = long.Parse(item.SubItems[1].Text);
+                CCs.Add(ContingenciaColateralService.GetById(CCid));
+            }
+
+            Sessao sessao = new Sessao {
+                Nome = textBoxNomeSessao.Text,
+                CCs = CCs,
+                OrdemAleatoria = checkBoxTentativasRand.Checked,
+                CriterioAcertosConcecutivos = Convert.ToInt32(numericAcertosConsec.Value),
+                CriterioNumeroTentativas = Convert.ToInt32(numericNTentativas.Value),
+                CriterioDuracaoSegundos = Convert.ToInt32(numericDuracao.Value)
+            };
+            return sessao;
+        }
+
+        private void ButtonCadastrarSessao_Click(object sender, EventArgs e) {
+            Sessao sessao = CriaSessaoPelosCampos();
+            SessaoService.Salvar(sessao);
+
+            ListViewItem itemSessao = new ListViewItem(sessao.Nome);
+            itemSessao.SubItems.Add(sessao.Id.ToString());
+            listViewSessoes.Items.Add(itemSessao);
+        }
+
+        private void ButtonAddCC_Click(object sender, EventArgs e) {
+            ContingenciaColateral CC = comboBoxCC.SelectedItem as ContingenciaColateral;
+            if (CC == null) {
+                return;
+            }
+
+            ListViewItem itemCC = new ListViewItem(CC.Nome);
+            itemCC.SubItems.Add(CC.Id.ToString());
+            listViewCCSessao.Items.Add(itemCC);
+        }
+
+        private void ButtonSelecioarSessao_Click(object sender, EventArgs e) {
+            long id = long.Parse(listViewSessoes.SelectedItems[0].SubItems[1].Text);
+            Sessao sessao = SessaoService.GetById(id);
+
+            textBoxNomeSessao.Text = sessao.Nome;
+            numericAcertosConsec.Value = sessao.CriterioNumeroTentativas;
+            numericDuracao.Value = sessao.CriterioDuracaoSegundos;
+            numericNTentativas.Value = sessao.CriterioNumeroTentativas;
+            checkBoxTentativasAgrp.Checked = !sessao.OrdemAleatoria;
+            checkBoxTentativasRand.Checked = sessao.OrdemAleatoria;
+            
+            foreach (ContingenciaColateral CC in sessao.CCs) {
+                ListViewItem itemCC = new ListViewItem(CC.Nome);
+                itemCC.SubItems.Add(CC.Id.ToString());
+                listViewCCSessao.Items.Add(itemCC);
+            }
+        }
+
+        private void ButtonRemoverSessao_Click(object sender, EventArgs e) {
+            listViewsessoesExecutadas.Items.Remove(listViewsessoesExecutadas.SelectedItems[0]);
+        }
+
+        private void ButtonExcluirSessao_Click(object sender, EventArgs e) {
+            long id = long.Parse(listViewSessoes.SelectedItems[0].SubItems[1].Text);
+            Sessao sessao = SessaoService.GetById(id);
+            SessaoService.Deletar(sessao);
+
+            listViewSessoes.Items.Remove(listViewSessoes.SelectedItems[0]);
+            listViewsessoesExecutadas.Items.Remove(listViewsessoesExecutadas.Items.Find(sessao.Nome, false)[0]);
+        }
+
+        private void ButtonAdicionarSessao_Click(object sender, EventArgs e) {
+            ListViewItem sessao = listViewSessoes.SelectedItems[0];
+            ListViewItem sessaoClone = sessao.Clone() as ListViewItem;
+            listViewsessoesExecutadas.Items.Add(sessaoClone);
         }
     }
 }

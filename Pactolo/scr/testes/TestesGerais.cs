@@ -105,32 +105,24 @@ namespace Pactolo.scr.testes {
 			Assert(experimentador.Id == 0, "Falha ao deletar experimentador!");
 		}
 
-        private void ParticipanteServiceTestes() {
-            ParticipanteService.Salvar(participante);
-            long id = participante.Id;
-            Assert(id != 0, "Falha ao inserir participante no banco!");
+		private void ParticipanteServiceTestes() {
+			ParticipanteService.Salvar(participante);
+			long id = participante.Id;
+			Assert(id != 0, "Falha ao inserir participante no banco!");
 
-            var participanteDoBanco = ParticipanteService.GetById(id);
-            Assert(participante.Equals(participanteDoBanco), "Falha ao obter participante Pelo Id!");
+			var participanteDoBanco = ParticipanteService.GetById(id);
+			Assert(participante.Equals(participanteDoBanco), "Falha ao obter participante Pelo Id!");
 
-            participanteDoBanco = ParticipanteService.GetByNome("Raf").First();
-            Assert(participante.Equals(participanteDoBanco), "Falha ao obter participante Pelo Nome!");
+			participanteDoBanco = ParticipanteService.GetByNome("Raf").First();
+			Assert(participante.Equals(participanteDoBanco), "Falha ao obter participante Pelo Nome!");
 
-            participante.Idade = 22;
-            participante.Escolaridade = EEscolaridade.Escolaridade.Superior.ToString();
-            ParticipanteService.Salvar(participante);
-            Assert(participante.Idade == 22 && participante.Escolaridade == EEscolaridade.Escolaridade.Superior.ToString(), "Falha ao atualizar participante!");
+			participante.Idade = 22;
+			participante.Escolaridade = EEscolaridade.Escolaridade.Superior.ToString();
+			ParticipanteService.Salvar(participante);
+			Assert(participante.Idade == 22 && participante.Escolaridade == EEscolaridade.Escolaridade.Superior.ToString(), "Falha ao atualizar participante!");
 
-            ParticipanteService.Deletar(participante);
-            Assert(participante.Id == 0, "Falha ao deletar participante!");
-
-            RelatorioSessao relatorio = new RelatorioSessao {
-                horaInicio = DateTime.Now,
-                horaFim = DateTime.Now.AddHours(2),
-                experimentador = this.experimentador,
-                participante = this.participante
-            };
-            throw new Exception(RelatorioSessaoService.getInformacoesParticipante(relatorio).ToString());
-        }
+			ParticipanteService.Deletar(participante);
+			Assert(participante.Id == 0, "Falha ao deletar participante!");
+		}
 	}
 }

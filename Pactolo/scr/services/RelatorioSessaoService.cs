@@ -148,6 +148,7 @@ namespace Pactolo.scr.services {
                 }
                 TimeSpan diferencaDoEventoAnterior = evento.horaEvento - eventoAnterior;
                 informacoesCIs.AppendLine("   |" + evento.NomeSesssao + "|" + evento.NomeCC + "|" + evento.NomeSC + "|" + evento.pontosGanhos + "|" + evento.tentativaAtual + "|" + evento.pontosAtuais + "|" + evento.horaEvento.ToString() + "|" + diferencaDoEventoAnterior.ToString() + "|");
+                eventoAnterior = evento.horaEvento;
             }
             informacoesCIs.AppendLine("}");
 

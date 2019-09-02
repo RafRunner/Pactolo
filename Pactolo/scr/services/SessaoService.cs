@@ -13,6 +13,19 @@ namespace Pactolo.scr.services {
             return sessao;
         }
 
+        public static List<Sessao> GetAllByIds(List<long> ids) {
+            List<Sessao> sessoes = new List<Sessao>();
+            foreach(long id in ids) {
+                if (id == 0) {
+                    return null;
+                }
+                Sessao sessao = AbstractService.GetById<Sessao>(id, "Sessao");
+                ObterObjetosFilhos(sessao);
+                sessoes.Add(sessao);
+            }           
+            return sessoes;
+        }
+
         public static void ObterObjetosFilhos(Sessao sessao) {
             sessao.CCs = CCPorSessaoService.GetAllCCBySessaoId(sessao.Id);
         }

@@ -28,6 +28,7 @@ namespace Pactolo.scr.services {
             relatorio.Append(getInformacoesCIs(contingeciasInstrucionaisDoExperimento));
             relatorio.Append(getInformacoesCCs(contingenciasColateraisDoExperimento));
             relatorio.Append(getInformacoeSessoes(SessaoService.GetAllByIds(sessoesIds)));
+            relatorio.Append(getInformacoesEventos(relatorioSessao));
             File.WriteAllText(relatorioSessao.getPath(), relatorio.ToString());
         }
 

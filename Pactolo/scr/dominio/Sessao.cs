@@ -11,20 +11,20 @@ namespace Pactolo.scr.dominio {
 	//mas não faz sentido. Validar!
 	class Sessao : ElementoDeBanco {
 
-        protected string nome;
+    protected string nome;
 		public string Nome {
 			get => nome;
 			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Nome");
 		}
 
 		public List<ContingenciaColateral> CCs { get; set; }
+		public bool OrdemAleatoria { get; set; }
 
-		private string ordemExposicao;
-		public string OrdemExposicao {
-			get => ordemExposicao;
-			set => EOrdemExposicao.ParseAndValidate(value);
-		}
-		public int NumeroTentativas { get; set; }
+    public int CriterioNumeroTentativas { get; set; }
+    public long CriterioDuracaoSegundos { get; set; }
+    public int CriterioAcertosConcecutivos { get; set; }
+
+    public int NumeroTentativas { get; set; }
 		public long DuracaoSegundos { get; set; }
 		public int AcertosConcecutivos { get; set; }
 	}

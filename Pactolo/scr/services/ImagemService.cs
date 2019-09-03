@@ -13,7 +13,7 @@ namespace Pactolo.scr.services {
 
         private static readonly string PASTA_IMAGENS = "Imagens";
 
-        private static string GetFullPath(string nomeImagem = "") {
+        public static string GetFullPath(string nomeImagem = "") {
             string caminhoPasta = Ambiente.GetDiretorioPastas() + "\\" + PASTA_IMAGENS;
             if (nomeImagem == "") {
                 return caminhoPasta;

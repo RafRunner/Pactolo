@@ -40,6 +40,10 @@ namespace Pactolo.scr.services {
 
         public static void Deletar(ContingenciaColateral contingenciaColateral) {
             AbstractService.Deletar(contingenciaColateral, "ContingenciaColateral");
+            UnidadeDoExperimentoService.Deletar(contingenciaColateral.sModelo);
+            UnidadeDoExperimentoService.Deletar(contingenciaColateral.SC1);
+            UnidadeDoExperimentoService.Deletar(contingenciaColateral.SC2);
+            UnidadeDoExperimentoService.Deletar(contingenciaColateral.SC3);
         }
     }
 }

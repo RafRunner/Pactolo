@@ -47,8 +47,8 @@ namespace Pactolo.scr.services {
         }
 
         public static void Deletar(Sessao sessao) {
-            CCPorSessaoService.DeletarAllBySessaoId(sessao.Id);
             AbstractService.Deletar(sessao, "Sessao");
+            CCPorSessaoService.DeletarAllBySessaoId(sessao.Id);
         }
     }
 }

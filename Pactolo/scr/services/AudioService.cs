@@ -7,7 +7,7 @@ namespace Pactolo.scr.services {
 
         private static readonly string PASTA_IMAGENS = "Audios";
 
-        private static string GetFullPath(string nomeAudio = "") {
+        public static string GetFullPath(string nomeAudio = "") {
             string caminhoPasta = Ambiente.GetDiretorioPastas() + "\\" + PASTA_IMAGENS;
             if (nomeAudio == "") {
                 return caminhoPasta;

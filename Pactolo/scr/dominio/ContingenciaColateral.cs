@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
 
-	class ContingenciaColateral : ElementoDeBanco {
+	public class ContingenciaColateral : ElementoDeBanco {
 
         protected string nome;
 		public string Nome {
 			get => nome;
-			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Nome");
+			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "nome da Contigência Colateral");
 		}
 
         public long sModeloId { get; set; }

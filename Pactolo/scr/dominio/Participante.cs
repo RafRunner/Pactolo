@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
 
-	class Participante : Pessoa {
+	public class Participante : Pessoa {
 
         public override string Email {
             get => email;
-            set => email = StringUtils.ValideEmail(StringUtils.ValideNaoNuloNaoVazioENormalize(value, "email"));
+            set => email = StringUtils.ValideEmail(StringUtils.ValideNaoNuloNaoVazioENormalize(value, "email do participante"));
         }
 
 		int idade;
 		public int Idade {
 			get => idade;
-			set => idade = NumericUtils.ValidarInteiroPositivoDentroDeLimite(value, 120, "Idade");
+			set => idade = NumericUtils.ValidarInteiroPositivoDentroDeLimite(value, 120, "idade do participante");
 		}
 
 		string escolaridade;

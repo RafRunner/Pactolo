@@ -14,7 +14,7 @@ namespace Pactolo.scr.services {
         private static readonly string PASTA_IMAGENS = "Imagens";
 
         private static string GetFullPath(string nomeImagem = "") {
-            string caminhoPasta = Path.GetDirectoryName(Directory.GetCurrentDirectory()) + "\\" + PASTA_IMAGENS;
+            string caminhoPasta = Ambiente.GetDiretorioPastas() + "\\" + PASTA_IMAGENS;
             if (nomeImagem == "") {
                 return caminhoPasta;
             }
@@ -32,20 +32,21 @@ namespace Pactolo.scr.services {
             return Image.FromFile(caminhoCompleto);
         }
 
-        public static void CopiaImagemParaPasta(string caminhoImagem) {
+        public static string CopiaImagemParaPasta(string caminhoImagem) {
             CreateDirectoryIfNotExists();
-            Match nome = Regex.Match(caminhoImagem, @"[^\\]+$");
+            string nome = Ambiente.GetNomeArquivo(caminhoImagem);
 
-            string novoCaminho = GetFullPath(nome.Value);
+            string novoCaminho = GetFullPath(nome);
 
             if (File.Exists(novoCaminho) && ImageUtils.ImageToByteArray(Image.FromFile(novoCaminho)).SequenceEqual(ImageUtils.ImageToByteArray(Image.FromFile(caminhoImagem)))) {
-                return;
+                return nome;
             }
             if (File.Exists(novoCaminho)) {
-                throw new Exception($"Já existe uma imagem com o nome {nome.Value}! Por favor, a renomeie");
+                throw new Exception($"Já existe uma imagem com o nome {nome}! Por favor, a renomeie");
             }
 
             File.Copy(caminhoImagem, novoCaminho);
+            return nome;
         }
     }
 }

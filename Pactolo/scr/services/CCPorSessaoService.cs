@@ -26,8 +26,8 @@ namespace Pactolo.scr.services {
         public static void SalvarAll(long sessaoId, List<ContingenciaColateral> CCs) {
             foreach (ContingenciaColateral CC in CCs) {
                 using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                    string sqlInsert = $"INSERT INTO CCPorSessao (sessaoId, CCId) VALUES ({sessaoId}, {CC.Id}))";
-                    cnn.Query<long>(sqlInsert).Single();
+                    string sqlInsert = $"INSERT INTO CCPorSessao (sessaoId, CCId) VALUES ({sessaoId}, {CC.Id})";
+                    cnn.Execute(sqlInsert);
                 }
             }
         }

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
 
-	abstract class Pessoa : ElementoDeBanco {
+	public abstract class Pessoa : ElementoDeBanco {
 
 		protected string nome;
 		public string Nome {
 			get => nome;
-			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Nome");
+			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "nome do Participante ou Experimentador");
 		}
 
 		// TODO para participante é obrigatório, para experimentador não

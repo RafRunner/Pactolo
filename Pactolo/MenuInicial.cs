@@ -17,7 +17,7 @@ namespace Pactolo {
     public partial class MenuInicial : Form {
 
         private readonly OpenFileDialog fileDialog = new OpenFileDialog();
-        private readonly string imageFilter = "JPEG|*.jpg;*.jpeg";
+        private readonly string imageFilter = "PNG|*.png";
         private readonly string audioFilter = "MP3|*.mp3";
 
         public MenuInicial() {
@@ -167,13 +167,9 @@ namespace Pactolo {
 
             string nome = textBoxNomeCI.Text;
 
-            ImagemService.CopiaImagemParaPasta(caminhoImagemTato1);
-            ImagemService.CopiaImagemParaPasta(caminhoImagemAuto);
-            ImagemService.CopiaImagemParaPasta(caminhoImagemTato2);
-
-            UnidadeDoExperimento tato1 = new UnidadeDoExperimento { CaminhoImagem = caminhoImagemTato1 };
-            UnidadeDoExperimento auto = new UnidadeDoExperimento { CaminhoImagem = caminhoImagemAuto };
-            UnidadeDoExperimento tato2 = new UnidadeDoExperimento { CaminhoImagem = caminhoImagemTato2 };
+            UnidadeDoExperimento tato1 = new UnidadeDoExperimento { NomeImagem = ImagemService.CopiaImagemParaPasta(caminhoImagemTato1) };
+            UnidadeDoExperimento auto = new UnidadeDoExperimento { NomeImagem = ImagemService.CopiaImagemParaPasta(caminhoImagemAuto) };
+            UnidadeDoExperimento tato2 = new UnidadeDoExperimento { NomeImagem = ImagemService.CopiaImagemParaPasta(caminhoImagemTato2) };
 
             UnidadeDoExperimentoService.Salvar(new List<UnidadeDoExperimento>() { tato1, auto, tato2 });
 
@@ -213,9 +209,9 @@ namespace Pactolo {
             }
 
             textBoxNomeCI.Text = CI.Nome;
-            textBoxTato1CI.Text = CI.Tato1.CaminhoImagem;
-            textBoxAutocliticoCI.Text = CI.Autoclitico.CaminhoImagem;
-            textBoxTato2CI.Text = CI.Tato2.CaminhoImagem;
+            textBoxTato1CI.Text = CI.Tato1.NomeImagem;
+            textBoxAutocliticoCI.Text = CI.Autoclitico.NomeImagem;
+            textBoxTato2CI.Text = CI.Tato2.NomeImagem;
         }
 
         private void ButtonApagarCI_Click(object sender, EventArgs e) {
@@ -233,7 +229,7 @@ namespace Pactolo {
             ContingenciaInstrucional CI = comboBoxCI.SelectedItem as ContingenciaInstrucional;
 
             UnidadeDoExperimento sModelo = new UnidadeDoExperimento {
-                CaminhoImagem = textBoxModelo.Text
+                NomeImagem = ImagemService.CopiaImagemParaPasta(textBoxModelo.Text)
             };
 
             UnidadeDoExperimento SC1 = new UnidadeDoExperimento {
@@ -243,8 +239,8 @@ namespace Pactolo {
                     SemCor = checkBoxSemCorSC1.Checked,
                     ProbabilidadeComplementar = Convert.ToInt32(numericProbabilidadeSC1.Value)
                 },
-                CaminhoImagem = textBoxSC1.Text,
-                CaminhoAudio = textBoxAudioSC1.Text
+                NomeImagem = ImagemService.CopiaImagemParaPasta(textBoxSC1.Text),
+                NomeAudio = textBoxAudioSC1.Text
             };
 
             UnidadeDoExperimento SC2 = new UnidadeDoExperimento {
@@ -254,8 +250,8 @@ namespace Pactolo {
                     SemCor = checkBoxSemCorSC2.Checked,
                     ProbabilidadeComplementar = Convert.ToInt32(numericProbabilidadeSC2.Value)
                 },
-                CaminhoImagem = textBoxSC2.Text,
-                CaminhoAudio = textBoxAudioSC2.Text
+                NomeImagem = ImagemService.CopiaImagemParaPasta(textBoxSC2.Text),
+                NomeAudio = textBoxAudioSC2.Text
             };
 
             UnidadeDoExperimento SC3 = new UnidadeDoExperimento {
@@ -265,8 +261,8 @@ namespace Pactolo {
                     SemCor = checkBoxSemCorSC3.Checked,
                     ProbabilidadeComplementar = Convert.ToInt32(numericProbabilidadeSC3.Value)
                 },
-                CaminhoImagem = textBoxSC3.Text,
-                CaminhoAudio = textBoxAudioSC3.Text
+                NomeImagem = ImagemService.CopiaImagemParaPasta(textBoxSC3.Text),
+                NomeAudio = textBoxAudioSC3.Text
             };
 
 
@@ -312,13 +308,13 @@ namespace Pactolo {
             textBoxNomeCC.Text = CC.Nome;
             comboBoxCI.SelectedItem = CC.CI;
 
-            textBoxModelo.Text = CC.sModelo.CaminhoImagem;
-            textBoxSC1.Text = CC.SC1.CaminhoImagem;
-            textBoxSC2.Text = CC.SC2.CaminhoImagem;
-            textBoxSC3.Text = CC.SC3.CaminhoImagem;
-            textBoxAudioSC1.Text = CC.SC1.CaminhoAudio;
-            textBoxAudioSC2.Text = CC.SC2.CaminhoAudio;
-            textBoxAudioSC3.Text = CC.SC3.CaminhoAudio;
+            textBoxModelo.Text = CC.sModelo.NomeImagem;
+            textBoxSC1.Text = CC.SC1.NomeImagem;
+            textBoxSC2.Text = CC.SC2.NomeImagem;
+            textBoxSC3.Text = CC.SC3.NomeImagem;
+            textBoxAudioSC1.Text = CC.SC1.NomeAudio;
+            textBoxAudioSC2.Text = CC.SC2.NomeAudio;
+            textBoxAudioSC3.Text = CC.SC3.NomeAudio;
 
             checkBoxNeutroSC1.Checked = CC.SC1.Feedback.Neutro;
             checkBoxNeutroSC2.Checked = CC.SC2.Feedback.Neutro;
@@ -447,6 +443,18 @@ namespace Pactolo {
             ListViewItem sessao = listViewSessoes.SelectedItems[0];
             ListViewItem sessaoClone = sessao.Clone() as ListViewItem;
             listViewsessoesExecutadas.Items.Add(sessaoClone);
+        }
+
+        private void ButtonIniciar_Click(object sender, EventArgs e) {
+            List<Sessao> sessoes = new List<Sessao>();
+            foreach (ListViewItem sessao in listViewsessoesExecutadas.Items) {
+                sessoes.Add(SessaoService.GetById(long.Parse(sessao.SubItems[1].Text)));
+            }
+            //Experimentador experimentador = CriaExperimentadorPelosCampos();
+            //Participante participante = CriarParticipantePelosCampos();
+
+            TelaExperimento telaExperimento = new TelaExperimento(sessoes, null, null);
+            telaExperimento.ShowDialog();
         }
     }
 }

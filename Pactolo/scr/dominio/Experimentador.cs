@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
 
-	class Experimentador : Pessoa {
+	public class Experimentador : Pessoa {
 
 		private string projeto;
 		public string Projeto {
 			get => projeto;
-			set => projeto = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Projeto");
+			set => projeto = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "projeto do experimentador");
 		}
 
         public static List<string> GetOrdemCulunasGrid() {

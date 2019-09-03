@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 namespace Pactolo.scr.services {
     class RelatorioSessaoService {
 
-        public static void geraRelatorio(RelatorioSessao relatorioSessao) {
+        public static void GeraRelatorio(RelatorioSessao relatorioSessao) {
             StringBuilder relatorio = new StringBuilder();
-            relatorio.Append(getCabeçalhoExperimento(relatorioSessao));
-            relatorio.Append(getInformacoesExperimentador(relatorioSessao.experimentador));
-            relatorio.Append(getInformacoesParticipante(relatorioSessao.participante));
+            relatorio.Append(GetCabecalhoExperimento(relatorioSessao));
+            relatorio.Append(GetInformacoesExperimentador(relatorioSessao.Experimentador));
+            relatorio.Append(GetInformacoesParticipante(relatorioSessao.Participante));
             List<long> sessoesIds = relatorioSessao.IdSessoesSelecionadas;
             List<ContingenciaColateral> contingeciasColaterais = new List<ContingenciaColateral>();
             foreach (long sessaoId in sessoesIds) {
@@ -25,18 +25,18 @@ namespace Pactolo.scr.services {
                 contingeciasInstrucionais.Add(contingenciaColateral.CI);
             }
             HashSet<ContingenciaInstrucional> contingeciasInstrucionaisDoExperimento = new HashSet<ContingenciaInstrucional>(contingeciasInstrucionais);
-            relatorio.Append(getInformacoesCIs(contingeciasInstrucionaisDoExperimento));
-            relatorio.Append(getInformacoesCCs(contingenciasColateraisDoExperimento));
-            relatorio.Append(getInformacoeSessoes(SessaoService.GetAllByIds(sessoesIds)));
-            relatorio.Append(getInformacoesEventos(relatorioSessao));
-            File.WriteAllText(relatorioSessao.getPath(), relatorio.ToString());
+            relatorio.Append(GetInformacoesCIs(contingeciasInstrucionaisDoExperimento));
+            relatorio.Append(GetInformacoesCCs(contingenciasColateraisDoExperimento));
+            relatorio.Append(GetInformacoeSessoes(SessaoService.GetAllByIds(sessoesIds)));
+            relatorio.Append(GetInformacoesEventos(relatorioSessao));
+            File.WriteAllText(relatorioSessao.GetPath(), relatorio.ToString());
         }
 
-        public static StringBuilder getCabeçalhoExperimento(RelatorioSessao relatorioSessao) {
+        private static StringBuilder GetCabecalhoExperimento(RelatorioSessao relatorioSessao) {
             StringBuilder cabeçalhoExperimento = new StringBuilder();
-            string dataRealizacao = relatorioSessao.horaInicio.ToString("dd/MM/yyyy");
-            string horaInicio = relatorioSessao.horaInicio.ToString("hh:mm:ss");
-            string horaFim = relatorioSessao.horaFim.ToString("hh:mm:ss");
+            string dataRealizacao = relatorioSessao.HoraInicio.ToString("dd/MM/yyyy");
+            string horaInicio = relatorioSessao.HoraInicio.ToString("hh:mm:ss");
+            string horaFim = relatorioSessao.HoraFim.ToString("hh:mm:ss");
             cabeçalhoExperimento.AppendLine("Data realização: "+ dataRealizacao);
             cabeçalhoExperimento.AppendLine("Hora inicio: " + horaInicio);
             cabeçalhoExperimento.AppendLine("Hora fim: " + horaFim);
@@ -44,7 +44,7 @@ namespace Pactolo.scr.services {
             return cabeçalhoExperimento;
         }
 
-        public static StringBuilder getInformacoesExperimentador(Experimentador experimentador) {
+        private static StringBuilder GetInformacoesExperimentador(Experimentador experimentador) {
             StringBuilder informacoesExperimentador = new StringBuilder();
             informacoesExperimentador.AppendLine("Experimentador{");
             informacoesExperimentador.AppendLine("   -Nome: " + experimentador.Nome);
@@ -54,7 +54,7 @@ namespace Pactolo.scr.services {
             return informacoesExperimentador;
         }
 
-        public static StringBuilder getInformacoeSessoes(List<Sessao> sessoes) {
+        private static StringBuilder GetInformacoeSessoes(List<Sessao> sessoes) {
             StringBuilder informacoesCIs = new StringBuilder();
             informacoesCIs.AppendLine("Sessões Utilizadas{");
 
@@ -66,7 +66,7 @@ namespace Pactolo.scr.services {
                     i++;
                     informacoesCIs.AppendLine("      -CC" + i.ToString()+ ": " + contingencia.Nome);
                 }
-                informacoesCIs.AppendLine("      -Ordem Exposicao: " + sessao.OrdemExposicao);
+                informacoesCIs.AppendLine("      -Ordem Exposicao: " + (sessao.OrdemAleatoria ? "Aleatória" : "Agrupada"));
                 i = 0;
                 if (sessao.NumeroTentativas != 0) {
                     i++;
@@ -90,7 +90,7 @@ namespace Pactolo.scr.services {
             return informacoesCIs;
         }
 
-        public static StringBuilder getInformacoesParticipante(Participante participante) {
+        private static StringBuilder GetInformacoesParticipante(Participante participante) {
             StringBuilder informacoesParticipante = new StringBuilder();
             informacoesParticipante.AppendLine("Participante{");
             informacoesParticipante.AppendLine("   -Nome: " + participante.Nome);
@@ -102,7 +102,7 @@ namespace Pactolo.scr.services {
             return informacoesParticipante;
         }
 
-        public static StringBuilder getInformacoesCCs(HashSet<ContingenciaColateral> ContingenciasColaterais) {
+        private static StringBuilder GetInformacoesCCs(HashSet<ContingenciaColateral> ContingenciasColaterais) {
             StringBuilder informacoesCIs = new StringBuilder();
             informacoesCIs.AppendLine("Contingencias colaterais{");
 
@@ -123,7 +123,7 @@ namespace Pactolo.scr.services {
             return informacoesCIs;
         }
 
-        public static StringBuilder getInformacoesCIs(HashSet<ContingenciaInstrucional> ContingenciasInstrucionais) {
+        private static StringBuilder GetInformacoesCIs(HashSet<ContingenciaInstrucional> ContingenciasInstrucionais) {
             StringBuilder informacoesCIs = new StringBuilder();
             informacoesCIs.AppendLine("Contingencias instrucionais{");
 
@@ -135,21 +135,23 @@ namespace Pactolo.scr.services {
             return informacoesCIs;
         }
 
-        public static StringBuilder getInformacoesEventos(RelatorioSessao relatorio) {
+        private static StringBuilder GetInformacoesEventos(RelatorioSessao relatorio) {
             StringBuilder informacoesCIs = new StringBuilder();
             List<Evento> eventos = relatorio.eventos;
             informacoesCIs.AppendLine("Eventos Realizados pelo participante{");
-            informacoesCIs.AppendLine("   Iniciou(apos leitura das instruções): " + relatorio.horaInicio.ToString("hh:mm:ss"));
+            informacoesCIs.AppendLine("   Iniciou(apos leitura das instruções): " + relatorio.HoraInicio.ToString("hh:mm:ss"));
             informacoesCIs.AppendLine("   Sessão|ContingenciaColateral|SC|feedback|tentativa|pontos totais|horario|tempo por evento|");
-            DateTime eventoAnterior = relatorio.horaInicio;
+            DateTime eventoAnterior = relatorio.HoraInicio;
             foreach (Evento evento in eventos) {
-                if (evento.eventoEncerramento) {
-                    informacoesCIs.AppendLine(evento.NomeSesssao + " encerrada, criterio: " + evento.criterioEncerramento+", " + evento.valorEncerramento);
+                if (evento.EventoEncerramento) {
+                    informacoesCIs.AppendLine(evento.NomeSesssao + " encerrada, criterio: " + evento.CriterioEncerramento + ", " + evento.ValorEncerramento);
+                    informacoesCIs.AppendLine("Horário de encerramento: ").Append(evento.HoraEvento);
                     informacoesCIs.AppendLine();
+                } else {
+                    TimeSpan diferencaDoEventoAnterior = evento.HoraEvento - eventoAnterior;
+                    informacoesCIs.AppendLine("   |" + evento.NomeSesssao + "|" + evento.NomeCC + "|" + evento.NomeSC + "|" + evento.PontosGanhos + "|" + evento.TentativaAtual + "|" + evento.PontosAtuais + "|" + evento.HoraEvento.ToString() + "|" + diferencaDoEventoAnterior.ToString());
+                    eventoAnterior = evento.HoraEvento;
                 }
-                TimeSpan diferencaDoEventoAnterior = evento.horaEvento - eventoAnterior;
-                informacoesCIs.AppendLine("   |" + evento.NomeSesssao + "|" + evento.NomeCC + "|" + evento.NomeSC + "|" + evento.pontosGanhos + "|" + evento.tentativaAtual + "|" + evento.pontosAtuais + "|" + evento.horaEvento.ToString() + "|" + diferencaDoEventoAnterior.ToString() + "|");
-                eventoAnterior = evento.horaEvento;
             }
             informacoesCIs.AppendLine("}");
 

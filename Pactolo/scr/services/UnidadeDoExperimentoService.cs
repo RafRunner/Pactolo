@@ -27,8 +27,8 @@ namespace Pactolo.scr.services {
         public static void Salvar(UnidadeDoExperimento unidadeDoExperimento) {
             AbstractService.Salvar(unidadeDoExperimento,
                 "UnidadeDoExperimento",
-                "INSERT INTO UnidadeDoExperimento (CaminhoImagem, FeedbackId, CaminhoAudio) VALUES (@CaminhoImagem, @FeedbackId, @CaminhoAudio); SELECT CAST(last_insert_rowid() as int)",
-                "UPDATE UnidadeDoExperimento SET CaminhoImagem = @CaminhoImagem, FeedbackId = @FeedbackId, CaminhoAudio = @CaminhoAudio WHERE Id = @Id");
+                "INSERT INTO UnidadeDoExperimento (NomeImagem, FeedbackId, NomeAudio) VALUES (@NomeImagem, @FeedbackId, @NomeAudio); SELECT CAST(last_insert_rowid() as int)",
+                "UPDATE UnidadeDoExperimento SET NomeImagem = @NomeImagem, FeedbackId = @FeedbackId, NomeAudio = @NomeAudio WHERE Id = @Id");
         }
 
         public static void Deletar(UnidadeDoExperimento unidadeDoExperimeto) {

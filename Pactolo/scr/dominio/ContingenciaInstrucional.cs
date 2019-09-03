@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
 
-	class ContingenciaInstrucional : ElementoDeBanco {
+	public class ContingenciaInstrucional : ElementoDeBanco {
 
 		protected string nome;
 		public string Nome {
 			get => nome;
-			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "Nome");
+			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "nome da Contigência Instrucional");
 		}
 
 		public long Tato1Id { get; set; }

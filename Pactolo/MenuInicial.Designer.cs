@@ -114,7 +114,10 @@ namespace Pactolo {
             this.textBoxNomeCC = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.label35 = new System.Windows.Forms.Label();
+            this.buttonExcluirSessao = new System.Windows.Forms.Button();
             this.buttonCadastrarSessao = new System.Windows.Forms.Button();
+            this.textBoxNomeSessao = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
@@ -131,19 +134,16 @@ namespace Pactolo {
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.label34 = new System.Windows.Forms.Label();
-            this.pictureBoxPactolo = new System.Windows.Forms.PictureBox();
-            this.listViewSessoes = new System.Windows.Forms.ListView();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonRemoverSessao = new System.Windows.Forms.Button();
+            this.buttonAdicionarSessao = new System.Windows.Forms.Button();
+            this.buttonSelecioarSessao = new System.Windows.Forms.Button();
+            this.buttonIniciar = new System.Windows.Forms.Button();
             this.listViewsessoesExecutadas = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonIniciar = new System.Windows.Forms.Button();
-            this.buttonSelecioarSessao = new System.Windows.Forms.Button();
-            this.buttonExcluirSessao = new System.Windows.Forms.Button();
-            this.buttonAdicionarSessao = new System.Windows.Forms.Button();
-            this.label35 = new System.Windows.Forms.Label();
-            this.textBoxNomeSessao = new System.Windows.Forms.TextBox();
-            this.buttonRemoverSessao = new System.Windows.Forms.Button();
+            this.listViewSessoes = new System.Windows.Forms.ListView();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.pictureBoxPactolo = new System.Windows.Forms.PictureBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericIdade)).BeginInit();
@@ -1303,6 +1303,29 @@ namespace Pactolo {
             this.panel5.Size = new System.Drawing.Size(317, 561);
             this.panel5.TabIndex = 16;
             // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(10, 25);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(43, 16);
+            this.label35.TabIndex = 17;
+            this.label35.Text = "Nome:";
+            // 
+            // buttonExcluirSessao
+            // 
+            this.buttonExcluirSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonExcluirSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExcluirSessao.Location = new System.Drawing.Point(8, 510);
+            this.buttonExcluirSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonExcluirSessao.Name = "buttonExcluirSessao";
+            this.buttonExcluirSessao.Size = new System.Drawing.Size(96, 36);
+            this.buttonExcluirSessao.TabIndex = 78;
+            this.buttonExcluirSessao.Text = "Excluir";
+            this.buttonExcluirSessao.UseVisualStyleBackColor = true;
+            this.buttonExcluirSessao.Click += new System.EventHandler(this.ButtonExcluirSessao_Click);
+            // 
             // buttonCadastrarSessao
             // 
             this.buttonCadastrarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1315,6 +1338,19 @@ namespace Pactolo {
             this.buttonCadastrarSessao.Text = "Cadastrar";
             this.buttonCadastrarSessao.UseVisualStyleBackColor = true;
             this.buttonCadastrarSessao.Click += new System.EventHandler(this.ButtonCadastrarSessao_Click);
+            // 
+            // textBoxNomeSessao
+            // 
+            this.textBoxNomeSessao.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxNomeSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxNomeSessao.HideSelection = false;
+            this.textBoxNomeSessao.Location = new System.Drawing.Point(9, 42);
+            this.textBoxNomeSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxNomeSessao.MaxLength = 100;
+            this.textBoxNomeSessao.Name = "textBoxNomeSessao";
+            this.textBoxNomeSessao.Size = new System.Drawing.Size(298, 29);
+            this.textBoxNomeSessao.TabIndex = 16;
             // 
             // label33
             // 
@@ -1493,43 +1529,57 @@ namespace Pactolo {
             this.panel6.Size = new System.Drawing.Size(317, 562);
             this.panel6.TabIndex = 17;
             // 
-            // label34
+            // buttonRemoverSessao
             // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(63, 191);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(199, 21);
-            this.label34.TabIndex = 75;
-            this.label34.Text = "Características da Sessão";
+            this.buttonRemoverSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoverSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoverSessao.Location = new System.Drawing.Point(114, 345);
+            this.buttonRemoverSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonRemoverSessao.Name = "buttonRemoverSessao";
+            this.buttonRemoverSessao.Size = new System.Drawing.Size(85, 36);
+            this.buttonRemoverSessao.TabIndex = 79;
+            this.buttonRemoverSessao.Text = "Remover";
+            this.buttonRemoverSessao.UseVisualStyleBackColor = true;
+            this.buttonRemoverSessao.Click += new System.EventHandler(this.ButtonRemoverSessao_Click);
             // 
-            // pictureBoxPactolo
+            // buttonAdicionarSessao
             // 
-            this.pictureBoxPactolo.Location = new System.Drawing.Point(9, 7);
-            this.pictureBoxPactolo.Name = "pictureBoxPactolo";
-            this.pictureBoxPactolo.Size = new System.Drawing.Size(298, 174);
-            this.pictureBoxPactolo.TabIndex = 76;
-            this.pictureBoxPactolo.TabStop = false;
+            this.buttonAdicionarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAdicionarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAdicionarSessao.Location = new System.Drawing.Point(205, 345);
+            this.buttonAdicionarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonAdicionarSessao.Name = "buttonAdicionarSessao";
+            this.buttonAdicionarSessao.Size = new System.Drawing.Size(102, 36);
+            this.buttonAdicionarSessao.TabIndex = 79;
+            this.buttonAdicionarSessao.Text = "Adicionar";
+            this.buttonAdicionarSessao.UseVisualStyleBackColor = true;
+            this.buttonAdicionarSessao.Click += new System.EventHandler(this.ButtonAdicionarSessao_Click);
             // 
-            // listViewSessoes
+            // buttonSelecioarSessao
             // 
-            this.listViewSessoes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4});
-            this.listViewSessoes.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listViewSessoes.HideSelection = false;
-            this.listViewSessoes.LabelWrap = false;
-            this.listViewSessoes.Location = new System.Drawing.Point(8, 217);
-            this.listViewSessoes.MultiSelect = false;
-            this.listViewSessoes.Name = "listViewSessoes";
-            this.listViewSessoes.Size = new System.Drawing.Size(299, 119);
-            this.listViewSessoes.TabIndex = 75;
-            this.listViewSessoes.UseCompatibleStateImageBehavior = false;
-            this.listViewSessoes.View = System.Windows.Forms.View.Details;
+            this.buttonSelecioarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSelecioarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSelecioarSessao.Location = new System.Drawing.Point(9, 345);
+            this.buttonSelecioarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonSelecioarSessao.Name = "buttonSelecioarSessao";
+            this.buttonSelecioarSessao.Size = new System.Drawing.Size(99, 36);
+            this.buttonSelecioarSessao.TabIndex = 75;
+            this.buttonSelecioarSessao.Text = "Selecionar";
+            this.buttonSelecioarSessao.UseVisualStyleBackColor = true;
+            this.buttonSelecioarSessao.Click += new System.EventHandler(this.ButtonSelecioarSessao_Click);
             // 
-            // columnHeader4
+            // buttonIniciar
             // 
-            this.columnHeader4.Text = "Nome:";
-            this.columnHeader4.Width = 350;
+            this.buttonIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonIniciar.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonIniciar.Location = new System.Drawing.Point(9, 517);
+            this.buttonIniciar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonIniciar.Name = "buttonIniciar";
+            this.buttonIniciar.Size = new System.Drawing.Size(298, 36);
+            this.buttonIniciar.TabIndex = 75;
+            this.buttonIniciar.Text = "INCIAR";
+            this.buttonIniciar.UseVisualStyleBackColor = true;
+            this.buttonIniciar.Click += new System.EventHandler(this.ButtonIniciar_Click);
             // 
             // listViewsessoesExecutadas
             // 
@@ -1551,92 +1601,43 @@ namespace Pactolo {
             this.columnHeader5.Text = "Nome:";
             this.columnHeader5.Width = 350;
             // 
-            // buttonIniciar
+            // listViewSessoes
             // 
-            this.buttonIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonIniciar.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonIniciar.Location = new System.Drawing.Point(9, 517);
-            this.buttonIniciar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonIniciar.Name = "buttonIniciar";
-            this.buttonIniciar.Size = new System.Drawing.Size(298, 36);
-            this.buttonIniciar.TabIndex = 75;
-            this.buttonIniciar.Text = "INCIAR";
-            this.buttonIniciar.UseVisualStyleBackColor = true;
+            this.listViewSessoes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader4});
+            this.listViewSessoes.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewSessoes.HideSelection = false;
+            this.listViewSessoes.LabelWrap = false;
+            this.listViewSessoes.Location = new System.Drawing.Point(8, 217);
+            this.listViewSessoes.MultiSelect = false;
+            this.listViewSessoes.Name = "listViewSessoes";
+            this.listViewSessoes.Size = new System.Drawing.Size(299, 119);
+            this.listViewSessoes.TabIndex = 75;
+            this.listViewSessoes.UseCompatibleStateImageBehavior = false;
+            this.listViewSessoes.View = System.Windows.Forms.View.Details;
             // 
-            // buttonSelecioarSessao
+            // columnHeader4
             // 
-            this.buttonSelecioarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelecioarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSelecioarSessao.Location = new System.Drawing.Point(9, 345);
-            this.buttonSelecioarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonSelecioarSessao.Name = "buttonSelecioarSessao";
-            this.buttonSelecioarSessao.Size = new System.Drawing.Size(99, 36);
-            this.buttonSelecioarSessao.TabIndex = 75;
-            this.buttonSelecioarSessao.Text = "Selecionar";
-            this.buttonSelecioarSessao.UseVisualStyleBackColor = true;
-            this.buttonSelecioarSessao.Click += new System.EventHandler(this.ButtonSelecioarSessao_Click);
+            this.columnHeader4.Text = "Nome:";
+            this.columnHeader4.Width = 350;
             // 
-            // buttonExcluirSessao
+            // pictureBoxPactolo
             // 
-            this.buttonExcluirSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonExcluirSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExcluirSessao.Location = new System.Drawing.Point(8, 510);
-            this.buttonExcluirSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonExcluirSessao.Name = "buttonExcluirSessao";
-            this.buttonExcluirSessao.Size = new System.Drawing.Size(96, 36);
-            this.buttonExcluirSessao.TabIndex = 78;
-            this.buttonExcluirSessao.Text = "Excluir";
-            this.buttonExcluirSessao.UseVisualStyleBackColor = true;
-            this.buttonExcluirSessao.Click += new System.EventHandler(this.ButtonExcluirSessao_Click);
+            this.pictureBoxPactolo.Location = new System.Drawing.Point(9, 7);
+            this.pictureBoxPactolo.Name = "pictureBoxPactolo";
+            this.pictureBoxPactolo.Size = new System.Drawing.Size(298, 174);
+            this.pictureBoxPactolo.TabIndex = 76;
+            this.pictureBoxPactolo.TabStop = false;
             // 
-            // buttonAdicionarSessao
+            // label34
             // 
-            this.buttonAdicionarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAdicionarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAdicionarSessao.Location = new System.Drawing.Point(205, 345);
-            this.buttonAdicionarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonAdicionarSessao.Name = "buttonAdicionarSessao";
-            this.buttonAdicionarSessao.Size = new System.Drawing.Size(102, 36);
-            this.buttonAdicionarSessao.TabIndex = 79;
-            this.buttonAdicionarSessao.Text = "Adicionar";
-            this.buttonAdicionarSessao.UseVisualStyleBackColor = true;
-            this.buttonAdicionarSessao.Click += new System.EventHandler(this.ButtonAdicionarSessao_Click);
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(10, 25);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(43, 16);
-            this.label35.TabIndex = 17;
-            this.label35.Text = "Nome:";
-            // 
-            // textBoxNomeSessao
-            // 
-            this.textBoxNomeSessao.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxNomeSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxNomeSessao.HideSelection = false;
-            this.textBoxNomeSessao.Location = new System.Drawing.Point(9, 42);
-            this.textBoxNomeSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBoxNomeSessao.MaxLength = 100;
-            this.textBoxNomeSessao.Name = "textBoxNomeSessao";
-            this.textBoxNomeSessao.Size = new System.Drawing.Size(298, 29);
-            this.textBoxNomeSessao.TabIndex = 16;
-            // 
-            // buttonRemoverSessao
-            // 
-            this.buttonRemoverSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRemoverSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemoverSessao.Location = new System.Drawing.Point(114, 345);
-            this.buttonRemoverSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonRemoverSessao.Name = "buttonRemoverSessao";
-            this.buttonRemoverSessao.Size = new System.Drawing.Size(85, 36);
-            this.buttonRemoverSessao.TabIndex = 79;
-            this.buttonRemoverSessao.Text = "Remover";
-            this.buttonRemoverSessao.UseVisualStyleBackColor = true;
-            this.buttonRemoverSessao.Click += new System.EventHandler(this.ButtonRemoverSessao_Click);
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(63, 191);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(199, 21);
+            this.label34.TabIndex = 75;
+            this.label34.Text = "Características da Sessão";
             // 
             // MenuInicial
             // 

@@ -91,6 +91,7 @@
     <Compile Include="scr\enums\EEscolaridade.cs" />
     <Compile Include="scr\enums\ESexo.cs" />
     <Compile Include="scr\services\AbstractService.cs" />
+    <Compile Include="scr\services\Ambiente.cs" />
     <Compile Include="scr\services\CCPorSessaoService.cs" />
     <Compile Include="EditarExperimentador.cs">
       <SubType>Form</SubType>
@@ -111,6 +112,12 @@
     <Compile Include="scr\utils\ImageUtils.cs" />
     <Compile Include="scr\utils\NumericUtils.cs" />
     <Compile Include="scr\utils\StringUtils.cs" />
+    <Compile Include="TelaExperimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TelaExperimento.Designer.cs">
+      <DependentUpon>TelaExperimento.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="EditarParticipante.resx">
       <DependentUpon>EditarParticipante.cs</DependentUpon>
     </EmbeddedResource>
@@ -132,6 +139,9 @@
     </Compile>
     <EmbeddedResource Include="EditarExperimentador.resx">
       <DependentUpon>EditarExperimentador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TelaExperimento.resx">
+      <DependentUpon>TelaExperimento.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="localDB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

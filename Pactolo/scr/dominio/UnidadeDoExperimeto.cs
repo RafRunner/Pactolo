@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
 
-	class UnidadeDoExperimento : ElementoDeBanco {
+	public class UnidadeDoExperimento : ElementoDeBanco {
 	
-        public string CaminhoImagem { get; set; }
+        public string NomeImagem { get; set; }
         private Image cache;
 		public Image Imagem {
             get {
                 if (cache == null) {
-                    cache = ImagemService.GetImageByName(CaminhoImagem);
+                    cache = ImagemService.GetImageByName(NomeImagem);
                 }
                 return cache;
             }
@@ -29,6 +29,6 @@ namespace Pactolo.scr.dominio {
 			set { feedback = value; FeedbackId = GetId(value); }
 		}
 
-		public string CaminhoAudio { get; set; }
+		public string NomeAudio { get; set; }
     }
 }

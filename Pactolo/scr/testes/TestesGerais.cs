@@ -123,6 +123,8 @@ namespace Pactolo.scr.testes {
 
 			ParticipanteService.Deletar(participante);
 			Assert(participante.Id == 0, "Falha ao deletar participante!");
+
+            AudioService.CopiaImagemParaPasta(@"c:\Users\Igor Moraes\Downloads\musica.mp3");
 		}
 	}
 }

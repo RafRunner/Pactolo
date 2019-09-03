@@ -29,7 +29,7 @@ namespace Pactolo.scr.services {
             relatorio.Append(GetInformacoesCCs(contingenciasColateraisDoExperimento));
             relatorio.Append(GetInformacoeSessoes(SessaoService.GetAllByIds(sessoesIds)));
             relatorio.Append(GetInformacoesEventos(relatorioSessao));
-            File.WriteAllText(relatorioSessao.GetPath(), relatorio.ToString());
+            File.WriteAllText(relatorioSessao.GetPath() + ".txt", relatorio.ToString());
         }
 
         private static StringBuilder GetCabecalhoExperimento(RelatorioSessao relatorioSessao) {

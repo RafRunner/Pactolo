@@ -99,6 +99,7 @@
     <Compile Include="EditarExperimentador.Designer.cs">
       <DependentUpon>EditarExperimentador.cs</DependentUpon>
     </Compile>
+    <Compile Include="scr\services\AudioService.cs" />
     <Compile Include="scr\services\RelatorioSessaoService.cs" />
     <Compile Include="scr\services\ImagemService.cs" />
     <Compile Include="scr\services\SessaoService.cs" />

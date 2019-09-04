@@ -39,6 +39,9 @@ namespace Pactolo.scr.services {
 
         public static void Deletar(ContingenciaInstrucional contingenciaInstrucional) {
             AbstractService.Deletar(contingenciaInstrucional, "ContingenciaInstrucional");
+            UnidadeDoExperimentoService.Deletar(contingenciaInstrucional.Tato1);
+            UnidadeDoExperimentoService.Deletar(contingenciaInstrucional.Tato2);
+            UnidadeDoExperimentoService.Deletar(contingenciaInstrucional.Autoclitico);
         }
     }
 }

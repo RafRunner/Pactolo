@@ -9,7 +9,23 @@ using System.Threading.Tasks;
 namespace Pactolo.scr.services {
     class RelatorioSessaoService {
 
+        private static string PASTA_RELATORIOS = "Relatorios";
+        private static void CreateDirectoryIfNotExists() {
+            if (!Directory.Exists(GetPath())) {
+                Directory.CreateDirectory(GetPath());
+            }
+        }
+
+        public static string GetPath(string nomeArquivo = "") {
+            string caminho = Ambiente.GetDesktop() + "\\" + PASTA_RELATORIOS;
+            if (!string.IsNullOrEmpty(nomeArquivo)) {
+                caminho += "\\" + nomeArquivo;
+            }
+            return caminho;
+        }
+
         public static void GeraRelatorio(RelatorioSessao relatorioSessao) {
+            CreateDirectoryIfNotExists();
             StringBuilder relatorio = new StringBuilder();
             relatorio.Append(GetCabecalhoExperimento(relatorioSessao));
             relatorio.Append(GetInformacoesExperimentador(relatorioSessao.Experimentador));
@@ -29,7 +45,7 @@ namespace Pactolo.scr.services {
             relatorio.Append(GetInformacoesCCs(contingenciasColateraisDoExperimento));
             relatorio.Append(GetInformacoeSessoes(SessaoService.GetAllByIds(sessoesIds)));
             relatorio.Append(GetInformacoesEventos(relatorioSessao));
-            File.WriteAllText(relatorioSessao.GetPath() + ".txt", relatorio.ToString());
+            File.WriteAllText(GetPath(relatorioSessao.GetNomeArquivo()) + ".txt", relatorio.ToString());
         }
 
         private static StringBuilder GetCabecalhoExperimento(RelatorioSessao relatorioSessao) {
@@ -109,14 +125,14 @@ namespace Pactolo.scr.services {
             foreach (ContingenciaColateral contingencia in ContingenciasColaterais) {
                 string CINome = contingencia.CI.Nome != null && contingencia.CI.Nome != ""? contingencia.CI.Nome : "Não possui";
                 string SC1feedback = contingencia.SC1.Feedback.ValorClick.ToString();
-                string SC2feedback = contingencia.SC1.Feedback.ValorClick.ToString();
-                string SC3feedback = contingencia.SC1.Feedback.ValorClick.ToString();
+                string SC2feedback = contingencia.SC2.Feedback.ValorClick.ToString();
+                string SC3feedback = contingencia.SC3.Feedback.ValorClick.ToString();
                 informacoesCIs.AppendLine("   " + contingencia.Nome + "{");
                 informacoesCIs.AppendLine("      -CI: " + CINome);
                 informacoesCIs.AppendLine("      -SC1: " + SC1feedback + " pts");
                 informacoesCIs.AppendLine("      -SC2: " + SC2feedback + " pts");
                 informacoesCIs.AppendLine("      -SC3: " + SC3feedback + " pts");
-                informacoesCIs.AppendLine("   }" + SC3feedback + " pts");
+                informacoesCIs.AppendLine("   }");
             }
             informacoesCIs.AppendLine("}");
 
@@ -137,14 +153,14 @@ namespace Pactolo.scr.services {
 
         private static StringBuilder GetInformacoesEventos(RelatorioSessao relatorio) {
             StringBuilder informacoesCIs = new StringBuilder();
-            List<Evento> eventos = relatorio.eventos;
+            List<Evento> eventos = relatorio.Eventos;
             informacoesCIs.AppendLine("Eventos Realizados pelo participante{");
             informacoesCIs.AppendLine("   Iniciou(apos leitura das instruções): " + relatorio.HoraInicio.ToString("hh:mm:ss"));
             informacoesCIs.AppendLine("   Sessão|ContingenciaColateral|SC|feedback|tentativa|pontos totais|horario|tempo por evento|");
             DateTime eventoAnterior = relatorio.HoraInicio;
             foreach (Evento evento in eventos) {
                 if (evento.EventoEncerramento) {
-                    informacoesCIs.AppendLine(evento.NomeSesssao + " encerrada, criterio: " + evento.CriterioEncerramento + ", " + evento.ValorEncerramento);
+                    informacoesCIs.AppendLine(evento.NomeCC + " encerrada, criterio: " + evento.CriterioEncerramento + ", " + evento.ValorEncerramento);
                     informacoesCIs.AppendLine("Horário de encerramento: ").Append(evento.HoraEvento);
                     informacoesCIs.AppendLine();
                 } else {

@@ -11,7 +11,8 @@ namespace Pactolo.scr.dominio {
             IdSessoesSelecionadas = idSessoes;
             Participante = participante;
             Experimentador = experimentador;
-            HoraInicio = new DateTime();
+            HoraInicio = DateTime.Now;
+            Eventos = new List<Evento>();
         }
 
         public Participante Participante { get; set; }
@@ -20,20 +21,18 @@ namespace Pactolo.scr.dominio {
         public DateTime HoraInicio { get; set; }
         public DateTime HoraFim { get; set; }
         public string NomeArquivoDigitado { get; set; }
-        public List<Evento> eventos { get; set; }
-        private string PASTA_RELATORIOS = "Relatorios";
+        public List<Evento> Eventos { get; set; }
 
         public void FinalizarExperimento() {
-            HoraFim = new DateTime();
+            HoraFim = DateTime.Now;
         }
 
+        public void AdicionarEvento(Evento evento) {
+            Eventos.Add(evento);
+        }
         //arrumar esse nome default
-        private string GetNomeArquivo() {
-            return NomeArquivoDigitado != null && NomeArquivoDigitado != "" ? NomeArquivoDigitado : $"Relatorio_Pactolo_{Experimentador.Nome}_{Participante.Nome}_{HoraInicio.ToString()}";
-        }
-
-        public string GetPath() {
-            return Ambiente.GetDiretorioPastas() + "\\" + PASTA_RELATORIOS + GetNomeArquivo();
+        public string GetNomeArquivo() {
+            return NomeArquivoDigitado != null && NomeArquivoDigitado != "" ? NomeArquivoDigitado : $"Relatorio_Pactolo_{Experimentador.Nome}_{Participante.Nome}_{HoraInicio.ToString("yyyy-MM-dd HH-mm-ss")}";
         }
     }
 }

@@ -94,7 +94,7 @@ namespace Pactolo.scr.testes {
 			var experimentadorDoBanco = ExperimentadorService.GetById(id);
 			Assert(experimentador.Equals(experimentadorDoBanco), "Falha ao obter experimentador Pelo Id!");
 
-			experimentadorDoBanco = ExperimentadorService.GetByNome("Raf").First();
+			experimentadorDoBanco = ExperimentadorService.GetByNome("Rafael Nunes Santana").First();
 			Assert(experimentador.Equals(experimentadorDoBanco), "Falha ao obter experimentador Pelo Nome!");
 
 			experimentador.Projeto = "Outro projeto";
@@ -124,7 +124,7 @@ namespace Pactolo.scr.testes {
 			ParticipanteService.Deletar(participante);
 			Assert(participante.Id == 0, "Falha ao deletar participante!");
 
-            AudioService.CopiaImagemParaPasta(@"c:\Users\Igor Moraes\Downloads\musica.mp3");
+            //AudioService.CopiaImagemParaPasta(@"c:\Users\Igor Moraes\Downloads\musica.mp3");
 		}
 	}
 }

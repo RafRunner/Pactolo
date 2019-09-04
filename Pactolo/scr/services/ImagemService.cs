@@ -14,11 +14,7 @@ namespace Pactolo.scr.services {
         private static readonly string PASTA_IMAGENS = "Imagens";
 
         public static string GetFullPath(string nomeImagem = "") {
-            string caminhoPasta = Ambiente.GetDiretorioPastas() + "\\" + PASTA_IMAGENS;
-            if (nomeImagem == "") {
-                return caminhoPasta;
-            }
-            return caminhoPasta + "\\" + nomeImagem;
+            return Ambiente.GetFullPath(PASTA_IMAGENS, nomeImagem);
         }
 
         private static void CreateDirectoryIfNotExists() {
@@ -34,8 +30,12 @@ namespace Pactolo.scr.services {
 
         public static string CopiaImagemParaPasta(string caminhoImagem) {
             CreateDirectoryIfNotExists();
-            string nome = Ambiente.GetNomeArquivo(caminhoImagem);
+            // Se não é um caminho já está na pasta e o caminho já é o nome
+            if (!caminhoImagem.Contains("\\")) {
+                return caminhoImagem;
+            }
 
+            string nome = Ambiente.GetNomeArquivo(caminhoImagem);
             string novoCaminho = GetFullPath(nome);
 
             if (File.Exists(novoCaminho) && ImageUtils.ImageToByteArray(Image.FromFile(novoCaminho)).SequenceEqual(ImageUtils.ImageToByteArray(Image.FromFile(caminhoImagem)))) {

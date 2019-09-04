@@ -14,7 +14,7 @@ namespace Pactolo {
         [STAThread]
         static void Main() {
             var testes = new TestesGerais();
-            testes.TodosOsTestes();
+            //testes.TodosOsTestes();
 
             Application.ThreadException += new ThreadExceptionEventHandler(Form1_UIThreadException);
 

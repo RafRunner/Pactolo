@@ -13,9 +13,21 @@ namespace Pactolo.scr.services {
             return Directory.GetCurrentDirectory();
         }
 
+        public static string GetDesktop() {
+            return Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        }
+
         public static string GetNomeArquivo(string caminhoArquivo) {
             Match nome = Regex.Match(caminhoArquivo, @"[^\\]+$");
             return nome.Value;
+        }
+
+        public static string GetFullPath(string nomePasta, string nomeArquivo = "") {
+            string caminhoPasta = Ambiente.GetDiretorioPastas() + "\\" + nomePasta;
+            if (nomeArquivo == "") {
+                return caminhoPasta;
+            }
+            return caminhoPasta + "\\" + nomeArquivo;
         }
     }
 }

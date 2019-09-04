@@ -18,7 +18,7 @@ namespace Pactolo {
 
         private readonly OpenFileDialog fileDialog = new OpenFileDialog();
         private readonly string imageFilter = "PNG|*.png";
-        private readonly string audioFilter = "MP3|*.mp3";
+        private readonly string audioFilter = "WAV|*.wav";
 
         public MenuInicial() {
             InitializeComponent();
@@ -51,6 +51,9 @@ namespace Pactolo {
                 item.SubItems.Add(it.Id.ToString());
                 return item;
             }).Cast<ListViewItem>().ToArray());
+
+            Image pactolo = new Bitmap(Pactolo.Properties.Resources.Pactolo);
+            picturePactolo.Image = ImageUtils.Resize(pactolo, picturePactolo.Width, picturePactolo.Height);
         }
 
         private void CheckBoxTentativasAgrp_CheckedChanged(object sender, EventArgs e) {
@@ -232,37 +235,43 @@ namespace Pactolo {
                 NomeImagem = ImagemService.CopiaImagemParaPasta(textBoxModelo.Text)
             };
 
+            Feedback feedbackSC1 = new Feedback {
+                ValorClick = Convert.ToInt32(numericSC1.Value),
+                Neutro = checkBoxNeutroSC1.Checked,
+                SemCor = checkBoxSemCorSC1.Checked,
+                ProbabilidadeComplementar = Convert.ToInt32(numericProbabilidadeSC1.Value)
+            };
+            FeedbackService.Salvar(feedbackSC1);
             UnidadeDoExperimento SC1 = new UnidadeDoExperimento {
-                Feedback = new Feedback {
-                    ValorClick = Convert.ToInt32(numericSC1.Value),
-                    Neutro = checkBoxNeutroSC1.Checked,
-                    SemCor = checkBoxSemCorSC1.Checked,
-                    ProbabilidadeComplementar = Convert.ToInt32(numericProbabilidadeSC1.Value)
-                },
+                Feedback = feedbackSC1,
                 NomeImagem = ImagemService.CopiaImagemParaPasta(textBoxSC1.Text),
-                NomeAudio = textBoxAudioSC1.Text
+                NomeAudio = AudioService.CopiaAudioParaPasta(textBoxAudioSC1.Text)
             };
 
+            Feedback feedbackSC2 = new Feedback {
+                ValorClick = Convert.ToInt32(numericSC2.Value),
+                Neutro = checkBoxNeutroSC2.Checked,
+                SemCor = checkBoxSemCorSC2.Checked,
+                ProbabilidadeComplementar = Convert.ToInt32(numericProbabilidadeSC2.Value)
+            };
+            FeedbackService.Salvar(feedbackSC2);
             UnidadeDoExperimento SC2 = new UnidadeDoExperimento {
-                Feedback = new Feedback {
-                    ValorClick = Convert.ToInt32(numericSC2.Value),
-                    Neutro = checkBoxNeutroSC2.Checked,
-                    SemCor = checkBoxSemCorSC2.Checked,
-                    ProbabilidadeComplementar = Convert.ToInt32(numericProbabilidadeSC2.Value)
-                },
+                Feedback = feedbackSC2,
                 NomeImagem = ImagemService.CopiaImagemParaPasta(textBoxSC2.Text),
-                NomeAudio = textBoxAudioSC2.Text
+                NomeAudio = AudioService.CopiaAudioParaPasta(textBoxAudioSC2.Text)
             };
 
+            Feedback feedbackSC3 = new Feedback {
+                ValorClick = Convert.ToInt32(numericSC3.Value),
+                Neutro = checkBoxNeutroSC3.Checked,
+                SemCor = checkBoxSemCorSC3.Checked,
+                ProbabilidadeComplementar = Convert.ToInt32(numericProbabilidadeSC3.Value)
+            };
+            FeedbackService.Salvar(feedbackSC3);
             UnidadeDoExperimento SC3 = new UnidadeDoExperimento {
-                Feedback = new Feedback {
-                    ValorClick = Convert.ToInt32(numericSC3.Value),
-                    Neutro = checkBoxNeutroSC3.Checked,
-                    SemCor = checkBoxSemCorSC3.Checked,
-                    ProbabilidadeComplementar = Convert.ToInt32(numericProbabilidadeSC3.Value)
-                },
+                Feedback = feedbackSC3,
                 NomeImagem = ImagemService.CopiaImagemParaPasta(textBoxSC3.Text),
-                NomeAudio = textBoxAudioSC3.Text
+                NomeAudio = AudioService.CopiaAudioParaPasta(textBoxAudioSC3.Text)
             };
 
 
@@ -290,7 +299,7 @@ namespace Pactolo {
         }
 
         private ContingenciaColateral GetCCSelecionada() {
-            if (listViewCI.SelectedItems.Count == 0) {
+            if (listViewCC.SelectedItems.Count == 0) {
                 return null;
             }
 
@@ -306,7 +315,12 @@ namespace Pactolo {
             }
 
             textBoxNomeCC.Text = CC.Nome;
-            comboBoxCI.SelectedItem = CC.CI;
+            foreach (ContingenciaInstrucional CI in comboBoxCI.Items) {
+                if (CI.Id == CC.CI?.Id) {
+                    comboBoxCI.SelectedItem = CI;
+                    break;
+                }
+            }
 
             textBoxModelo.Text = CC.sModelo.NomeImagem;
             textBoxSC1.Text = CC.SC1.NomeImagem;
@@ -413,12 +427,13 @@ namespace Pactolo {
             Sessao sessao = SessaoService.GetById(id);
 
             textBoxNomeSessao.Text = sessao.Nome;
-            numericAcertosConsec.Value = sessao.CriterioNumeroTentativas;
+            numericAcertosConsec.Value = sessao.CriterioAcertosConcecutivos;
             numericDuracao.Value = sessao.CriterioDuracaoSegundos;
             numericNTentativas.Value = sessao.CriterioNumeroTentativas;
             checkBoxTentativasAgrp.Checked = !sessao.OrdemAleatoria;
             checkBoxTentativasRand.Checked = sessao.OrdemAleatoria;
-            
+
+            listViewCCSessao.Items.Clear();
             foreach (ContingenciaColateral CC in sessao.CCs) {
                 ListViewItem itemCC = new ListViewItem(CC.Nome);
                 itemCC.SubItems.Add(CC.Id.ToString());
@@ -427,6 +442,10 @@ namespace Pactolo {
         }
 
         private void ButtonRemoverSessao_Click(object sender, EventArgs e) {
+            if (listViewsessoesExecutadas.SelectedItems.Count == 0) {
+                MessageBox.Show("Nenhuma sessão selecionada!", "Advertência");
+                return;
+            }
             listViewsessoesExecutadas.Items.Remove(listViewsessoesExecutadas.SelectedItems[0]);
         }
 
@@ -436,7 +455,10 @@ namespace Pactolo {
             SessaoService.Deletar(sessao);
 
             listViewSessoes.Items.Remove(listViewSessoes.SelectedItems[0]);
-            listViewsessoesExecutadas.Items.Remove(listViewsessoesExecutadas.Items.Find(sessao.Nome, false)[0]);
+            ListViewItem[] sessaoExecutada = listViewsessoesExecutadas.Items.Find(sessao.Nome, false);
+            if (sessaoExecutada.Length != 0) {
+                listViewsessoesExecutadas.Items.Remove(sessaoExecutada[0]);
+            }
         }
 
         private void ButtonAdicionarSessao_Click(object sender, EventArgs e) {
@@ -450,10 +472,10 @@ namespace Pactolo {
             foreach (ListViewItem sessao in listViewsessoesExecutadas.Items) {
                 sessoes.Add(SessaoService.GetById(long.Parse(sessao.SubItems[1].Text)));
             }
-            //Experimentador experimentador = CriaExperimentadorPelosCampos();
-            //Participante participante = CriarParticipantePelosCampos();
+            Experimentador experimentador = CriaExperimentadorPelosCampos();
+            Participante participante = CriarParticipantePelosCampos();
 
-            TelaExperimento telaExperimento = new TelaExperimento(sessoes, null, null);
+            TelaExperimento telaExperimento = new TelaExperimento(sessoes, experimentador, participante);
             telaExperimento.ShowDialog();
         }
     }

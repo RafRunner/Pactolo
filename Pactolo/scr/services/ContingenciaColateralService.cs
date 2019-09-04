@@ -39,6 +39,7 @@ namespace Pactolo.scr.services {
         }
 
         public static void Deletar(ContingenciaColateral contingenciaColateral) {
+            CCPorSessaoService.DeletarAllByCCId(contingenciaColateral.Id);
             AbstractService.Deletar(contingenciaColateral, "ContingenciaColateral");
             UnidadeDoExperimentoService.Deletar(contingenciaColateral.sModelo);
             UnidadeDoExperimentoService.Deletar(contingenciaColateral.SC1);

@@ -8,5 +8,6 @@ namespace Pactolo.scr.dominio {
     class CCPorSessao {
         public long SessaoId { get; set; }
         public long CCId { get; set; }
+        public int OrdemApresentacao { get; set; }
     }
 }

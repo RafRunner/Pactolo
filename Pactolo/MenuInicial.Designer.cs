@@ -25,6 +25,7 @@ namespace Pactolo {
 		/// o conteúdo deste método com o editor de código.
 		/// </summary>
 		private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuInicial));
             this.textBoxNomeExperimentador = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -142,7 +143,7 @@ namespace Pactolo {
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listViewSessoes = new System.Windows.Forms.ListView();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.pictureBoxPactolo = new System.Windows.Forms.PictureBox();
+            this.picturePactolo = new System.Windows.Forms.PictureBox();
             this.label34 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -160,7 +161,7 @@ namespace Pactolo {
             ((System.ComponentModel.ISupportInitialize)(this.numericNTentativas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericAcertosConsec)).BeginInit();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPactolo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picturePactolo)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxNomeExperimentador
@@ -1521,7 +1522,7 @@ namespace Pactolo {
             this.panel6.Controls.Add(this.buttonIniciar);
             this.panel6.Controls.Add(this.listViewsessoesExecutadas);
             this.panel6.Controls.Add(this.listViewSessoes);
-            this.panel6.Controls.Add(this.pictureBoxPactolo);
+            this.panel6.Controls.Add(this.picturePactolo);
             this.panel6.Controls.Add(this.label34);
             this.panel6.Location = new System.Drawing.Point(1304, 11);
             this.panel6.Name = "panel6";
@@ -1621,13 +1622,13 @@ namespace Pactolo {
             this.columnHeader4.Text = "Nome:";
             this.columnHeader4.Width = 350;
             // 
-            // pictureBoxPactolo
+            // picturePactolo
             // 
-            this.pictureBoxPactolo.Location = new System.Drawing.Point(9, 7);
-            this.pictureBoxPactolo.Name = "pictureBoxPactolo";
-            this.pictureBoxPactolo.Size = new System.Drawing.Size(298, 174);
-            this.pictureBoxPactolo.TabIndex = 76;
-            this.pictureBoxPactolo.TabStop = false;
+            this.picturePactolo.Location = new System.Drawing.Point(9, 7);
+            this.picturePactolo.Name = "picturePactolo";
+            this.picturePactolo.Size = new System.Drawing.Size(298, 174);
+            this.picturePactolo.TabIndex = 76;
+            this.picturePactolo.TabStop = false;
             // 
             // label34
             // 
@@ -1654,6 +1655,7 @@ namespace Pactolo {
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "MenuInicial";
@@ -1681,7 +1683,7 @@ namespace Pactolo {
             ((System.ComponentModel.ISupportInitialize)(this.numericAcertosConsec)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPactolo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picturePactolo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1803,7 +1805,7 @@ namespace Pactolo {
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ListView listViewSessoes;
         private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.PictureBox pictureBoxPactolo;
+        private System.Windows.Forms.PictureBox picturePactolo;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.TextBox textBoxNomeSessao;

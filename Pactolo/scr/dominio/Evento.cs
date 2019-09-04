@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 namespace Pactolo.scr.dominio {
     public class Evento {
 
-        public Evento(Sessao sessao, ContingenciaColateral CC, string nomeSC, long pontosGanhos, long pontosAtuais, int tentativaAtual) {
+        public Evento(Sessao sessao, ContingenciaColateral CC, string nomeSC, long pontosGanhos) {
             NomeSesssao = sessao.Nome;
             NomeCC = CC.Nome;
             NomeSC = nomeSC;
             PontosGanhos = pontosGanhos;
-            PontosAtuais = pontosAtuais;
-            TentativaAtual = tentativaAtual;
-            HoraEvento = new DateTime();
+            PontosAtuais = sessao.NumeroPontos;
+            TentativaAtual = sessao.NumeroTentativas;
+            HoraEvento = DateTime.Now;
         }
 
         public void MarcarComoEncerramento(string criterioEncerramento, string valorEncerramento) {
             EventoEncerramento = true;
             CriterioEncerramento = criterioEncerramento;
             ValorEncerramento = valorEncerramento;
-            HoraEvento = new DateTime();
+            HoraEvento = DateTime.Now;
         }
 
         public string NomeSesssao { get; set; }

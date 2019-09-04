@@ -5,14 +5,10 @@ using System.Linq;
 namespace Pactolo.scr.services {
     class AudioService {
 
-        private static readonly string PASTA_IMAGENS = "Audios";
+        private static readonly string PASTA_AUDIOS = "Audios";
 
-        private static string GetFullPath(string nomeAudio = "") {
-            string caminhoPasta = Ambiente.GetDiretorioPastas() + "\\" + PASTA_IMAGENS;
-            if (nomeAudio == "") {
-                return caminhoPasta;
-            }
-            return caminhoPasta + "\\" + nomeAudio;
+        public static string GetFullPath(string nomeAudio = "") {
+            return Ambiente.GetFullPath(PASTA_AUDIOS, nomeAudio);
         }
 
         private static void CreateDirectoryIfNotExists() {
@@ -21,15 +17,13 @@ namespace Pactolo.scr.services {
             }
         }
 
-        public static Byte[] GetAudioByName(string nomeImagem) {
-            string caminhoCompleto = GetFullPath(nomeImagem);
-            return File.ReadAllBytes(caminhoCompleto);
-        }
-
-        public static string CopiaImagemParaPasta(string caminhoAudio) {
+        public static string CopiaAudioParaPasta(string caminhoAudio) {
             CreateDirectoryIfNotExists();
+            // Se não é um caminho já está na pasta e o caminho já é o nome
+            if (!caminhoAudio.Contains("\\")) {
+                return caminhoAudio;
+            }
             string nome = Ambiente.GetNomeArquivo(caminhoAudio);
-
             string novoCaminho = GetFullPath(nome);
 
             if (File.Exists(novoCaminho) && File.ReadAllBytes(novoCaminho).SequenceEqual(File.ReadAllBytes(caminhoAudio))) {

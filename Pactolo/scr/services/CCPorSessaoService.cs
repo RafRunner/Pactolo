@@ -6,27 +6,35 @@ using System.Data.SQLite;
 using System.Linq;
 
 namespace Pactolo.scr.services {
-    class CCPorSessaoService : AbstractService{
- 
+    class CCPorSessaoService : AbstractService {
+
+        private static List<CCPorSessao> GetPropriedadeByMembroId(long id, string nomeMembro) {
+            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
+                return cnn.Query<CCPorSessao>($"SELECT CCId, SessaoId, OrdemApresentacao FROM CCPorSessao WHERE {nomeMembro} = {id}").ToList<CCPorSessao>();
+            }
+        }
+
         public static List<ContingenciaColateral> GetAllCCBySessaoId(long id) {
             if (id == 0) {
                 return null;
             }
-            List<long> CCsIds;
-            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                CCsIds = cnn.Query<long>($"SELECT CCId FROM CCPorSessao WHERE SessaoId = {id}").ToList<long>();
+            List<CCPorSessao> CCsPS = GetPropriedadeByMembroId(id, "SessaoId");
+            if (CCsPS == null) {
+                return null;
             }
             List<ContingenciaColateral> CCs = new List<ContingenciaColateral>();
-            foreach (long CCId in CCsIds) {
-                CCs.Add(ContingenciaColateralService.GetById(CCId));
+            CCsPS.OrderBy(it => it.OrdemApresentacao);
+            foreach (CCPorSessao CCPS in CCsPS) {
+                CCs.Add(ContingenciaColateralService.GetById(CCPS.CCId));
             }
             return CCs;
         }
 
         public static void SalvarAll(long sessaoId, List<ContingenciaColateral> CCs) {
-            foreach (ContingenciaColateral CC in CCs) {
+            for (int i = 0; i < CCs.Count; i++) {
+                ContingenciaColateral CC = CCs[i];
                 using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                    string sqlInsert = $"INSERT INTO CCPorSessao (sessaoId, CCId) VALUES ({sessaoId}, {CC.Id})";
+                    string sqlInsert = $"INSERT INTO CCPorSessao (sessaoId, CCId, OrdemApresentacao) VALUES ({sessaoId}, {CC.Id}, {i})";
                     cnn.Execute(sqlInsert);
                 }
             }
@@ -38,7 +46,7 @@ namespace Pactolo.scr.services {
             }
         }
 
-        public static void DeletarByCCId(long id) {
+        public static void DeletarAllByCCId(long id) {
             using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
                 cnn.Execute($"DELETE FROM CCPorSessao WHERE CCId = {id}");
             }

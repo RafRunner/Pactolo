@@ -23,6 +23,7 @@ namespace Pactolo.scr.dominio {
         public int CriterioAcertosConcecutivos { get; set; }
 
         public int NumeroTentativas { get; set; }
+        public int NumeroPontos { get; set;  }
         public long DuracaoSegundos { get; set; }
         public int AcertosConcecutivos { get; set; }
     }

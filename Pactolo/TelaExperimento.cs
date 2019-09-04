@@ -258,24 +258,25 @@ namespace Pactolo {
             }
 
 
-            if (sessaoAtual.NumeroTentativas >= sessaoAtual.CriterioNumeroTentativas) {
-                Evento eventoEncerramento = new Evento(sessaoAtual, CCAtual, GetNomeSc(SC), 0);
-                eventoEncerramento.MarcarComoEncerramento("Númeo de Tentativas", sessaoAtual.NumeroTentativas.ToString());
-                relatorioSessao.AdicionarEvento(eventoEncerramento);
-                taskCC.TrySetResult(true);
+            if (sessaoAtual.CriterioNumeroTentativas > 0 && sessaoAtual.NumeroTentativas >= sessaoAtual.CriterioNumeroTentativas) {
+                FinalizarCC("Númeo de Tentativas");
                 return;
             }
 
-            if (sessaoAtual.AcertosConcecutivos >= sessaoAtual.CriterioAcertosConcecutivos) {
-                Evento eventoEncerramento = new Evento(sessaoAtual, CCAtual, GetNomeSc(SC), 0);
-                eventoEncerramento.MarcarComoEncerramento("Acertos Consecutivos", sessaoAtual.AcertosConcecutivos.ToString());
-                relatorioSessao.AdicionarEvento(eventoEncerramento);
-                taskCC.TrySetResult(true);
+            if (sessaoAtual.CriterioAcertosConcecutivos > 0 && sessaoAtual.AcertosConcecutivos >= sessaoAtual.CriterioAcertosConcecutivos) {
+                FinalizarCC("Acertos Consecutivos");
                 return;
             }
 
             await Task.Delay(1000);
             EmbaralhaSCs();
+        }
+
+        private void FinalizarCC(string motivoFinalização) {
+            Evento eventoEncerramento = new Evento(sessaoAtual, CCAtual, GetNomeSc(SC), 0);
+            eventoEncerramento.MarcarComoEncerramento(motivoFinalização, sessaoAtual.NumeroTentativas.ToString());
+            relatorioSessao.AdicionarEvento(eventoEncerramento);
+            taskCC.TrySetResult(true);
         }
 
         private void PictureSC1_Click(object sender, EventArgs e) {

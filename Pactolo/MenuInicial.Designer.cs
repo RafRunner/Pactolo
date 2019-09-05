@@ -70,6 +70,7 @@ namespace Pactolo {
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label36 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.buttonSelecionarCC = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
@@ -697,6 +698,7 @@ namespace Pactolo {
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.label36);
             this.panel4.Controls.Add(this.label27);
             this.panel4.Controls.Add(this.buttonSelecionarCC);
             this.panel4.Controls.Add(this.label25);
@@ -745,6 +747,15 @@ namespace Pactolo {
             this.panel4.Padding = new System.Windows.Forms.Padding(5);
             this.panel4.Size = new System.Drawing.Size(1607, 246);
             this.panel4.TabIndex = 15;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(1235, 82);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(43, 16);
+            this.label36.TabIndex = 66;
+            this.label36.Text = "Áudio:";
             // 
             // label27
             // 
@@ -912,7 +923,6 @@ namespace Pactolo {
             this.textBoxAudioSC3.ReadOnly = true;
             this.textBoxAudioSC3.Size = new System.Drawing.Size(224, 29);
             this.textBoxAudioSC3.TabIndex = 51;
-            this.textBoxAudioSC3.Text = "Áudio";
             // 
             // textBoxAudioSC2
             // 
@@ -925,7 +935,6 @@ namespace Pactolo {
             this.textBoxAudioSC2.ReadOnly = true;
             this.textBoxAudioSC2.Size = new System.Drawing.Size(224, 29);
             this.textBoxAudioSC2.TabIndex = 50;
-            this.textBoxAudioSC2.Text = "Áudio";
             // 
             // textBoxAudioSC1
             // 
@@ -938,7 +947,6 @@ namespace Pactolo {
             this.textBoxAudioSC1.ReadOnly = true;
             this.textBoxAudioSC1.Size = new System.Drawing.Size(224, 29);
             this.textBoxAudioSC1.TabIndex = 49;
-            this.textBoxAudioSC1.Text = "Áudio";
             // 
             // label24
             // 
@@ -1644,6 +1652,7 @@ namespace Pactolo {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1639, 838);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
@@ -1810,6 +1819,7 @@ namespace Pactolo {
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.TextBox textBoxNomeSessao;
         private System.Windows.Forms.Button buttonRemoverSessao;
+        private System.Windows.Forms.Label label36;
     }
 }
 

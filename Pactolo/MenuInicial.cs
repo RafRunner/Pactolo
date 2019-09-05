@@ -20,6 +20,9 @@ namespace Pactolo {
         private readonly string imageFilter = "PNG|*.png";
         private readonly string audioFilter = "WAV|*.wav";
 
+        private readonly int height = Screen.PrimaryScreen.Bounds.Height;
+        private readonly int width = Screen.PrimaryScreen.Bounds.Width;
+
         public MenuInicial() {
             InitializeComponent();
 
@@ -54,6 +57,11 @@ namespace Pactolo {
 
             Image pactolo = new Bitmap(Pactolo.Properties.Resources.Pactolo);
             picturePactolo.Image = ImageUtils.Resize(pactolo, picturePactolo.Width, picturePactolo.Height);
+
+            if (this.Width + 50 > width || this.Height + 50 > height) {
+                this.Width = width - 50;
+                this.Height = height - 50;
+            }
         }
 
         private void CheckBoxTentativasAgrp_CheckedChanged(object sender, EventArgs e) {
@@ -468,6 +476,11 @@ namespace Pactolo {
         }
 
         private void ButtonIniciar_Click(object sender, EventArgs e) {
+            if (listViewsessoesExecutadas.Items.Count == 0 ) {
+                MessageBox.Show("Por favor, selecione pelo menos uma Sessão para executar!", "Advertência");
+                return;
+            }
+
             List<Sessao> sessoes = new List<Sessao>();
             foreach (ListViewItem sessao in listViewsessoesExecutadas.Items) {
                 sessoes.Add(SessaoService.GetById(long.Parse(sessao.SubItems[1].Text)));

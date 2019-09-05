@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Pactolo.scr.dominio;
+using Pactolo.scr.utils;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,6 +39,10 @@ namespace Pactolo.scr.services {
         }
 
         public static void Deletar(ContingenciaInstrucional contingenciaInstrucional) {
+            List<ContingenciaColateral> CCsComEssaCI = ContingenciaColateralService.GetAllByCI(contingenciaInstrucional);
+            if (CCsComEssaCI.Count > 0) {
+                throw new System.Exception($"Essa CI está cadastrada nas seguintes CCs: {StringUtils.Join(CCsComEssaCI, ", ")}. Delete primeiro essas CCs ou as associe a outra CI");
+            }
             AbstractService.Deletar(contingenciaInstrucional, "ContingenciaInstrucional");
         }
     }

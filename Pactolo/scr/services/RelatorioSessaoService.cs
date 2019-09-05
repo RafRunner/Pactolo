@@ -38,10 +38,14 @@ namespace Pactolo.scr.services {
             HashSet<ContingenciaColateral> contingenciasColateraisDoExperimento = new HashSet<ContingenciaColateral>(contingeciasColaterais);
             List<ContingenciaInstrucional> contingeciasInstrucionais = new List<ContingenciaInstrucional>();
             foreach (ContingenciaColateral contingenciaColateral in contingenciasColateraisDoExperimento) {
-                contingeciasInstrucionais.Add(contingenciaColateral.CI);
+                if (contingenciaColateral.CI != null) {
+                    contingeciasInstrucionais.Add(contingenciaColateral.CI);
+                }
             }
-            HashSet<ContingenciaInstrucional> contingeciasInstrucionaisDoExperimento = new HashSet<ContingenciaInstrucional>(contingeciasInstrucionais);
-            relatorio.Append(GetInformacoesCIs(contingeciasInstrucionaisDoExperimento));
+            if (contingeciasInstrucionais.Count > 0) {
+                HashSet<ContingenciaInstrucional> contingeciasInstrucionaisDoExperimento = new HashSet<ContingenciaInstrucional>(contingeciasInstrucionais);
+                relatorio.Append(GetInformacoesCIs(contingeciasInstrucionaisDoExperimento));
+            }
             relatorio.Append(GetInformacoesCCs(contingenciasColateraisDoExperimento));
             relatorio.Append(GetInformacoeSessoes(SessaoService.GetAllByIds(sessoesIds)));
             relatorio.Append(GetInformacoesEventos(relatorioSessao));
@@ -123,7 +127,7 @@ namespace Pactolo.scr.services {
             informacoesCIs.AppendLine("Contingencias colaterais{");
 
             foreach (ContingenciaColateral contingencia in ContingenciasColaterais) {
-                string CINome = contingencia.CI.Nome != null && contingencia.CI.Nome != ""? contingencia.CI.Nome : "Não possui";
+                string CINome = contingencia.CI != null ? contingencia.CI.Nome : "Não possui";
                 string SC1feedback = contingencia.SC1.Feedback.ValorClick.ToString();
                 string SC2feedback = contingencia.SC2.Feedback.ValorClick.ToString();
                 string SC3feedback = contingencia.SC3.Feedback.ValorClick.ToString();

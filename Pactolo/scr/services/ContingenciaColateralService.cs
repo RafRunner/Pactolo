@@ -1,5 +1,9 @@
-﻿using Pactolo.scr.dominio;
+﻿using Dapper;
+using Pactolo.scr.dominio;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
+using System.Linq;
 
 namespace Pactolo.scr.services {
 
@@ -30,17 +34,28 @@ namespace Pactolo.scr.services {
             return contingenciasColaterais;
         }
 
-		// TODO ao salvar o objeto pai, deverá dar cascade nos objetos filhos e salvar eles também? Acho melhor sim
-        public static void Salvar(ContingenciaColateral contingenciaColateral) { 
+        public static List<ContingenciaColateral> GetAllByCI(ContingenciaInstrucional CI) {
+            if (CI == null || CI.Id == 0) {
+                return new List<ContingenciaColateral>();
+            }
+
+            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
+                return cnn.Query<ContingenciaColateral>($"SELECT * FROM ContingenciaColateral WHERE @CIId = @Id", CI).ToList<ContingenciaColateral>();
+            }
+        }
+
+        // TODO ao salvar o objeto pai, deverá dar cascade nos objetos filhos e salvar eles também? Acho melhor sim
+        public static void Salvar(ContingenciaColateral contingenciaColateral) {
             AbstractService.Salvar(contingenciaColateral,
                 "ContingenciaColateral",
                 "INSERT INTO ContingenciaColateral (Nome, sModeloId, SC1Id, SC2Id, SC3Id, CIId) VALUES (@Nome, @sModeloId, @SC1Id, @SC2Id, @SC3Id, @CIId); SELECT CAST(last_insert_rowid() as int)",
                 "UPDATE ContingenciaColateral SET Nome = @Nome, sModeloId = @sModeloId, SC1Id = @SC1Id, SC2Id = @SC2Id, SC3Id = @SC3Id, CIId = @CIId WHERE Id = @Id");
         }
 
-        public static void Deletar(ContingenciaColateral contingenciaColateral) {
-            CCPorSessaoService.DeletarAllByCCId(contingenciaColateral.Id);
-            AbstractService.Deletar(contingenciaColateral, "ContingenciaColateral");
+        public static void Deletar(ContingenciaColateral CC) {
+            CCPorSessaoService.DeletarAllByCCId(CC.Id);
+            UnidadeDoExperimentoService.DeletarAll(new List<UnidadeDoExperimento>() { CC.sModelo, CC.SC1, CC.SC2, CC.SC3 });
+            AbstractService.Deletar(CC, "ContingenciaColateral");
         }
     }
 }

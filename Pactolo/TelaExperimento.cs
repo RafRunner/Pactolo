@@ -21,8 +21,7 @@ namespace Pactolo {
         private Sessao sessaoAtual;
         private ContingenciaColateral CCAtual;
         private List<UnidadeDoExperimento> SCsEmbaralhados;
-
-        private SoundPlayer soundPlayer;
+        private System.Windows.Forms.Timer timerAtual;
 
         private readonly Random random = new Random();
 
@@ -87,9 +86,19 @@ namespace Pactolo {
             await taskFinalizacao.Task;
         }
 
+        private void EventoFimTempo(Object myObject, EventArgs myEventArgs) {
+            timerAtual.Stop();
+            taskSModelo.TrySetResult(true);
+            FinalizarCC("Fim do tempo limite", CCAtual.SC1);
+            return;
+        }
+
         private async Task ApresentarSessao(Sessao sessao) {
             sessaoAtual = sessao;
             List<ContingenciaColateral> CCs = sessao.CCs;
+            if (sessao.OrdemAleatoria) {
+                CCs = CCs.OrderBy(it => Guid.NewGuid()).ToList();
+            }
 
             foreach (ContingenciaColateral CC in CCs) {
                 ContingenciaInstrucional CI = CC.CI;
@@ -98,6 +107,7 @@ namespace Pactolo {
                 }
                 else {
                     panelCI.Visible = false;
+                    CIFinalizado = true;
                     await ApresentarCC(CC);
                 }
             }
@@ -127,6 +137,19 @@ namespace Pactolo {
             taskSModelo = new TaskCompletionSource<bool>(false);
             taskFinalizacao = new TaskCompletionSource<bool>(false);
             taskCC = new TaskCompletionSource<bool>(false);
+
+            pictureSC3.Visible = false;
+            panelPontos.Visible = false;
+            pictureSC2.Visible = false;
+            pictureSC1.Visible = false;
+
+            if (sessaoAtual.CriterioDuracaoSegundos > 0) {
+                timerAtual = new System.Windows.Forms.Timer {
+                    Interval = Convert.ToInt32(sessaoAtual.CriterioDuracaoSegundos) * 1000
+                };
+                timerAtual.Tick += new EventHandler(EventoFimTempo);
+                timerAtual.Start();
+            }
 
             CCAtual = CC;
             SCsEmbaralhados = new List<UnidadeDoExperimento>() { CC.SC1, CC.SC2, CC.SC3 };
@@ -221,10 +244,7 @@ namespace Pactolo {
                 await Task.Delay(1000);
             }
             else {
-                if (!string.IsNullOrEmpty(SC.NomeAudio)) {
-                    soundPlayer = new SoundPlayer(@AudioService.GetFullPath(SC.NomeAudio));
-                    soundPlayer.Play();
-                }
+                SC.PlayAudio();
 
                 bool positivo = feedback.ValorClick > 0;
                 Color novaCor = positivo ? Color.Green : Color.Red;
@@ -253,26 +273,25 @@ namespace Pactolo {
                     pictureSC.BackColor = novaCor;
                 }
 
+                await Task.Delay(1000);
                 labelMensagem.Visible = false;
                 pictureSC.BackColor = Color.White;
             }
 
-
             if (sessaoAtual.CriterioNumeroTentativas > 0 && sessaoAtual.NumeroTentativas >= sessaoAtual.CriterioNumeroTentativas) {
-                FinalizarCC("Númeo de Tentativas");
+                FinalizarCC("Númeo de Tentativas", SC);
                 return;
             }
 
             if (sessaoAtual.CriterioAcertosConcecutivos > 0 && sessaoAtual.AcertosConcecutivos >= sessaoAtual.CriterioAcertosConcecutivos) {
-                FinalizarCC("Acertos Consecutivos");
+                FinalizarCC("Acertos Consecutivos", SC);
                 return;
             }
 
-            await Task.Delay(1000);
             EmbaralhaSCs();
         }
 
-        private void FinalizarCC(string motivoFinalização) {
+        private void FinalizarCC(string motivoFinalização, UnidadeDoExperimento SC) {
             Evento eventoEncerramento = new Evento(sessaoAtual, CCAtual, GetNomeSc(SC), 0);
             eventoEncerramento.MarcarComoEncerramento(motivoFinalização, sessaoAtual.NumeroTentativas.ToString());
             relatorioSessao.AdicionarEvento(eventoEncerramento);

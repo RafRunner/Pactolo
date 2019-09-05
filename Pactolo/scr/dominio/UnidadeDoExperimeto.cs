@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,20 @@ namespace Pactolo.scr.dominio {
 			set { feedback = value; FeedbackId = GetId(value); }
 		}
 
-		public string NomeAudio { get; set; }
+        private SoundPlayer soundPlayer;
+        private string nomeAudio;
+        public string NomeAudio {
+            get => nomeAudio;
+            set {
+                nomeAudio = value;
+                soundPlayer = new SoundPlayer(@AudioService.GetFullPath(nomeAudio));
+            }
+        }
+
+        public void PlayAudio() {
+            if (soundPlayer != null) {
+                soundPlayer.Play();
+            }
+        }
     }
 }

@@ -36,5 +36,11 @@ namespace Pactolo.scr.services {
             FeedbackService.Deletar(feedback);
             AbstractService.Deletar(unidadeDoExperimeto, "UnidadeDoExperimento");
         }
+
+        public static void DeletarAll(List<UnidadeDoExperimento> unidadesDoExperimento) {
+            foreach (UnidadeDoExperimento unidade in unidadesDoExperimento) {
+                Deletar(unidade);
+            }
+        }
     }
 }

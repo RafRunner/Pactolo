@@ -3,6 +3,7 @@ using Pactolo.scr.dominio;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 
 namespace Pactolo.scr.services {
@@ -33,8 +34,22 @@ namespace Pactolo.scr.services {
 
         public static void Deletar(UnidadeDoExperimento unidadeDoExperimeto) {
             Feedback feedback = FeedbackService.GetById(unidadeDoExperimeto.FeedbackId);
+            string caiminhoImagem = ImagemService.GetFullPath(unidadeDoExperimeto.NomeImagem);
+            string caiminhoAudio = AudioService.GetFullPath(unidadeDoExperimeto.NomeAudio);
             FeedbackService.Deletar(feedback);
             AbstractService.Deletar(unidadeDoExperimeto, "UnidadeDoExperimento");
+            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
+                IEnumerable<string> data = cnn.Query<string>($"SELECT NomeImagem FROM UnidadeDoExperimento WHERE NomeImagem = {unidadeDoExperimeto.NomeImagem}");
+                if (data.ToList<string>().Count == 0) {
+                    File.Delete(caiminhoImagem);
+                }
+            }
+            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
+                IEnumerable<string> data = cnn.Query<string>($"SELECT NomeAudio FROM UnidadeDoExperimento WHERE NomeAudio = {unidadeDoExperimeto.NomeAudio}");
+                if (data.ToList<string>().Count == 0) {
+                    File.Delete(caiminhoAudio);
+                }
+            }
         }
 
         public static void DeletarAll(List<UnidadeDoExperimento> unidadesDoExperimento) {

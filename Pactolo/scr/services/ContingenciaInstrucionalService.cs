@@ -44,6 +44,9 @@ namespace Pactolo.scr.services {
                 throw new System.Exception($"Essa CI está cadastrada nas seguintes CCs: {StringUtils.Join(CCsComEssaCI, ", ")}. Delete primeiro essas CCs ou as associe a outra CI");
             }
             AbstractService.Deletar(contingenciaInstrucional, "ContingenciaInstrucional");
+            UnidadeDoExperimentoService.Deletar(contingenciaInstrucional.Tato1);
+            UnidadeDoExperimentoService.Deletar(contingenciaInstrucional.Tato2);
+            UnidadeDoExperimentoService.Deletar(contingenciaInstrucional.Autoclitico);
         }
     }
 }

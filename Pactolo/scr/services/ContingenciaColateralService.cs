@@ -40,7 +40,7 @@ namespace Pactolo.scr.services {
             }
 
             using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                return cnn.Query<ContingenciaColateral>($"SELECT * FROM ContingenciaColateral WHERE @CIId = @Id", CI).ToList<ContingenciaColateral>();
+                return cnn.Query<ContingenciaColateral>("SELECT * FROM ContingenciaColateral WHERE CIId = @Id", CI).ToList<ContingenciaColateral>();
             }
         }
 

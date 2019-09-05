@@ -24,7 +24,7 @@ namespace Pactolo.scr.services {
 
         public static string GetFullPath(string nomePasta, string nomeArquivo = "") {
             string caminhoPasta = Ambiente.GetDiretorioPastas() + "\\" + nomePasta;
-            if (nomeArquivo == "") {
+            if (string.IsNullOrEmpty(nomeArquivo)) {
                 return caminhoPasta;
             }
             return caminhoPasta + "\\" + nomeArquivo;

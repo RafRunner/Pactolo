@@ -64,6 +64,18 @@ namespace Pactolo {
             }
         }
 
+        private static void RemoverDeComboBox<T>(ComboBox combox, long id) where T : ElementoDeBanco {
+            object[] itens = new object[combox.Items.Count];
+            combox.Items.CopyTo(itens, 0);
+
+            foreach (T item in itens) {
+                if (item.Id == id) {
+                    combox.Items.Remove(item);
+                    break;
+                }
+            }
+        }
+
         private void CheckBoxTentativasAgrp_CheckedChanged(object sender, EventArgs e) {
             if (checkBoxTentativasAgrp.Checked) {
                 checkBoxTentativasRand.Checked = false;
@@ -231,9 +243,9 @@ namespace Pactolo {
                 return;
             }
 
+            RemoverDeComboBox<ContingenciaInstrucional>(comboBoxCI, CI.Id);
             ContingenciaInstrucionalService.Deletar(CI);
             listViewCI.Items.Remove(listViewCI.SelectedItems[0]);
-            comboBoxCI.Items.Remove(CI);
         }
 
         private ContingenciaColateral CriaCCPelosCampos() {
@@ -359,9 +371,9 @@ namespace Pactolo {
                 return;
             }
 
+            RemoverDeComboBox<ContingenciaColateral>(comboBoxCC, CC.Id);
             ContingenciaColateralService.Deletar(CC);
             listViewCC.Items.Remove(listViewCC.SelectedItems[0]);
-            comboBoxCC.Items.Remove(CC);
         }
 
         private void ButtonCarregarModelo_Click(object sender, EventArgs e) {

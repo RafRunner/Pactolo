@@ -34,20 +34,24 @@ namespace Pactolo.scr.services {
 
         public static void Deletar(UnidadeDoExperimento unidadeDoExperimeto) {
             Feedback feedback = FeedbackService.GetById(unidadeDoExperimeto.FeedbackId);
-            string caiminhoImagem = ImagemService.GetFullPath(unidadeDoExperimeto.NomeImagem);
-            string caiminhoAudio = AudioService.GetFullPath(unidadeDoExperimeto.NomeAudio);
             FeedbackService.Deletar(feedback);
             AbstractService.Deletar(unidadeDoExperimeto, "UnidadeDoExperimento");
+
+            string caiminhoImagem = ImagemService.GetFullPath(unidadeDoExperimeto.NomeImagem);
             using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                IEnumerable<string> data = cnn.Query<string>($"SELECT NomeImagem FROM UnidadeDoExperimento WHERE NomeImagem = {unidadeDoExperimeto.NomeImagem}");
+                IEnumerable<string> data = cnn.Query<string>("SELECT NomeImagem FROM UnidadeDoExperimento WHERE NomeImagem = @NomeImagem", unidadeDoExperimeto);
                 if (data.ToList<string>().Count == 0) {
                     File.Delete(caiminhoImagem);
                 }
             }
-            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                IEnumerable<string> data = cnn.Query<string>($"SELECT NomeAudio FROM UnidadeDoExperimento WHERE NomeAudio = {unidadeDoExperimeto.NomeAudio}");
-                if (data.ToList<string>().Count == 0) {
-                    File.Delete(caiminhoAudio);
+
+            if (!string.IsNullOrEmpty(unidadeDoExperimeto.NomeAudio)) {
+                string caiminhoAudio = AudioService.GetFullPath(unidadeDoExperimeto.NomeAudio);
+                using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
+                    IEnumerable<string> data = cnn.Query<string>("SELECT NomeImagem FROM UnidadeDoExperimento WHERE NomeAudio = @NomeAudio", unidadeDoExperimeto);
+                    if (data.ToList<string>().Count == 0) {
+                        File.Delete(caiminhoAudio);
+                    }
                 }
             }
         }

@@ -54,8 +54,8 @@ namespace Pactolo.scr.services {
 
         public static void Deletar(ContingenciaColateral CC) {
             CCPorSessaoService.DeletarAllByCCId(CC.Id);
-            UnidadeDoExperimentoService.DeletarAll(new List<UnidadeDoExperimento>() { CC.sModelo, CC.SC1, CC.SC2, CC.SC3 });
             AbstractService.Deletar(CC, "ContingenciaColateral");
+            UnidadeDoExperimentoService.DeletarAll(new List<UnidadeDoExperimento>() { CC.sModelo, CC.SC1, CC.SC2, CC.SC3 });
         }
     }
 }

@@ -51,5 +51,11 @@ namespace Pactolo.scr.services {
                 cnn.Execute($"DELETE FROM CCPorSessao WHERE CCId = {id}");
             }
         }
+
+        public static void DeletarCCDaSessao(long CCid, long sessaoId) {
+            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
+                cnn.Execute($"DELETE FROM CCPorSessao WHERE CCId = {CCid} AND SessaoId = {sessaoId}");
+            }
+        }
     }
 }

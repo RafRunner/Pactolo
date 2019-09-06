@@ -368,12 +368,17 @@ namespace Pactolo {
         }
 
         private void ButtonApagarCC_Click(object sender, EventArgs e) {
+            DialogResult result = MessageBox.Show("Ao deletar essa CC ela será deletada também das sessoes, deseja continuar?", "Confirmação necessária", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.No) {
+                return;
+            }
             ContingenciaColateral CC = GetCCSelecionada();
             if (CC == null) {
                 return;
             }
 
             RemoverDeComboBox<ContingenciaColateral>(comboBoxCC, CC.Id);
+            CCPorSessaoService.DeletarAllByCCId(CC.Id);
             ContingenciaColateralService.Deletar(CC);
             listViewCC.Items.Remove(listViewCC.SelectedItems[0]);
         }

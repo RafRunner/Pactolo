@@ -1,4 +1,5 @@
 ﻿using Pactolo.scr.dominio;
+using System;
 using System.Collections.Generic;
 
 namespace Pactolo.scr.services {
@@ -40,6 +41,9 @@ namespace Pactolo.scr.services {
         }
 
         public static void Salvar(Sessao sessao) {
+            if(sessao.NumeroTentativas == 0 && sessao.NumeroPontos == 0 && sessao.AcertosConcecutivos == 0) {
+                throw new Exception("Uma sessão não pode ser criada sem possuir ao menos um critério de encerramento.");
+            }
             AbstractService.Salvar(sessao,
                 "Sessao",
                 "INSERT INTO Sessao (Nome, OrdemAleatoria, CriterioNumeroTentativas, CriterioDuracaoSegundos, CriterioAcertosConcecutivos, IdInstrucao) VALUES (@Nome, @OrdemAleatoria, @CriterioNumeroTentativas, @CriterioDuracaoSegundos, @CriterioAcertosConcecutivos, @IdInstrucao); SELECT CAST(last_insert_rowid() as int)",

@@ -61,8 +61,8 @@ namespace Pactolo {
             if (this.Width > width) {
                 this.Width = width;
             }
-            if (this.Height + 50 > height) {
-                this.Height = height - 50;
+            if (this.Height + 70 > height) {
+                this.Height = height - 70;
             }
         }
 

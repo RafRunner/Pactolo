@@ -609,7 +609,6 @@ namespace Pactolo {
             this.textBoxTato2CI.ReadOnly = true;
             this.textBoxTato2CI.Size = new System.Drawing.Size(369, 29);
             this.textBoxTato2CI.TabIndex = 15;
-            this.textBoxTato2CI.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label15
             // 
@@ -644,7 +643,6 @@ namespace Pactolo {
             this.textBoxAutocliticoCI.ReadOnly = true;
             this.textBoxAutocliticoCI.Size = new System.Drawing.Size(369, 29);
             this.textBoxAutocliticoCI.TabIndex = 12;
-            this.textBoxAutocliticoCI.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label13
             // 
@@ -669,7 +667,6 @@ namespace Pactolo {
             this.textBoxTato1CI.ReadOnly = true;
             this.textBoxTato1CI.Size = new System.Drawing.Size(370, 29);
             this.textBoxTato1CI.TabIndex = 10;
-            this.textBoxTato1CI.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textBoxNomeCI
             // 

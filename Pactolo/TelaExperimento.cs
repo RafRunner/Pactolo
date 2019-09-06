@@ -143,6 +143,11 @@ namespace Pactolo {
                 CCs = CCs.OrderBy(it => Guid.NewGuid()).ToList();
             }
 
+            if (sessao.Instrucao != null) {
+                TelaInstrucao telaInstrucao = new TelaInstrucao(sessao.Instrucao.Texto);
+                telaInstrucao.ShowDialog();
+            }
+
             foreach (ContingenciaColateral CC in CCs) {
                 ContingenciaInstrucional CI = CC.CI;
                 if (CI != null) {
@@ -208,6 +213,9 @@ namespace Pactolo {
 
             EmbaralhaSCs();
             await taskCC.Task;
+
+            sessaoAtual.NumeroPontos = 0;
+            sessaoAtual.NumeroTentativas = 0;
         }
 
         private async Task ApresentarCI(ContingenciaColateral CC) {

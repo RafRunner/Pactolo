@@ -16,6 +16,12 @@ namespace Pactolo.scr.dominio {
         }
 
         public List<ContingenciaColateral> CCs { get; set; }
+        public long IdInstrucao { get; set; }
+        private Instrucao instrucao;
+        public Instrucao Instrucao {
+            get => instrucao;
+            set { instrucao = value; IdInstrucao = GetId(value); }
+        }
         public bool OrdemAleatoria { get; set; }
 
         public int CriterioNumeroTentativas { get; set; }

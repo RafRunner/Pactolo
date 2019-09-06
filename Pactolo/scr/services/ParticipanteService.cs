@@ -64,11 +64,11 @@ namespace Pactolo.scr.services {
 
         public static List<object> FilterDataTable(DTOFiltro dtoFiltro) {
             List<Participante> experimentadores = dtoFiltro.Itens.Cast<Participante>().ToList();
-            string textoDeBusca = dtoFiltro.TextoDeBusca;
+            string textoDeBusca = dtoFiltro.TextoDeBusca.ToLower();
 
             return experimentadores.FindAll(experimentador => {
-                if (experimentador.Nome.Contains(textoDeBusca) ||
-                experimentador.Email.Contains(textoDeBusca)) {
+                if (experimentador.Nome.ToLower().Contains(textoDeBusca) ||
+                experimentador.Email.ToLower().Contains(textoDeBusca)) {
                     return true;
                 }
                 return false;

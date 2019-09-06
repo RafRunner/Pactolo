@@ -28,6 +28,7 @@ namespace Pactolo.scr.services {
 
         public static void ObterObjetosFilhos(Sessao sessao) {
             sessao.CCs = CCPorSessaoService.GetAllCCBySessaoId(sessao.Id);
+            sessao.Instrucao = InstrucaoService.GetById(sessao.IdInstrucao);
         }
 
         public static List<Sessao> GetAll() {
@@ -41,8 +42,8 @@ namespace Pactolo.scr.services {
         public static void Salvar(Sessao sessao) {
             AbstractService.Salvar(sessao,
                 "Sessao",
-                "INSERT INTO Sessao (Nome, OrdemAleatoria, CriterioNumeroTentativas, CriterioDuracaoSegundos, CriterioAcertosConcecutivos) VALUES (@Nome, @OrdemAleatoria, @CriterioNumeroTentativas, @CriterioDuracaoSegundos, @CriterioAcertosConcecutivos); SELECT CAST(last_insert_rowid() as int)",
-                "UPDATE Sessao SET Nome = @Nome, OrdemAleatoria = @OrdemAleatoria, CriterioNumeroTentativas = @CriterioNumeroTentativas, CriterioDuracaoSegundos = @CriterioDuracaoSegundos, CriterioAcertosConcecutivos = @CriterioAcertosConcecutivos WHERE Id = @Id");
+                "INSERT INTO Sessao (Nome, OrdemAleatoria, CriterioNumeroTentativas, CriterioDuracaoSegundos, CriterioAcertosConcecutivos, IdInstrucao) VALUES (@Nome, @OrdemAleatoria, @CriterioNumeroTentativas, @CriterioDuracaoSegundos, @CriterioAcertosConcecutivos, @IdInstrucao); SELECT CAST(last_insert_rowid() as int)",
+                "UPDATE Sessao SET Nome = @Nome, OrdemAleatoria = @OrdemAleatoria, CriterioNumeroTentativas = @CriterioNumeroTentativas, CriterioDuracaoSegundos = @CriterioDuracaoSegundos, CriterioAcertosConcecutivos = @CriterioAcertosConcecutivos IdInstrucao = @IdInstrucao WHERE Id = @Id");
             CCPorSessaoService.SalvarAll(sessao.Id, sessao.CCs);
         }
 

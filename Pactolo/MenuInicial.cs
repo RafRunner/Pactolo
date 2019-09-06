@@ -58,8 +58,10 @@ namespace Pactolo {
             Image pactolo = new Bitmap(Pactolo.Properties.Resources.Pactolo);
             picturePactolo.Image = ImageUtils.Resize(pactolo, picturePactolo.Width, picturePactolo.Height);
 
-            if (this.Width + 50 > width || this.Height + 50 > height) {
-                this.Width = width - 50;
+            if (this.Width > width) {
+                this.Width = width;
+            }
+            if (this.Height + 50 > height) {
                 this.Height = height - 50;
             }
         }
@@ -416,13 +418,22 @@ namespace Pactolo {
                 CCs.Add(ContingenciaColateralService.GetById(CCid));
             }
 
+            Instrucao instrucao = null;
+            if (!string.IsNullOrWhiteSpace(textInstrucao.Text)) {
+                instrucao = new Instrucao {
+                    Texto = textInstrucao.Text
+                };
+                InstrucaoService.Salvar(instrucao);
+            }
+
             Sessao sessao = new Sessao {
                 Nome = textBoxNomeSessao.Text,
                 CCs = CCs,
                 OrdemAleatoria = checkBoxTentativasRand.Checked,
                 CriterioAcertosConcecutivos = Convert.ToInt32(numericAcertosConsec.Value),
                 CriterioNumeroTentativas = Convert.ToInt32(numericNTentativas.Value),
-                CriterioDuracaoSegundos = Convert.ToInt32(numericDuracao.Value)
+                CriterioDuracaoSegundos = Convert.ToInt32(numericDuracao.Value),
+                Instrucao = instrucao
             };
             return sessao;
         }
@@ -447,6 +458,13 @@ namespace Pactolo {
             listViewCCSessao.Items.Add(itemCC);
         }
 
+        private void ButtonRemoverCC_Click(object sender, EventArgs e) {
+            if (listViewCCSessao.SelectedItems.Count == 0) {
+                return;
+            }
+            listViewCCSessao.Items.Remove(listViewCCSessao.SelectedItems[0]);
+        }
+
         private void ButtonSelecioarSessao_Click(object sender, EventArgs e) {
             long id = long.Parse(listViewSessoes.SelectedItems[0].SubItems[1].Text);
             Sessao sessao = SessaoService.GetById(id);
@@ -457,6 +475,9 @@ namespace Pactolo {
             numericNTentativas.Value = sessao.CriterioNumeroTentativas;
             checkBoxTentativasAgrp.Checked = !sessao.OrdemAleatoria;
             checkBoxTentativasRand.Checked = sessao.OrdemAleatoria;
+            if (sessao.Instrucao != null) {
+                textInstrucao.Text = sessao.Instrucao.Texto;
+            }
 
             listViewCCSessao.Items.Clear();
             foreach (ContingenciaColateral CC in sessao.CCs) {
@@ -493,7 +514,7 @@ namespace Pactolo {
         }
 
         private void ButtonIniciar_Click(object sender, EventArgs e) {
-            if (listViewsessoesExecutadas.Items.Count == 0 ) {
+            if (listViewsessoesExecutadas.Items.Count == 0) {
                 MessageBox.Show("Por favor, selecione pelo menos uma Sessão para executar!", "Advertência");
                 return;
             }
@@ -507,6 +528,25 @@ namespace Pactolo {
 
             TelaExperimento telaExperimento = new TelaExperimento(sessoes, experimentador, participante);
             telaExperimento.ShowDialog();
+        }
+
+        private void CarregarInstrucao(long id) {
+            Instrucao instrucao = InstrucaoService.GetById(id);
+            textInstrucao.Text = instrucao.Texto;
+        }
+
+        private void ButtonGerenciarInstrucoes_Click(object sender, EventArgs e) {
+            new GridCrud(
+              InstrucaoService.GetAll,
+              Instrucao.GetOrdemCulunasGrid(),
+              InstrucaoService.FilterDataTable,
+              null,
+              InstrucaoService.DeletarPorId,
+              CarregarInstrucao);
+        }
+
+        private void ButtonMaisSobreSoftware_Click(object sender, EventArgs e) {
+            MessageBox.Show("Desenvolvido por:\nRafal Nunes Santana e Emanuel Borges Passinato", "Informações");
         }
     }
 }

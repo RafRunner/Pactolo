@@ -116,8 +116,13 @@ namespace Pactolo {
             this.textBoxNomeCC = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.buttonGerenciarInstrucoes = new System.Windows.Forms.Button();
+            this.label39 = new System.Windows.Forms.Label();
+            this.textInstrucao = new System.Windows.Forms.RichTextBox();
+            this.buttonRemoverCC = new System.Windows.Forms.Button();
             this.label35 = new System.Windows.Forms.Label();
             this.buttonExcluirSessao = new System.Windows.Forms.Button();
+            this.buttonSelecioarSessao = new System.Windows.Forms.Button();
             this.buttonCadastrarSessao = new System.Windows.Forms.Button();
             this.textBoxNomeSessao = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
@@ -136,16 +141,19 @@ namespace Pactolo {
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
             this.buttonRemoverSessao = new System.Windows.Forms.Button();
             this.buttonAdicionarSessao = new System.Windows.Forms.Button();
-            this.buttonSelecioarSessao = new System.Windows.Forms.Button();
             this.buttonIniciar = new System.Windows.Forms.Button();
             this.listViewsessoesExecutadas = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listViewSessoes = new System.Windows.Forms.ListView();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.picturePactolo = new System.Windows.Forms.PictureBox();
             this.label34 = new System.Windows.Forms.Label();
+            this.picturePactolo = new System.Windows.Forms.PictureBox();
+            this.buttonMaisSobreSoftware = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericIdade)).BeginInit();
@@ -163,6 +171,7 @@ namespace Pactolo {
             ((System.ComponentModel.ISupportInitialize)(this.numericAcertosConsec)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picturePactolo)).BeginInit();
+            this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxNomeExperimentador
@@ -745,13 +754,13 @@ namespace Pactolo {
             this.panel4.Location = new System.Drawing.Point(14, 580);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(5);
-            this.panel4.Size = new System.Drawing.Size(1607, 246);
+            this.panel4.Size = new System.Drawing.Size(1549, 246);
             this.panel4.TabIndex = 15;
             // 
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(1235, 82);
+            this.label36.Location = new System.Drawing.Point(1222, 82);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(43, 16);
             this.label36.TabIndex = 66;
@@ -792,7 +801,7 @@ namespace Pactolo {
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(1143, 82);
+            this.label26.Location = new System.Drawing.Point(1131, 82);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(84, 16);
             this.label26.TabIndex = 62;
@@ -803,7 +812,7 @@ namespace Pactolo {
             this.numericProbabilidadeSC3.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericProbabilidadeSC3.Location = new System.Drawing.Point(1146, 195);
             this.numericProbabilidadeSC3.Name = "numericProbabilidadeSC3";
-            this.numericProbabilidadeSC3.Size = new System.Drawing.Size(81, 29);
+            this.numericProbabilidadeSC3.Size = new System.Drawing.Size(58, 29);
             this.numericProbabilidadeSC3.TabIndex = 60;
             this.numericProbabilidadeSC3.UseWaitCursor = true;
             this.numericProbabilidadeSC3.Value = new decimal(new int[] {
@@ -817,7 +826,7 @@ namespace Pactolo {
             this.numericProbabilidadeSC2.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericProbabilidadeSC2.Location = new System.Drawing.Point(1146, 146);
             this.numericProbabilidadeSC2.Name = "numericProbabilidadeSC2";
-            this.numericProbabilidadeSC2.Size = new System.Drawing.Size(81, 29);
+            this.numericProbabilidadeSC2.Size = new System.Drawing.Size(58, 29);
             this.numericProbabilidadeSC2.TabIndex = 59;
             this.numericProbabilidadeSC2.UseWaitCursor = true;
             this.numericProbabilidadeSC2.Value = new decimal(new int[] {
@@ -831,7 +840,7 @@ namespace Pactolo {
             this.numericProbabilidadeSC1.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericProbabilidadeSC1.Location = new System.Drawing.Point(1146, 102);
             this.numericProbabilidadeSC1.Name = "numericProbabilidadeSC1";
-            this.numericProbabilidadeSC1.Size = new System.Drawing.Size(81, 29);
+            this.numericProbabilidadeSC1.Size = new System.Drawing.Size(58, 29);
             this.numericProbabilidadeSC1.TabIndex = 58;
             this.numericProbabilidadeSC1.UseWaitCursor = true;
             this.numericProbabilidadeSC1.Value = new decimal(new int[] {
@@ -877,7 +886,7 @@ namespace Pactolo {
             // 
             this.buttonCarregarAudioSC3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCarregarAudioSC3.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCarregarAudioSC3.Location = new System.Drawing.Point(1468, 192);
+            this.buttonCarregarAudioSC3.Location = new System.Drawing.Point(1422, 196);
             this.buttonCarregarAudioSC3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonCarregarAudioSC3.Name = "buttonCarregarAudioSC3";
             this.buttonCarregarAudioSC3.Size = new System.Drawing.Size(108, 30);
@@ -890,7 +899,7 @@ namespace Pactolo {
             // 
             this.buttonCarregarAudioSC2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCarregarAudioSC2.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCarregarAudioSC2.Location = new System.Drawing.Point(1468, 146);
+            this.buttonCarregarAudioSC2.Location = new System.Drawing.Point(1422, 146);
             this.buttonCarregarAudioSC2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonCarregarAudioSC2.Name = "buttonCarregarAudioSC2";
             this.buttonCarregarAudioSC2.Size = new System.Drawing.Size(108, 30);
@@ -903,7 +912,7 @@ namespace Pactolo {
             // 
             this.buttonCarregarAudioSC1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCarregarAudioSC1.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCarregarAudioSC1.Location = new System.Drawing.Point(1468, 99);
+            this.buttonCarregarAudioSC1.Location = new System.Drawing.Point(1422, 99);
             this.buttonCarregarAudioSC1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonCarregarAudioSC1.Name = "buttonCarregarAudioSC1";
             this.buttonCarregarAudioSC1.Size = new System.Drawing.Size(108, 30);
@@ -916,36 +925,36 @@ namespace Pactolo {
             // 
             this.textBoxAudioSC3.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAudioSC3.HideSelection = false;
-            this.textBoxAudioSC3.Location = new System.Drawing.Point(1238, 195);
+            this.textBoxAudioSC3.Location = new System.Drawing.Point(1213, 196);
             this.textBoxAudioSC3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxAudioSC3.MaxLength = 100;
             this.textBoxAudioSC3.Name = "textBoxAudioSC3";
             this.textBoxAudioSC3.ReadOnly = true;
-            this.textBoxAudioSC3.Size = new System.Drawing.Size(224, 29);
+            this.textBoxAudioSC3.Size = new System.Drawing.Size(203, 29);
             this.textBoxAudioSC3.TabIndex = 51;
             // 
             // textBoxAudioSC2
             // 
             this.textBoxAudioSC2.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAudioSC2.HideSelection = false;
-            this.textBoxAudioSC2.Location = new System.Drawing.Point(1238, 145);
+            this.textBoxAudioSC2.Location = new System.Drawing.Point(1213, 146);
             this.textBoxAudioSC2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxAudioSC2.MaxLength = 100;
             this.textBoxAudioSC2.Name = "textBoxAudioSC2";
             this.textBoxAudioSC2.ReadOnly = true;
-            this.textBoxAudioSC2.Size = new System.Drawing.Size(224, 29);
+            this.textBoxAudioSC2.Size = new System.Drawing.Size(203, 29);
             this.textBoxAudioSC2.TabIndex = 50;
             // 
             // textBoxAudioSC1
             // 
             this.textBoxAudioSC1.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxAudioSC1.HideSelection = false;
-            this.textBoxAudioSC1.Location = new System.Drawing.Point(1238, 102);
+            this.textBoxAudioSC1.Location = new System.Drawing.Point(1213, 103);
             this.textBoxAudioSC1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxAudioSC1.MaxLength = 100;
             this.textBoxAudioSC1.Name = "textBoxAudioSC1";
             this.textBoxAudioSC1.ReadOnly = true;
-            this.textBoxAudioSC1.Size = new System.Drawing.Size(224, 29);
+            this.textBoxAudioSC1.Size = new System.Drawing.Size(203, 29);
             this.textBoxAudioSC1.TabIndex = 49;
             // 
             // label24
@@ -1238,7 +1247,7 @@ namespace Pactolo {
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(207, 30);
+            this.label19.Location = new System.Drawing.Point(217, 29);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(21, 16);
             this.label19.TabIndex = 27;
@@ -1249,9 +1258,9 @@ namespace Pactolo {
             this.comboBoxCI.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.comboBoxCI.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxCI.FormattingEnabled = true;
-            this.comboBoxCI.Location = new System.Drawing.Point(197, 48);
+            this.comboBoxCI.Location = new System.Drawing.Point(210, 48);
             this.comboBoxCI.Name = "comboBoxCI";
-            this.comboBoxCI.Size = new System.Drawing.Size(299, 29);
+            this.comboBoxCI.Size = new System.Drawing.Size(257, 29);
             this.comboBoxCI.TabIndex = 16;
             // 
             // label18
@@ -1288,8 +1297,12 @@ namespace Pactolo {
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.buttonGerenciarInstrucoes);
+            this.panel5.Controls.Add(this.label39);
+            this.panel5.Controls.Add(this.textInstrucao);
+            this.panel5.Controls.Add(this.buttonRemoverCC);
             this.panel5.Controls.Add(this.label35);
-            this.panel5.Controls.Add(this.buttonExcluirSessao);
+            this.panel5.Controls.Add(this.buttonSelecioarSessao);
             this.panel5.Controls.Add(this.buttonCadastrarSessao);
             this.panel5.Controls.Add(this.textBoxNomeSessao);
             this.panel5.Controls.Add(this.label33);
@@ -1309,8 +1322,52 @@ namespace Pactolo {
             this.panel5.Location = new System.Drawing.Point(972, 12);
             this.panel5.Name = "panel5";
             this.panel5.Padding = new System.Windows.Forms.Padding(5);
-            this.panel5.Size = new System.Drawing.Size(317, 561);
+            this.panel5.Size = new System.Drawing.Size(591, 561);
             this.panel5.TabIndex = 16;
+            // 
+            // buttonGerenciarInstrucoes
+            // 
+            this.buttonGerenciarInstrucoes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonGerenciarInstrucoes.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGerenciarInstrucoes.Location = new System.Drawing.Point(318, 510);
+            this.buttonGerenciarInstrucoes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonGerenciarInstrucoes.Name = "buttonGerenciarInstrucoes";
+            this.buttonGerenciarInstrucoes.Size = new System.Drawing.Size(263, 36);
+            this.buttonGerenciarInstrucoes.TabIndex = 84;
+            this.buttonGerenciarInstrucoes.Text = "Gerenciar/Carregar Instrução";
+            this.buttonGerenciarInstrucoes.UseVisualStyleBackColor = true;
+            this.buttonGerenciarInstrucoes.Click += new System.EventHandler(this.ButtonGerenciarInstrucoes_Click);
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label39.Location = new System.Drawing.Point(314, 283);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(64, 19);
+            this.label39.TabIndex = 81;
+            this.label39.Text = "Intrução:";
+            // 
+            // textInstrucao
+            // 
+            this.textInstrucao.Location = new System.Drawing.Point(318, 304);
+            this.textInstrucao.Name = "textInstrucao";
+            this.textInstrucao.Size = new System.Drawing.Size(263, 199);
+            this.textInstrucao.TabIndex = 83;
+            this.textInstrucao.Text = "";
+            // 
+            // buttonRemoverCC
+            // 
+            this.buttonRemoverCC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoverCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRemoverCC.Location = new System.Drawing.Point(445, 233);
+            this.buttonRemoverCC.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonRemoverCC.Name = "buttonRemoverCC";
+            this.buttonRemoverCC.Size = new System.Drawing.Size(136, 36);
+            this.buttonRemoverCC.TabIndex = 82;
+            this.buttonRemoverCC.Text = "Remover CC";
+            this.buttonRemoverCC.UseVisualStyleBackColor = true;
+            this.buttonRemoverCC.Click += new System.EventHandler(this.ButtonRemoverCC_Click);
             // 
             // label35
             // 
@@ -1326,7 +1383,7 @@ namespace Pactolo {
             // 
             this.buttonExcluirSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonExcluirSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExcluirSessao.Location = new System.Drawing.Point(8, 510);
+            this.buttonExcluirSessao.Location = new System.Drawing.Point(111, 228);
             this.buttonExcluirSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonExcluirSessao.Name = "buttonExcluirSessao";
             this.buttonExcluirSessao.Size = new System.Drawing.Size(96, 36);
@@ -1335,11 +1392,24 @@ namespace Pactolo {
             this.buttonExcluirSessao.UseVisualStyleBackColor = true;
             this.buttonExcluirSessao.Click += new System.EventHandler(this.ButtonExcluirSessao_Click);
             // 
+            // buttonSelecioarSessao
+            // 
+            this.buttonSelecioarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSelecioarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSelecioarSessao.Location = new System.Drawing.Point(205, 510);
+            this.buttonSelecioarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonSelecioarSessao.Name = "buttonSelecioarSessao";
+            this.buttonSelecioarSessao.Size = new System.Drawing.Size(100, 36);
+            this.buttonSelecioarSessao.TabIndex = 75;
+            this.buttonSelecioarSessao.Text = "Selecionar";
+            this.buttonSelecioarSessao.UseVisualStyleBackColor = true;
+            this.buttonSelecioarSessao.Click += new System.EventHandler(this.ButtonSelecioarSessao_Click);
+            // 
             // buttonCadastrarSessao
             // 
             this.buttonCadastrarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCadastrarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCadastrarSessao.Location = new System.Drawing.Point(206, 510);
+            this.buttonCadastrarSessao.Location = new System.Drawing.Point(3, 510);
             this.buttonCadastrarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonCadastrarSessao.Name = "buttonCadastrarSessao";
             this.buttonCadastrarSessao.Size = new System.Drawing.Size(101, 36);
@@ -1358,7 +1428,7 @@ namespace Pactolo {
             this.textBoxNomeSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxNomeSessao.MaxLength = 100;
             this.textBoxNomeSessao.Name = "textBoxNomeSessao";
-            this.textBoxNomeSessao.Size = new System.Drawing.Size(298, 29);
+            this.textBoxNomeSessao.Size = new System.Drawing.Size(572, 29);
             this.textBoxNomeSessao.TabIndex = 16;
             // 
             // label33
@@ -1463,12 +1533,12 @@ namespace Pactolo {
             // 
             this.buttonAddCC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAddCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAddCC.Location = new System.Drawing.Point(206, 233);
+            this.buttonAddCC.Location = new System.Drawing.Point(311, 233);
             this.buttonAddCC.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonAddCC.Name = "buttonAddCC";
-            this.buttonAddCC.Size = new System.Drawing.Size(101, 36);
+            this.buttonAddCC.Size = new System.Drawing.Size(128, 36);
             this.buttonAddCC.TabIndex = 16;
-            this.buttonAddCC.Text = "Add CC";
+            this.buttonAddCC.Text = "Adicionar CC";
             this.buttonAddCC.UseVisualStyleBackColor = true;
             this.buttonAddCC.Click += new System.EventHandler(this.ButtonAddCC_Click);
             // 
@@ -1477,9 +1547,9 @@ namespace Pactolo {
             this.comboBoxCC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.comboBoxCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxCC.FormattingEnabled = true;
-            this.comboBoxCC.Location = new System.Drawing.Point(7, 238);
+            this.comboBoxCC.Location = new System.Drawing.Point(8, 238);
             this.comboBoxCC.Name = "comboBoxCC";
-            this.comboBoxCC.Size = new System.Drawing.Size(193, 29);
+            this.comboBoxCC.Size = new System.Drawing.Size(297, 29);
             this.comboBoxCC.TabIndex = 66;
             // 
             // listViewCCSessao
@@ -1492,7 +1562,7 @@ namespace Pactolo {
             this.listViewCCSessao.Location = new System.Drawing.Point(8, 89);
             this.listViewCCSessao.MultiSelect = false;
             this.listViewCCSessao.Name = "listViewCCSessao";
-            this.listViewCCSessao.Size = new System.Drawing.Size(299, 137);
+            this.listViewCCSessao.Size = new System.Drawing.Size(573, 137);
             this.listViewCCSessao.TabIndex = 27;
             this.listViewCCSessao.UseCompatibleStateImageBehavior = false;
             this.listViewCCSessao.View = System.Windows.Forms.View.Details;
@@ -1524,28 +1594,49 @@ namespace Pactolo {
             // panel6
             // 
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.label38);
+            this.panel6.Controls.Add(this.label37);
             this.panel6.Controls.Add(this.buttonRemoverSessao);
             this.panel6.Controls.Add(this.buttonAdicionarSessao);
-            this.panel6.Controls.Add(this.buttonSelecioarSessao);
             this.panel6.Controls.Add(this.buttonIniciar);
+            this.panel6.Controls.Add(this.buttonExcluirSessao);
             this.panel6.Controls.Add(this.listViewsessoesExecutadas);
             this.panel6.Controls.Add(this.listViewSessoes);
-            this.panel6.Controls.Add(this.picturePactolo);
             this.panel6.Controls.Add(this.label34);
-            this.panel6.Location = new System.Drawing.Point(1304, 11);
+            this.panel6.Location = new System.Drawing.Point(1575, 286);
             this.panel6.Name = "panel6";
             this.panel6.Padding = new System.Windows.Forms.Padding(5);
-            this.panel6.Size = new System.Drawing.Size(317, 562);
+            this.panel6.Size = new System.Drawing.Size(317, 541);
             this.panel6.TabIndex = 17;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label38.Location = new System.Drawing.Point(8, 268);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(156, 16);
+            this.label38.TabIndex = 80;
+            this.label38.Text = "Sessões a serem executadas:";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Microsoft YaHei", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(8, 33);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(106, 16);
+            this.label37.TabIndex = 67;
+            this.label37.Text = "Sessões existentes:";
             // 
             // buttonRemoverSessao
             // 
             this.buttonRemoverSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRemoverSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRemoverSessao.Location = new System.Drawing.Point(114, 345);
+            this.buttonRemoverSessao.Location = new System.Drawing.Point(213, 228);
             this.buttonRemoverSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonRemoverSessao.Name = "buttonRemoverSessao";
-            this.buttonRemoverSessao.Size = new System.Drawing.Size(85, 36);
+            this.buttonRemoverSessao.Size = new System.Drawing.Size(95, 36);
             this.buttonRemoverSessao.TabIndex = 79;
             this.buttonRemoverSessao.Text = "Remover";
             this.buttonRemoverSessao.UseVisualStyleBackColor = true;
@@ -1555,33 +1646,20 @@ namespace Pactolo {
             // 
             this.buttonAdicionarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAdicionarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAdicionarSessao.Location = new System.Drawing.Point(205, 345);
+            this.buttonAdicionarSessao.Location = new System.Drawing.Point(9, 228);
             this.buttonAdicionarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonAdicionarSessao.Name = "buttonAdicionarSessao";
-            this.buttonAdicionarSessao.Size = new System.Drawing.Size(102, 36);
+            this.buttonAdicionarSessao.Size = new System.Drawing.Size(96, 36);
             this.buttonAdicionarSessao.TabIndex = 79;
             this.buttonAdicionarSessao.Text = "Adicionar";
             this.buttonAdicionarSessao.UseVisualStyleBackColor = true;
             this.buttonAdicionarSessao.Click += new System.EventHandler(this.ButtonAdicionarSessao_Click);
             // 
-            // buttonSelecioarSessao
-            // 
-            this.buttonSelecioarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelecioarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSelecioarSessao.Location = new System.Drawing.Point(9, 345);
-            this.buttonSelecioarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonSelecioarSessao.Name = "buttonSelecioarSessao";
-            this.buttonSelecioarSessao.Size = new System.Drawing.Size(99, 36);
-            this.buttonSelecioarSessao.TabIndex = 75;
-            this.buttonSelecioarSessao.Text = "Selecionar";
-            this.buttonSelecioarSessao.UseVisualStyleBackColor = true;
-            this.buttonSelecioarSessao.Click += new System.EventHandler(this.ButtonSelecioarSessao_Click);
-            // 
             // buttonIniciar
             // 
             this.buttonIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonIniciar.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonIniciar.Location = new System.Drawing.Point(9, 517);
+            this.buttonIniciar.Location = new System.Drawing.Point(9, 489);
             this.buttonIniciar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonIniciar.Name = "buttonIniciar";
             this.buttonIniciar.Size = new System.Drawing.Size(298, 36);
@@ -1597,10 +1675,10 @@ namespace Pactolo {
             this.listViewsessoesExecutadas.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewsessoesExecutadas.HideSelection = false;
             this.listViewsessoesExecutadas.LabelWrap = false;
-            this.listViewsessoesExecutadas.Location = new System.Drawing.Point(8, 391);
+            this.listViewsessoesExecutadas.Location = new System.Drawing.Point(9, 284);
             this.listViewsessoesExecutadas.MultiSelect = false;
             this.listViewsessoesExecutadas.Name = "listViewsessoesExecutadas";
-            this.listViewsessoesExecutadas.Size = new System.Drawing.Size(299, 119);
+            this.listViewsessoesExecutadas.Size = new System.Drawing.Size(299, 198);
             this.listViewsessoesExecutadas.TabIndex = 77;
             this.listViewsessoesExecutadas.UseCompatibleStateImageBehavior = false;
             this.listViewsessoesExecutadas.View = System.Windows.Forms.View.Details;
@@ -1617,10 +1695,10 @@ namespace Pactolo {
             this.listViewSessoes.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewSessoes.HideSelection = false;
             this.listViewSessoes.LabelWrap = false;
-            this.listViewSessoes.Location = new System.Drawing.Point(8, 217);
+            this.listViewSessoes.Location = new System.Drawing.Point(8, 50);
             this.listViewSessoes.MultiSelect = false;
             this.listViewSessoes.Name = "listViewSessoes";
-            this.listViewSessoes.Size = new System.Drawing.Size(299, 119);
+            this.listViewSessoes.Size = new System.Drawing.Size(299, 171);
             this.listViewSessoes.TabIndex = 75;
             this.listViewSessoes.UseCompatibleStateImageBehavior = false;
             this.listViewSessoes.View = System.Windows.Forms.View.Details;
@@ -1630,30 +1708,54 @@ namespace Pactolo {
             this.columnHeader4.Text = "Nome:";
             this.columnHeader4.Width = 350;
             // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(63, 9);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(199, 21);
+            this.label34.TabIndex = 75;
+            this.label34.Text = "Características da Sessão";
+            // 
             // picturePactolo
             // 
-            this.picturePactolo.Location = new System.Drawing.Point(9, 7);
+            this.picturePactolo.Location = new System.Drawing.Point(8, 6);
             this.picturePactolo.Name = "picturePactolo";
             this.picturePactolo.Size = new System.Drawing.Size(298, 174);
             this.picturePactolo.TabIndex = 76;
             this.picturePactolo.TabStop = false;
             // 
-            // label34
+            // buttonMaisSobreSoftware
             // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(63, 191);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(199, 21);
-            this.label34.TabIndex = 75;
-            this.label34.Text = "Características da Sessão";
+            this.buttonMaisSobreSoftware.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonMaisSobreSoftware.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonMaisSobreSoftware.Location = new System.Drawing.Point(8, 201);
+            this.buttonMaisSobreSoftware.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonMaisSobreSoftware.Name = "buttonMaisSobreSoftware";
+            this.buttonMaisSobreSoftware.Size = new System.Drawing.Size(298, 36);
+            this.buttonMaisSobreSoftware.TabIndex = 81;
+            this.buttonMaisSobreSoftware.Text = "Mais Sobre este Software";
+            this.buttonMaisSobreSoftware.UseVisualStyleBackColor = true;
+            this.buttonMaisSobreSoftware.Click += new System.EventHandler(this.ButtonMaisSobreSoftware_Click);
+            // 
+            // panel7
+            // 
+            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel7.Controls.Add(this.buttonMaisSobreSoftware);
+            this.panel7.Controls.Add(this.picturePactolo);
+            this.panel7.Location = new System.Drawing.Point(1575, 12);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(317, 258);
+            this.panel7.TabIndex = 18;
             // 
             // MenuInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1284, 838);
+            this.ClientSize = new System.Drawing.Size(1904, 838);
+            this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
@@ -1669,6 +1771,7 @@ namespace Pactolo {
             this.MaximizeBox = false;
             this.Name = "MenuInicial";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pactolo";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -1693,6 +1796,7 @@ namespace Pactolo {
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picturePactolo)).EndInit();
+            this.panel7.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1820,6 +1924,14 @@ namespace Pactolo {
         private System.Windows.Forms.TextBox textBoxNomeSessao;
         private System.Windows.Forms.Button buttonRemoverSessao;
         private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Button buttonRemoverCC;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Button buttonMaisSobreSoftware;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.RichTextBox textInstrucao;
+        private System.Windows.Forms.Button buttonGerenciarInstrucoes;
     }
 }
 

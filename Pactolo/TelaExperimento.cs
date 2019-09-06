@@ -27,11 +27,14 @@ namespace Pactolo {
 
         private readonly RelatorioSessao relatorioSessao;
 
-        private readonly int imageHeight = 283;
-        private readonly int imageWidth = 333;
+        private readonly int imageHeight;
+        private readonly int imageWidth;
 
         private readonly int height = Screen.PrimaryScreen.Bounds.Height;
         private readonly int width = Screen.PrimaryScreen.Bounds.Width;
+
+        private readonly double heightRatio;
+        private readonly double widthRatio;
 
         private bool CIFinalizado = false;
         private bool SessoesFinalizadas = false;
@@ -49,11 +52,18 @@ namespace Pactolo {
             this.sessoesExecutadas = sessoesExecutadas;
 
             relatorioSessao = new RelatorioSessao(sessoesExecutadas.Select(it => it.Id).Cast<long>().ToList(), experimentador, participante);
+            heightRatio = height / 1080.0;
+            widthRatio = width / 1920.0;
+            imageHeight = Convert.ToInt32(283 * heightRatio);
+            imageWidth = Convert.ToInt32(333 * widthRatio);
         }
 
         private void TelaExperimento_Load(object sender, EventArgs e) {
             Location = new Point(0, 0);
             Size = new Size(width, height);
+            if (width != 1920 || height != 1080) {
+                ResizeComponents();
+            }
 
             panelCI.Visible = false;
             panelPontos.Visible = false;
@@ -66,6 +76,39 @@ namespace Pactolo {
             labelMensagemSC3.Visible = false;
 
             ApresentarSessoes();
+        }
+
+        private void CorrigeTamanhoEPosicao(Control controle) {
+            controle.Height = Convert.ToInt32(controle.Height * heightRatio);
+            controle.Width = Convert.ToInt32(controle.Width * widthRatio);
+            controle.Location = new Point {
+                X = Convert.ToInt32(controle.Location.X * widthRatio),
+                Y = Convert.ToInt32(controle.Location.Y * heightRatio)
+            };
+        }
+
+        private void CorrigeFonte(Label label) {
+            label.Font = new Font(label.Font.Name, Convert.ToInt32(label.Font.Size * heightRatio));
+        }
+
+        private void ResizeComponents() {
+            CorrigeTamanhoEPosicao(panelCI);
+            CorrigeTamanhoEPosicao(pictureTato1);
+            CorrigeTamanhoEPosicao(pictureAuto);
+            CorrigeTamanhoEPosicao(pictureTato2);
+            CorrigeTamanhoEPosicao(pictureSModelo);
+            CorrigeTamanhoEPosicao(pictureSC1);
+            CorrigeTamanhoEPosicao(pictureSC2);
+            CorrigeTamanhoEPosicao(pictureSC3);
+            CorrigeTamanhoEPosicao(panelPontos);
+            CorrigeTamanhoEPosicao(labelPontos);
+            CorrigeTamanhoEPosicao(labelMensagemSC1);
+            CorrigeTamanhoEPosicao(labelMensagemSC2);
+            CorrigeTamanhoEPosicao(labelMensagemSC3);
+            CorrigeFonte(labelPontos);
+            CorrigeFonte(labelMensagemSC1);
+            CorrigeFonte(labelMensagemSC2);
+            CorrigeFonte(labelMensagemSC3);
         }
 
         private void AtualizaPontos(int pontosGanhos) {
@@ -98,6 +141,11 @@ namespace Pactolo {
             List<ContingenciaColateral> CCs = sessao.CCs;
             if (sessao.OrdemAleatoria) {
                 CCs = CCs.OrderBy(it => Guid.NewGuid()).ToList();
+            }
+
+            if (sessao.Instrucao != null) {
+                TelaInstrucao telaInstrucao = new TelaInstrucao(sessao.Instrucao.Texto);
+                telaInstrucao.ShowDialog();
             }
 
             foreach (ContingenciaColateral CC in CCs) {
@@ -165,6 +213,9 @@ namespace Pactolo {
 
             EmbaralhaSCs();
             await taskCC.Task;
+
+            sessaoAtual.NumeroPontos = 0;
+            sessaoAtual.NumeroTentativas = 0;
         }
 
         private async Task ApresentarCI(ContingenciaColateral CC) {

@@ -46,23 +46,17 @@ namespace Pactolo {
             this.funcaoDeletar = funcaoDeletar;
             this.funcaoSelecionar = funcaoSelecionar;
 
+            if (funcaoEditar == null) {
+                buttonEditar.Visible = false;
+            }
+
             dataGrid.DataSource = tabelaCompleta;
             dataGrid.Columns[colunaOculta].Visible = false;
             for (int i = 0; i < ordemColunas.Count; i++) {
                 dataGrid.Columns[ordemColunas[i]].DisplayIndex = i;
+                dataGrid.Columns[ordemColunas[i]].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
             ShowDialog();
-        }
-
-        private void ButtonFiltrar_Click(object sender, EventArgs e) {
-            dataGrid.DataSource = funcaoFiltro.Invoke(new DTOFiltro {
-                Itens = tabelaCompleta,
-                TextoDeBusca = textBoxFiltro.Text
-            });
-        }
-
-        private void ButtonLimpar_Click(object sender, EventArgs e) {
-            dataGrid.DataSource = tabelaCompleta;
         }
 
         private bool VerifiqueQuantidadeColunasSelecionadasEAvise() {
@@ -106,6 +100,23 @@ namespace Pactolo {
             }
             funcaoSelecionar.Invoke(GetIdColunaSelecionada());
             Close();
+        }
+
+        private void TextBoxFiltro_TextChanged(object sender, EventArgs e) {
+            string textoDeBusca = textBoxFiltro.Text;
+            if (string.IsNullOrWhiteSpace(textoDeBusca)) {
+                dataGrid.DataSource = tabelaCompleta;
+                return;
+            }
+
+            if (textoDeBusca.Length < 3) {
+                return;
+            }
+
+            dataGrid.DataSource = funcaoFiltro.Invoke(new DTOFiltro {
+                Itens = tabelaCompleta,
+                TextoDeBusca = textoDeBusca
+            });
         }
     }
 }

@@ -111,8 +111,8 @@
     <Compile Include="scr\services\FeedbackService.cs" />
     <Compile Include="scr\services\ExperimentadorService.cs" />
     <Compile Include="scr\services\ParticipanteService.cs" />
-    <Compile Include="scr\testes\TestesGerais.cs" />
     <Compile Include="scr\utils\ImageUtils.cs" />
+    <Compile Include="scr\utils\ListUtils.cs" />
     <Compile Include="scr\utils\NumericUtils.cs" />
     <Compile Include="scr\utils\StringUtils.cs" />
     <Compile Include="TelaExperimento.cs">

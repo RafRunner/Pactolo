@@ -26,6 +26,9 @@ namespace Pactolo.scr.services {
         }
 
         public static void Salvar(UnidadeDoExperimento unidadeDoExperimento) {
+            if (string.IsNullOrEmpty(unidadeDoExperimento.NomeImagem)) {
+                throw new System.Exception("Toda unidade do experimento deve ter uma imagem!");
+            }
             AbstractService.Salvar(unidadeDoExperimento,
                 "UnidadeDoExperimento",
                 "INSERT INTO UnidadeDoExperimento (NomeImagem, FeedbackId, NomeAudio) VALUES (@NomeImagem, @FeedbackId, @NomeAudio); SELECT CAST(last_insert_rowid() as int)",

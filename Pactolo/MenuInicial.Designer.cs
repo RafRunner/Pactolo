@@ -121,7 +121,6 @@ namespace Pactolo {
             this.textInstrucao = new System.Windows.Forms.RichTextBox();
             this.buttonRemoverCC = new System.Windows.Forms.Button();
             this.label35 = new System.Windows.Forms.Label();
-            this.buttonExcluirSessao = new System.Windows.Forms.Button();
             this.buttonSelecioarSessao = new System.Windows.Forms.Button();
             this.buttonCadastrarSessao = new System.Windows.Forms.Button();
             this.textBoxNomeSessao = new System.Windows.Forms.TextBox();
@@ -140,6 +139,7 @@ namespace Pactolo {
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
+            this.buttonExcluirSessao = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label38 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
@@ -1376,19 +1376,6 @@ namespace Pactolo {
             this.label35.TabIndex = 17;
             this.label35.Text = "Nome:";
             // 
-            // buttonExcluirSessao
-            // 
-            this.buttonExcluirSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonExcluirSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExcluirSessao.Location = new System.Drawing.Point(111, 228);
-            this.buttonExcluirSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.buttonExcluirSessao.Name = "buttonExcluirSessao";
-            this.buttonExcluirSessao.Size = new System.Drawing.Size(96, 36);
-            this.buttonExcluirSessao.TabIndex = 78;
-            this.buttonExcluirSessao.Text = "Excluir";
-            this.buttonExcluirSessao.UseVisualStyleBackColor = true;
-            this.buttonExcluirSessao.Click += new System.EventHandler(this.ButtonExcluirSessao_Click);
-            // 
             // buttonSelecioarSessao
             // 
             this.buttonSelecioarSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1496,9 +1483,9 @@ namespace Pactolo {
             this.label30.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label30.Location = new System.Drawing.Point(8, 346);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(213, 21);
+            this.label30.Size = new System.Drawing.Size(271, 21);
             this.label30.TabIndex = 68;
-            this.label30.Text = "Critérios de Encerramento:";
+            this.label30.Text = "Critérios de Encerramento por CC:";
             // 
             // checkBoxTentativasAgrp
             // 
@@ -1567,7 +1554,7 @@ namespace Pactolo {
             // columnHeader3
             // 
             this.columnHeader3.Text = "Nome:";
-            this.columnHeader3.Width = 350;
+            this.columnHeader3.Width = 569;
             // 
             // label29
             // 
@@ -1587,6 +1574,19 @@ namespace Pactolo {
             this.label28.Size = new System.Drawing.Size(199, 21);
             this.label28.TabIndex = 0;
             this.label28.Text = "Características da Sessão";
+            // 
+            // buttonExcluirSessao
+            // 
+            this.buttonExcluirSessao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonExcluirSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExcluirSessao.Location = new System.Drawing.Point(111, 228);
+            this.buttonExcluirSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonExcluirSessao.Name = "buttonExcluirSessao";
+            this.buttonExcluirSessao.Size = new System.Drawing.Size(96, 36);
+            this.buttonExcluirSessao.TabIndex = 78;
+            this.buttonExcluirSessao.Text = "Excluir";
+            this.buttonExcluirSessao.UseVisualStyleBackColor = true;
+            this.buttonExcluirSessao.Click += new System.EventHandler(this.ButtonExcluirSessao_Click);
             // 
             // panel6
             // 

@@ -58,14 +58,7 @@ namespace Pactolo {
             imageWidth = Convert.ToInt32(333 * widthRatio);
         }
 
-        private void TelaExperimento_Load(object sender, EventArgs e) {
-            Location = new Point(0, 0);
-            Size = new Size(width, height);
-            if (width != 1920 || height != 1080) {
-                ResizeComponents();
-            }
-
-            panelCI.Visible = false;
+        private void EscondeCC() {
             panelPontos.Visible = false;
             pictureSModelo.Visible = false;
             pictureSC1.Visible = false;
@@ -74,6 +67,17 @@ namespace Pactolo {
             labelMensagemSC1.Visible = false;
             labelMensagemSC2.Visible = false;
             labelMensagemSC3.Visible = false;
+        }
+
+        private void TelaExperimento_Load(object sender, EventArgs e) {
+            Location = new Point(0, 0);
+            Size = new Size(width, height);
+            if (width != 1920 || height != 1080) {
+                ResizeComponents();
+            }
+
+            panelCI.Visible = false;
+            EscondeCC();
 
             ApresentarSessoes();
         }
@@ -140,7 +144,7 @@ namespace Pactolo {
             sessaoAtual = sessao;
             List<ContingenciaColateral> CCs = sessao.CCs;
             if (sessao.OrdemAleatoria) {
-                CCs = CCs.OrderBy(it => Guid.NewGuid()).ToList();
+                CCs = ListUtils.EmbaralhaMudandoPosicao(CCs);
             }
 
             if (sessao.Instrucao != null) {
@@ -149,6 +153,7 @@ namespace Pactolo {
             }
 
             foreach (ContingenciaColateral CC in CCs) {
+                EscondeCC();
                 ContingenciaInstrucional CI = CC.CI;
                 if (CI != null) {
                     await ApresentarCI(CC);
@@ -162,19 +167,7 @@ namespace Pactolo {
         }
 
         private void EmbaralhaSCs() {
-            UnidadeDoExperimento[] copia = new UnidadeDoExperimento[3];
-            SCsEmbaralhados.CopyTo(copia);
-
-            if (random.Next(0, 2) == 0) {
-                SCsEmbaralhados[0] = copia[2];
-                SCsEmbaralhados[1] = copia[0];
-                SCsEmbaralhados[2] = copia[1];
-            }
-            else {
-                SCsEmbaralhados[0] = copia[1];
-                SCsEmbaralhados[1] = copia[2];
-                SCsEmbaralhados[2] = copia[0];
-            }
+            SCsEmbaralhados = ListUtils.EmbaralhaMudandoPosicao(SCsEmbaralhados);
 
             pictureSC1.Image = ImageUtils.Resize(SCsEmbaralhados[0].Imagem, imageWidth, imageHeight);
             pictureSC2.Image = ImageUtils.Resize(SCsEmbaralhados[1].Imagem, imageWidth, imageHeight);
@@ -216,6 +209,7 @@ namespace Pactolo {
 
             sessaoAtual.NumeroPontos = 0;
             sessaoAtual.NumeroTentativas = 0;
+            sessaoAtual.AcertosConcecutivos = 0;
         }
 
         private async Task ApresentarCI(ContingenciaColateral CC) {
@@ -295,8 +289,6 @@ namespace Pactolo {
                 await Task.Delay(1000);
             }
             else {
-                SC.PlayAudio();
-
                 bool positivo = feedback.ValorClick > 0;
                 Color novaCor = positivo ? Color.Green : Color.Red;
                 string mensagem = positivo ? "CORRETO!" : "ERRADO!";
@@ -308,20 +300,21 @@ namespace Pactolo {
                     sessaoAtual.AcertosConcecutivos = 0;
                 }
 
-                if (feedback.ProbabilidadeComplementar > random.Next(0, 101)) {
+                if (feedback.ProbabilidadeComplementar > random.Next(0, 100)) {
                     AtualizaPontos(feedback.ValorClick);
+                    SC.PlayAudio();
+                    labelMensagem.Text = mensagem;
+                    labelMensagem.ForeColor = novaCor;
+                    labelMensagem.Visible = true;
+
+                    if (!feedback.SemCor) {
+                        pictureSC.BackColor = novaCor;
+                    }
+
                     relatorioSessao.AdicionarEvento(new Evento(sessaoAtual, CCAtual, GetNomeSc(SC), feedback.ValorClick));
                 }
                 else {
                     relatorioSessao.AdicionarEvento(new Evento(sessaoAtual, CCAtual, GetNomeSc(SC), 0));
-                }
-
-                labelMensagem.Text = mensagem;
-                labelMensagem.ForeColor = novaCor;
-                labelMensagem.Visible = true;
-
-                if (!feedback.SemCor) {
-                    pictureSC.BackColor = novaCor;
                 }
 
                 await Task.Delay(1000);

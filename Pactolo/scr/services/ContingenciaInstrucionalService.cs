@@ -41,7 +41,7 @@ namespace Pactolo.scr.services {
         public static void Deletar(ContingenciaInstrucional contingenciaInstrucional) {
             List<ContingenciaColateral> CCsComEssaCI = ContingenciaColateralService.GetAllByCI(contingenciaInstrucional);
             if (CCsComEssaCI.Count > 0) {
-                throw new System.Exception($"Essa CI está cadastrada nas seguintes CCs: {StringUtils.Join(CCsComEssaCI, ", ")}. Delete primeiro essas CCs ou as associe a outra CI");
+                throw new System.Exception($"Essa CI está cadastrada nas seguintes CCs: {ListUtils.Join(CCsComEssaCI.Select(it => it.Nome).Cast<string>().ToList(), ", ")}. Delete primeiro essas CCs ou as associe a outra CI");
             }
             AbstractService.Deletar(contingenciaInstrucional, "ContingenciaInstrucional");
             UnidadeDoExperimentoService.Deletar(contingenciaInstrucional.Tato1);

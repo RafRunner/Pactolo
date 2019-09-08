@@ -21,23 +21,6 @@ namespace Pactolo.scr.utils {
 			return normalizada;
 		}
 
-        public static string Join<T>(List<T> lista, string token) {
-            StringBuilder resultado = new StringBuilder();
-            int tamanho = lista.Count;
-
-            for (int i = 0; i < tamanho; i++) {
-                T obj = lista[i];
-
-                if (i + 1 == tamanho) {
-                    resultado.Append(obj.ToString());
-                }
-                else {
-                    resultado.Append(obj.ToString()).Append(token);
-                }
-            }
-            return resultado.ToString();
-        }
-
 		public static string ValideEmail(string email) {
             email = Normalize(email);
 			string emailRegex = string.Format("{0}{1}",

@@ -36,7 +36,9 @@ namespace Pactolo.scr.dominio {
             get => nomeAudio;
             set {
                 nomeAudio = value;
-                soundPlayer = new SoundPlayer(@AudioService.GetFullPath(nomeAudio));
+                if (!string.IsNullOrEmpty(nomeAudio)) {
+                    soundPlayer = new SoundPlayer(@AudioService.GetFullPath(nomeAudio));
+                }
             }
         }
 

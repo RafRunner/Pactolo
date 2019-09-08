@@ -167,10 +167,14 @@ namespace Pactolo {
             if (filter != null) {
                 fileDialog.Filter = filter;
             }
-            if (fileDialog.ShowDialog() == DialogResult.OK) {
+            DialogResult result = fileDialog.ShowDialog();
+            if (result == DialogResult.OK) {
                 textBox.Text = fileDialog.FileName;
             }
-            fileDialog.Filter = "";
+            else if (result == DialogResult.Cancel) {
+                textBox.Text = string.Empty;
+            }
+            fileDialog.Filter = string.Empty;
         }
 
         private void ButtonCarregarTato1_Click(object sender, EventArgs e) {
@@ -368,7 +372,7 @@ namespace Pactolo {
         }
 
         private void ButtonApagarCC_Click(object sender, EventArgs e) {
-            DialogResult result = MessageBox.Show("Ao deletar essa CC ela será deletada também das sessoes, deseja continuar?", "Confirmação necessária", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Ao deletar essa CC ela será deletada também das sessoes onde estiver cadastrada, deseja continuar?", "Confirmação necessária", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.No) {
                 return;
             }

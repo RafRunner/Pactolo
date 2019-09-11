@@ -75,9 +75,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="scr\dominio\Evento.cs" />
+    <Compile Include="scr\dominio\eventos\Evento.cs" />
+    <Compile Include="scr\dominio\eventos\EventoCI.cs" />
+    <Compile Include="scr\dominio\eventos\EventoSModelo.cs" />
+    <Compile Include="scr\dominio\eventos\EventoSC.cs" />
     <Compile Include="scr\dominio\Instrucao.cs" />
-    <Compile Include="scr\dominio\RelatorioSessao.cs" />
+    <Compile Include="scr\dominio\eventos\RelatorioSessao.cs" />
     <Compile Include="scr\dominio\DTOs\DTOFiltro.cs" />
     <Compile Include="scr\dominio\CCPorSessao.cs" />
     <Compile Include="scr\dominio\ElementoDeBanco.cs" />

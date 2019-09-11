@@ -163,16 +163,11 @@ namespace Pactolo.scr.services {
             informacoesCIs.AppendLine("   Sessão|ContingenciaColateral|SC|feedback|tentativa|pontos totais|horario|tempo por evento|");
             DateTime eventoAnterior = relatorio.HoraInicio;
             foreach (Evento evento in eventos) {
-                if (evento.EventoEncerramento) {
-                    informacoesCIs.AppendLine(evento.NomeCC + " encerrada, criterio: " + evento.CriterioEncerramento + ", " + evento.ValorEncerramento);
-                    informacoesCIs.AppendLine("Horário de encerramento: ").Append(evento.HoraEvento);
-                    informacoesCIs.AppendLine();
-                } else {
-                    TimeSpan diferencaDoEventoAnterior = evento.HoraEvento - eventoAnterior;
-                    informacoesCIs.AppendLine("   |" + evento.NomeSesssao + "|" + evento.NomeCC + "|" + evento.NomeSC + "|" + evento.PontosGanhos + "|" + evento.TentativaAtual + "|" + evento.PontosAtuais + "|" + evento.HoraEvento.ToString() + "|" + diferencaDoEventoAnterior.ToString());
-                    eventoAnterior = evento.HoraEvento;
-                }
+                TimeSpan diferencaDoEventoAnterior = evento.HoraEvento - eventoAnterior;
+                informacoesCIs.Append(evento.MontaMensagem()).Append("| Intervalor do último evento: ").AppendLine(diferencaDoEventoAnterior.TotalSeconds.ToString()).Append("s");
+                eventoAnterior = evento.HoraEvento;
             }
+            informacoesCIs.AppendLine();
             informacoesCIs.AppendLine("}");
 
             return informacoesCIs;

@@ -49,5 +49,7 @@ namespace Pactolo.scr.dominio {
 			get => cI;
 			set { cI = value; CIId = GetId(value); }
 		}
-	}
+
+        public int AcertosConcecutivos { get; set; }
+    }
 }

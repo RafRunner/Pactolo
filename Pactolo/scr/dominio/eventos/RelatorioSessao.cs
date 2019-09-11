@@ -30,7 +30,7 @@ namespace Pactolo.scr.dominio {
         public void AdicionarEvento(Evento evento) {
             Eventos.Add(evento);
         }
-        //arrumar esse nome default
+
         public string GetNomeArquivo() {
             return NomeArquivoDigitado != null && NomeArquivoDigitado != "" ? NomeArquivoDigitado : $"Relatorio_Pactolo_{Experimentador.Nome}_{Participante.Nome}_{HoraInicio.ToString("yyyy-MM-dd HH-mm-ss")}";
         }

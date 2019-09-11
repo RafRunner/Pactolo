@@ -1483,9 +1483,9 @@ namespace Pactolo {
             this.label30.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label30.Location = new System.Drawing.Point(8, 346);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(271, 21);
+            this.label30.Size = new System.Drawing.Size(213, 21);
             this.label30.TabIndex = 68;
-            this.label30.Text = "Critérios de Encerramento por CC:";
+            this.label30.Text = "Critérios de Encerramento:";
             // 
             // checkBoxTentativasAgrp
             // 

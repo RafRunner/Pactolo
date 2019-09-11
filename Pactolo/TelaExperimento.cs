@@ -1,4 +1,5 @@
 ﻿using Pactolo.scr.dominio;
+using Pactolo.scr.dominio.eventos;
 using Pactolo.scr.services;
 using Pactolo.scr.utils;
 using System;
@@ -38,6 +39,11 @@ namespace Pactolo {
 
         private bool CIFinalizado = false;
         private bool SessoesFinalizadas = false;
+
+        private List<ContingenciaColateral> pacoteCC;
+        private UnidadeDoExperimento ultimoSC;
+
+        private int indiceCCAtual = 0;
 
         private TaskCompletionSource<bool> taskTato1;
         private TaskCompletionSource<bool> taskAuto;
@@ -142,47 +148,12 @@ namespace Pactolo {
 
         private async Task ApresentarSessao(Sessao sessao) {
             sessaoAtual = sessao;
-            List<ContingenciaColateral> CCs = sessao.CCs;
-            if (sessao.OrdemAleatoria) {
-                CCs = ListUtils.EmbaralhaMudandoPosicao(CCs);
-            }
+            List<ContingenciaColateral> CCs = sessaoAtual.CCs;
 
-            if (sessao.Instrucao != null) {
-                TelaInstrucao telaInstrucao = new TelaInstrucao(sessao.Instrucao.Texto);
+            if (sessaoAtual.Instrucao != null) {
+                TelaInstrucao telaInstrucao = new TelaInstrucao(sessaoAtual.Instrucao.Texto);
                 telaInstrucao.ShowDialog();
             }
-
-            foreach (ContingenciaColateral CC in CCs) {
-                EscondeCC();
-                ContingenciaInstrucional CI = CC.CI;
-                if (CI != null) {
-                    await ApresentarCI(CC);
-                }
-                else {
-                    panelCI.Visible = false;
-                    CIFinalizado = true;
-                    await ApresentarCC(CC);
-                }
-            }
-        }
-
-        private void EmbaralhaSCs() {
-            SCsEmbaralhados = ListUtils.EmbaralhaMudandoPosicao(SCsEmbaralhados);
-
-            pictureSC1.Image = ImageUtils.Resize(SCsEmbaralhados[0].Imagem, imageWidth, imageHeight);
-            pictureSC2.Image = ImageUtils.Resize(SCsEmbaralhados[1].Imagem, imageWidth, imageHeight);
-            pictureSC3.Image = ImageUtils.Resize(SCsEmbaralhados[2].Imagem, imageWidth, imageHeight);
-        }
-
-        private async Task ApresentarCC(ContingenciaColateral CC) {
-            taskSModelo = new TaskCompletionSource<bool>(false);
-            taskFinalizacao = new TaskCompletionSource<bool>(false);
-            taskCC = new TaskCompletionSource<bool>(false);
-
-            pictureSC3.Visible = false;
-            panelPontos.Visible = false;
-            pictureSC2.Visible = false;
-            pictureSC1.Visible = false;
 
             if (sessaoAtual.CriterioDuracaoSegundos > 0) {
                 timerAtual = new System.Windows.Forms.Timer {
@@ -192,24 +163,70 @@ namespace Pactolo {
                 timerAtual.Start();
             }
 
-            CCAtual = CC;
-            SCsEmbaralhados = new List<UnidadeDoExperimento>() { CC.SC1, CC.SC2, CC.SC3 };
-            pictureSModelo.Visible = true;
-            pictureSModelo.Image = ImageUtils.Resize(CC.sModelo.Imagem, imageWidth, imageHeight);
+            bool encerrada = false;
+            do {
+                ContingenciaColateral CC = EscolhaCCASerApresentada();
+                if (CCAtual != CC) {
+                    EscondeCC();
+                    ContingenciaInstrucional CI = CC.CI;
+                    
+                    if (CI != null) {
+                        await ApresentarCI(CC);
+                    }
+                    else {
+                        panelCI.Visible = false;
+                        CIFinalizado = true;
+                        await ApresentarCC(CC, true);
+                    }
+                }
+                else {
+                    await ApresentarCC(CC, false);
+                }
 
-            await taskSModelo.Task;
+                if (sessaoAtual.CriterioNumeroTentativas > 0 && sessaoAtual.NumeroTentativas >= sessaoAtual.CriterioNumeroTentativas) {
+                    FinalizarCC("Númeo de Tentativas", ultimoSC);
+                    encerrada = true;
+                }
 
-            pictureSC3.Visible = true;
-            panelPontos.Visible = true;
-            pictureSC2.Visible = true;
-            pictureSC1.Visible = true;
+                if (sessaoAtual.CriterioAcertosConcecutivos > 0 && sessaoAtual.AcertosConcecutivos >= sessaoAtual.CriterioAcertosConcecutivos) {
+                    FinalizarCC("Acertos Consecutivos", ultimoSC);
+                    encerrada = true;
+                }
 
-            EmbaralhaSCs();
-            await taskCC.Task;
+            } while (!encerrada);
 
-            sessaoAtual.NumeroPontos = 0;
-            sessaoAtual.NumeroTentativas = 0;
-            sessaoAtual.AcertosConcecutivos = 0;
+            indiceCCAtual = 0;
+        }
+
+        private ContingenciaColateral EscolhaCCASerApresentada() {
+            List<ContingenciaColateral> CCs = sessaoAtual.CCs;
+            ContingenciaColateral CCEscolhida;
+
+            if (sessaoAtual.OrdemAleatoria) {
+                if (pacoteCC == null || pacoteCC.Count == CCs.Count) {
+                    pacoteCC = new List<ContingenciaColateral>();
+                }
+                do {
+                    CCEscolhida = CCs[random.Next(0, CCs.Count)];
+                } while (pacoteCC.Contains(CCEscolhida));
+
+                pacoteCC.Add(CCEscolhida);
+            }
+            else {
+                int criterioAcertosEssaCC = Convert.ToInt32(sessaoAtual.CriterioAcertosConcecutivos / CCs.Count);
+
+                if (indiceCCAtual == CCs.Count - 1) {
+                    criterioAcertosEssaCC += sessaoAtual.CriterioAcertosConcecutivos % CCs.Count;
+                }
+
+                if (CCs[indiceCCAtual].AcertosConcecutivos >= criterioAcertosEssaCC) {
+                    indiceCCAtual++;
+                }
+
+                CCEscolhida = CCs[indiceCCAtual];
+            }
+
+            return CCEscolhida;
         }
 
         private async Task ApresentarCI(ContingenciaColateral CC) {
@@ -230,15 +247,132 @@ namespace Pactolo {
 
             await taskTato1.Task;
             pictureTato1.BackColor = Color.Green;
+            relatorioSessao.AdicionarEvento(new EventoCI(sessaoAtual, CI, CI.Tato1));
             await taskAuto.Task;
             pictureAuto.BackColor = Color.Green;
+            relatorioSessao.AdicionarEvento(new EventoCI(sessaoAtual, CI, CI.Autoclitico));
             await taskTato2.Task;
             pictureTato2.BackColor = Color.Green;
+            relatorioSessao.AdicionarEvento(new EventoCI(sessaoAtual, CI, CI.Tato2));
+
             taskTato1.TrySetResult(false);
             taskAuto.TrySetResult(false);
             taskTato2.TrySetResult(false);
             CIFinalizado = true;
-            await ApresentarCC(CC);
+            await ApresentarCC(CC, true);
+        }
+
+        private void EmbaralhaSCs() {
+            SCsEmbaralhados = ListUtils.EmbaralhaMudandoPosicao(SCsEmbaralhados);
+
+            pictureSC1.Image = ImageUtils.Resize(SCsEmbaralhados[0].Imagem, imageWidth, imageHeight);
+            pictureSC2.Image = ImageUtils.Resize(SCsEmbaralhados[1].Imagem, imageWidth, imageHeight);
+            pictureSC3.Image = ImageUtils.Resize(SCsEmbaralhados[2].Imagem, imageWidth, imageHeight);
+        }
+
+        private async Task ApresentarCC(ContingenciaColateral CC, bool recomecar) {
+            taskCC = new TaskCompletionSource<bool>(false);
+
+            if (recomecar) {
+                taskFinalizacao = new TaskCompletionSource<bool>(false);
+                taskSModelo = new TaskCompletionSource<bool>(false);
+
+                pictureSC3.Visible = false;
+                panelPontos.Visible = false;
+                pictureSC2.Visible = false;
+                pictureSC1.Visible = false;
+
+                CCAtual = CC;
+                SCsEmbaralhados = new List<UnidadeDoExperimento>() { CC.SC1, CC.SC2, CC.SC3 };
+                pictureSModelo.Visible = true;
+                pictureSModelo.Image = ImageUtils.Resize(CC.sModelo.Imagem, imageWidth, imageHeight);
+
+                await taskSModelo.Task;
+                relatorioSessao.AdicionarEvento(new EventoSModelo(sessaoAtual, CC, CC.sModelo.NomeImagem));
+
+                pictureSC3.Visible = true;
+                panelPontos.Visible = true;
+                pictureSC2.Visible = true;
+                pictureSC1.Visible = true;
+            }
+
+            EmbaralhaSCs();
+            await taskCC.Task;
+        }
+
+        private string GetNomeSc(UnidadeDoExperimento SC) {
+            if (SC.Id == CCAtual.SC1Id) {
+                return "SC1";
+            }
+            if (SC.Id == CCAtual.SC2Id) {
+                return "SC2";
+            }
+            if (SC.Id == CCAtual.SC3Id) {
+                return "SC3";
+            }
+            return "Ocorreu uma inconsistência!";
+        }
+
+        private async void ClickBotao(UnidadeDoExperimento SC, Label labelMensagem, PictureBox pictureSC) {
+            if (SessoesFinalizadas) {
+                return;
+            }
+
+            Feedback feedback = SC.Feedback;
+
+            if (feedback.Neutro || feedback.ValorClick == 0) {
+                sessaoAtual.AcertosConcecutivos = 0;
+                sessaoAtual.NumeroTentativas++;
+                relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), 0));
+                await Task.Delay(1000);
+            }
+            else {
+                if (feedback.ProbabilidadeComplementar > random.Next(0, 100)) {
+                    bool positivo = feedback.ValorClick > 0;
+                    Color novaCor = positivo ? Color.Green : Color.Red;
+                    string mensagem = positivo ? "CORRETO!" : "ERRADO!";
+
+                    sessaoAtual.NumeroTentativas++;
+
+                    if (positivo) {
+                        sessaoAtual.AcertosConcecutivos++;
+                        CCAtual.AcertosConcecutivos++;
+                    }
+                    else {
+                        sessaoAtual.AcertosConcecutivos = 0;
+                        CCAtual.AcertosConcecutivos = 0;
+                    }
+
+                    AtualizaPontos(feedback.ValorClick);
+                    SC.PlayAudio();
+                    labelMensagem.Text = mensagem;
+                    labelMensagem.ForeColor = novaCor;
+                    labelMensagem.Visible = true;
+
+                    if (!feedback.SemCor) {
+                        pictureSC.BackColor = novaCor;
+                    }
+
+                    relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), feedback.ValorClick));
+                }
+                else {
+                    relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), 0));
+                }
+
+                await Task.Delay(1000);
+                labelMensagem.Visible = false;
+                pictureSC.BackColor = Color.White;
+            }
+
+            ultimoSC = SC;
+            taskCC.TrySetResult(true);
+        }
+
+        private void FinalizarCC(string motivoFinalização, UnidadeDoExperimento SC) {
+            EventoSC eventoEncerramento = new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), 0);
+            eventoEncerramento.MarcarComoEncerramento(motivoFinalização, sessaoAtual.NumeroTentativas.ToString());
+            relatorioSessao.AdicionarEvento(eventoEncerramento);
+            taskCC.TrySetResult(true);
         }
 
         private void PictureTato1_Click(object sender, EventArgs e) {
@@ -261,85 +395,6 @@ namespace Pactolo {
             if (CIFinalizado) {
                 taskSModelo.TrySetResult(true);
             }
-        }
-
-        private string GetNomeSc(UnidadeDoExperimento SC) {
-            if (SC.Id == CCAtual.SC1Id) {
-                return "SC1";
-            }
-            if (SC.Id == CCAtual.SC2Id) {
-                return "SC2";
-            }
-            if (SC.Id == CCAtual.SC3Id) {
-                return "SC3";
-            }
-            return "Ocorreu uma inconsistência!";
-        }
-
-        private async void ClickBotao(UnidadeDoExperimento SC, Label labelMensagem, PictureBox pictureSC) {
-            if (SessoesFinalizadas) {
-                return;
-            }
-
-            sessaoAtual.NumeroTentativas++;
-            Feedback feedback = SC.Feedback;
-
-            if (feedback.Neutro || feedback.ValorClick == 0) {
-                relatorioSessao.AdicionarEvento(new Evento(sessaoAtual, CCAtual, GetNomeSc(SC), 0));
-                await Task.Delay(1000);
-            }
-            else {
-                bool positivo = feedback.ValorClick > 0;
-                Color novaCor = positivo ? Color.Green : Color.Red;
-                string mensagem = positivo ? "CORRETO!" : "ERRADO!";
-
-                if (positivo) {
-                    sessaoAtual.AcertosConcecutivos++;
-                }
-                else {
-                    sessaoAtual.AcertosConcecutivos = 0;
-                }
-
-                if (feedback.ProbabilidadeComplementar > random.Next(0, 100)) {
-                    AtualizaPontos(feedback.ValorClick);
-                    SC.PlayAudio();
-                    labelMensagem.Text = mensagem;
-                    labelMensagem.ForeColor = novaCor;
-                    labelMensagem.Visible = true;
-
-                    if (!feedback.SemCor) {
-                        pictureSC.BackColor = novaCor;
-                    }
-
-                    relatorioSessao.AdicionarEvento(new Evento(sessaoAtual, CCAtual, GetNomeSc(SC), feedback.ValorClick));
-                }
-                else {
-                    relatorioSessao.AdicionarEvento(new Evento(sessaoAtual, CCAtual, GetNomeSc(SC), 0));
-                }
-
-                await Task.Delay(1000);
-                labelMensagem.Visible = false;
-                pictureSC.BackColor = Color.White;
-            }
-
-            if (sessaoAtual.CriterioNumeroTentativas > 0 && sessaoAtual.NumeroTentativas >= sessaoAtual.CriterioNumeroTentativas) {
-                FinalizarCC("Númeo de Tentativas", SC);
-                return;
-            }
-
-            if (sessaoAtual.CriterioAcertosConcecutivos > 0 && sessaoAtual.AcertosConcecutivos >= sessaoAtual.CriterioAcertosConcecutivos) {
-                FinalizarCC("Acertos Consecutivos", SC);
-                return;
-            }
-
-            EmbaralhaSCs();
-        }
-
-        private void FinalizarCC(string motivoFinalização, UnidadeDoExperimento SC) {
-            Evento eventoEncerramento = new Evento(sessaoAtual, CCAtual, GetNomeSc(SC), 0);
-            eventoEncerramento.MarcarComoEncerramento(motivoFinalização, sessaoAtual.NumeroTentativas.ToString());
-            relatorioSessao.AdicionarEvento(eventoEncerramento);
-            taskCC.TrySetResult(true);
         }
 
         private void PictureSC1_Click(object sender, EventArgs e) {

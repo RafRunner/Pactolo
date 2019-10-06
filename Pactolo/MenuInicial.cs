@@ -470,6 +470,11 @@ namespace Pactolo {
         }
 
         private void ButtonSelecioarSessao_Click(object sender, EventArgs e) {
+            if (listViewSessoes.SelectedItems.Count == 0) {
+                MessageBox.Show("Nenhuma sessão selecionada/cadastrada!", "Advertência");
+                return;
+            }
+
             long id = long.Parse(listViewSessoes.SelectedItems[0].SubItems[1].Text);
             Sessao sessao = SessaoService.GetById(id);
 
@@ -493,13 +498,18 @@ namespace Pactolo {
 
         private void ButtonRemoverSessao_Click(object sender, EventArgs e) {
             if (listViewsessoesExecutadas.SelectedItems.Count == 0) {
-                MessageBox.Show("Nenhuma sessão selecionada!", "Advertência");
+                MessageBox.Show("Nenhuma sessão selecionada/cadastrada!", "Advertência");
                 return;
             }
             listViewsessoesExecutadas.Items.Remove(listViewsessoesExecutadas.SelectedItems[0]);
         }
 
         private void ButtonExcluirSessao_Click(object sender, EventArgs e) {
+            if (listViewSessoes.SelectedItems.Count == 0) {
+                MessageBox.Show("Nenhuma sessão selecionada/cadastrada!", "Advertência");
+                return;
+            }
+
             long id = long.Parse(listViewSessoes.SelectedItems[0].SubItems[1].Text);
             Sessao sessao = SessaoService.GetById(id);
             SessaoService.Deletar(sessao);
@@ -512,6 +522,11 @@ namespace Pactolo {
         }
 
         private void ButtonAdicionarSessao_Click(object sender, EventArgs e) {
+            if (listViewSessoes.SelectedItems.Count == 0) {
+                MessageBox.Show("Nenhuma sessão selecionada/cadastrada!", "Advertência");
+                return;
+            }
+
             ListViewItem sessao = listViewSessoes.SelectedItems[0];
             ListViewItem sessaoClone = sessao.Clone() as ListViewItem;
             listViewsessoesExecutadas.Items.Add(sessaoClone);

@@ -39,6 +39,7 @@ namespace Pactolo {
 
         private bool CIFinalizado = false;
         private bool SessoesFinalizadas = false;
+        private bool SessaoFinalizada = false;
 
         private List<ContingenciaColateral> pacoteCC;
         private UnidadeDoExperimento ultimoSC;
@@ -49,7 +50,7 @@ namespace Pactolo {
         private TaskCompletionSource<bool> taskAuto;
         private TaskCompletionSource<bool> taskTato2;
         private TaskCompletionSource<bool> taskSModelo;
-        private TaskCompletionSource<bool> taskFinalizacao;
+        private TaskCompletionSource<bool> taskFinalizacao = new TaskCompletionSource<bool>(false);
         private TaskCompletionSource<bool> taskCC;
 
         public TelaExperimento(List<Sessao> sessoesExecutadas, Experimentador experimentador, Participante participante) {
@@ -141,8 +142,12 @@ namespace Pactolo {
 
         private void EventoFimTempo(Object myObject, EventArgs myEventArgs) {
             timerAtual.Stop();
+            SessaoFinalizada = true;
+            taskTato1.TrySetResult(true);
+            taskAuto.TrySetResult(true);
+            taskTato2.TrySetResult(true);
             taskSModelo.TrySetResult(true);
-            FinalizarCC("Fim do tempo limite", CCAtual.SC1);
+            FinalizarCC("Fim do tempo limite", sessaoAtual.CriterioDuracaoSegundos.ToString(), CCAtual.SC1);
             return;
         }
 
@@ -163,13 +168,14 @@ namespace Pactolo {
                 timerAtual.Start();
             }
 
-            bool encerrada = false;
+            SessaoFinalizada = false;
             do {
                 ContingenciaColateral CC = EscolhaCCASerApresentada();
                 if (CCAtual != CC) {
+                    CCAtual = CC;
                     EscondeCC();
                     ContingenciaInstrucional CI = CC.CI;
-                    
+
                     if (CI != null) {
                         await ApresentarCI(CC);
                     }
@@ -180,20 +186,21 @@ namespace Pactolo {
                     }
                 }
                 else {
+                    CCAtual = CC;
                     await ApresentarCC(CC, false);
                 }
 
                 if (sessaoAtual.CriterioNumeroTentativas > 0 && sessaoAtual.NumeroTentativas >= sessaoAtual.CriterioNumeroTentativas) {
-                    FinalizarCC("Númeo de Tentativas", ultimoSC);
-                    encerrada = true;
+                    FinalizarCC("Númeo de Tentativas", sessaoAtual.CriterioNumeroTentativas.ToString(), ultimoSC);
+                    SessaoFinalizada = true;
                 }
 
                 if (sessaoAtual.CriterioAcertosConcecutivos > 0 && sessaoAtual.AcertosConcecutivos >= sessaoAtual.CriterioAcertosConcecutivos) {
-                    FinalizarCC("Acertos Consecutivos", ultimoSC);
-                    encerrada = true;
+                    FinalizarCC("Acertos Consecutivos", sessaoAtual.CriterioAcertosConcecutivos.ToString(), ultimoSC);
+                    SessaoFinalizada = true;
                 }
 
-            } while (!encerrada);
+            } while (!SessaoFinalizada);
 
             indiceCCAtual = 0;
         }
@@ -274,7 +281,6 @@ namespace Pactolo {
             taskCC = new TaskCompletionSource<bool>(false);
 
             if (recomecar) {
-                taskFinalizacao = new TaskCompletionSource<bool>(false);
                 taskSModelo = new TaskCompletionSource<bool>(false);
 
                 pictureSC3.Visible = false;
@@ -282,7 +288,6 @@ namespace Pactolo {
                 pictureSC2.Visible = false;
                 pictureSC1.Visible = false;
 
-                CCAtual = CC;
                 SCsEmbaralhados = new List<UnidadeDoExperimento>() { CC.SC1, CC.SC2, CC.SC3 };
                 pictureSModelo.Visible = true;
                 pictureSModelo.Image = ImageUtils.Resize(CC.sModelo.Imagem, imageWidth, imageHeight);
@@ -300,19 +305,6 @@ namespace Pactolo {
             await taskCC.Task;
         }
 
-        private string GetNomeSc(UnidadeDoExperimento SC) {
-            if (SC.Id == CCAtual.SC1Id) {
-                return "SC1";
-            }
-            if (SC.Id == CCAtual.SC2Id) {
-                return "SC2";
-            }
-            if (SC.Id == CCAtual.SC3Id) {
-                return "SC3";
-            }
-            return "Ocorreu uma inconsistência!";
-        }
-
         private async void ClickBotao(UnidadeDoExperimento SC, Label labelMensagem, PictureBox pictureSC) {
             if (SessoesFinalizadas) {
                 return;
@@ -323,7 +315,7 @@ namespace Pactolo {
             if (feedback.Neutro || feedback.ValorClick == 0) {
                 sessaoAtual.AcertosConcecutivos = 0;
                 sessaoAtual.NumeroTentativas++;
-                relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), 0));
+                relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, SC, 0));
                 await Task.Delay(1000);
             }
             else {
@@ -353,10 +345,10 @@ namespace Pactolo {
                         pictureSC.BackColor = novaCor;
                     }
 
-                    relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), feedback.ValorClick));
+                    relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, SC, feedback.ValorClick));
                 }
                 else {
-                    relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), 0));
+                    relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, SC, 0));
                 }
 
                 await Task.Delay(1000);
@@ -368,9 +360,9 @@ namespace Pactolo {
             taskCC.TrySetResult(true);
         }
 
-        private void FinalizarCC(string motivoFinalização, UnidadeDoExperimento SC) {
-            EventoSC eventoEncerramento = new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), 0);
-            eventoEncerramento.MarcarComoEncerramento(motivoFinalização, sessaoAtual.NumeroTentativas.ToString());
+        private void FinalizarCC(string motivoFinalização, string valorEncarramento, UnidadeDoExperimento SC) {
+            EventoSC eventoEncerramento = new EventoSC(sessaoAtual, CCAtual, SC, 0);
+            eventoEncerramento.MarcarComoEncerramento(motivoFinalização, valorEncarramento);
             relatorioSessao.AdicionarEvento(eventoEncerramento);
             taskCC.TrySetResult(true);
         }

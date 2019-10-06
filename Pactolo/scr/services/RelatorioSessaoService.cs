@@ -160,11 +160,11 @@ namespace Pactolo.scr.services {
             List<Evento> eventos = relatorio.Eventos;
             informacoesCIs.AppendLine("Eventos Realizados pelo participante{");
             informacoesCIs.AppendLine("   Iniciou(apos leitura das instruções): " + relatorio.HoraInicio.ToString("hh:mm:ss"));
-            informacoesCIs.AppendLine("   Sessão|ContingenciaColateral|SC|feedback|tentativa|pontos totais|horario|tempo por evento|");
+            informacoesCIs.AppendLine("   Sessão | ContingenciaColateral | número SC | imagem SC | pontos feedback | tentativa | pontos totais | horário | tempo por evento |");
             DateTime eventoAnterior = relatorio.HoraInicio;
             foreach (Evento evento in eventos) {
                 TimeSpan diferencaDoEventoAnterior = evento.HoraEvento - eventoAnterior;
-                informacoesCIs.Append(evento.MontaMensagem()).Append("| Intervalor do último evento: ").AppendLine(diferencaDoEventoAnterior.TotalSeconds.ToString()).Append("s");
+                informacoesCIs.Append(evento.MontaMensagem()).Append("| Intervalor do último evento: ").Append(diferencaDoEventoAnterior.TotalSeconds.ToString()).AppendLine("s");
                 eventoAnterior = evento.HoraEvento;
             }
             informacoesCIs.AppendLine();

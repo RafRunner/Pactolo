@@ -24,7 +24,13 @@ namespace Pactolo {
             widthRatio = width / 1920.0;
 
             labelInstrucao.Text = textoInstrucao;
+            if (textoInstrucao.Length > 800) {
+                int multiplicador = Convert.ToInt32(Math.Floor(textoInstrucao.Length / 800.0));
+                int tamanhoMultiplicado = Convert.ToInt32(labelInstrucao.Font.Size / (1.25 * multiplicador));
+                labelInstrucao.Font = new Font(labelInstrucao.Font.Name, tamanhoMultiplicado);
+            }
         }
+
         private void CorrigeTamanhoEPosicao(Control controle) {
             controle.Height = Convert.ToInt32(controle.Height * heightRatio);
             controle.Width = Convert.ToInt32(controle.Width * widthRatio);

@@ -69,7 +69,7 @@
 			// pictureTato4
 			// 
 			this.pictureTato4.BackColor = System.Drawing.Color.White;
-			this.pictureTato4.Location = new System.Drawing.Point(1144, 7);
+			this.pictureTato4.Location = new System.Drawing.Point(1153, 7);
 			this.pictureTato4.Name = "pictureTato4";
 			this.pictureTato4.Size = new System.Drawing.Size(333, 283);
 			this.pictureTato4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -102,7 +102,7 @@
 			// pictureTato3
 			// 
 			this.pictureTato3.BackColor = System.Drawing.Color.White;
-			this.pictureTato3.Location = new System.Drawing.Point(741, 8);
+			this.pictureTato3.Location = new System.Drawing.Point(740, 7);
 			this.pictureTato3.Name = "pictureTato3";
 			this.pictureTato3.Size = new System.Drawing.Size(333, 283);
 			this.pictureTato3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;

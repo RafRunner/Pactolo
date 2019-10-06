@@ -182,6 +182,10 @@ namespace Pactolo {
         }
 
 		private void RemoverTato_Click(object sender, EventArgs e) {
+			if (listViewTatos.SelectedItems.Count == 0) {
+				MessageBox.Show("Nenhum tato selecionado/cadastrado!", "Advertência");
+				return;
+			}
 			listViewTatos.Items.Remove(listViewTatos.SelectedItems[0]);
 		}
 

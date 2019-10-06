@@ -1507,9 +1507,9 @@ namespace Pactolo {
 			this.label28.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label28.Location = new System.Drawing.Point(8, 4);
 			this.label28.Name = "label28";
-			this.label28.Size = new System.Drawing.Size(199, 21);
+			this.label28.Size = new System.Drawing.Size(165, 21);
 			this.label28.TabIndex = 0;
-			this.label28.Text = "Características da Sessão";
+			this.label28.Text = "Cadastro de Sessões";
 			// 
 			// buttonExcluirSessao
 			// 

@@ -253,9 +253,9 @@ namespace Pactolo {
 					tatoToPicture.Add(1, pictureTato3);
 					pictureToTato.Add(pictureTato3, 1);
 
-					pictureTato1.Visible = true;
+					pictureTato1.Visible = false;
 					pictureTato2.Visible = false;
-					pictureTato3.Visible = false;
+					pictureTato3.Visible = true;
 					pictureTato4.Visible = false;
 					pictureTato5.Visible = false;
 					break;
@@ -382,19 +382,6 @@ namespace Pactolo {
 			await taskCC.Task;
 		}
 
-		private string GetNomeSc(UnidadeDoExperimento SC) {
-			if (SC.Id == CCAtual.SC1Id) {
-				return "SC1";
-			}
-			if (SC.Id == CCAtual.SC2Id) {
-				return "SC2";
-			}
-			if (SC.Id == CCAtual.SC3Id) {
-				return "SC3";
-			}
-			return "Ocorreu uma inconsistência!";
-		}
-
 		private async void ClickBotao(UnidadeDoExperimento SC, Label labelMensagem, PictureBox pictureSC) {
 			if (SessoesFinalizadas) {
 				return;
@@ -405,7 +392,7 @@ namespace Pactolo {
 			if (feedback.Neutro || feedback.ValorClick == 0) {
 				sessaoAtual.AcertosConcecutivos = 0;
 				sessaoAtual.NumeroTentativas++;
-				relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), 0));
+				relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, SC, 0));
 				await Task.Delay(1000);
 			}
 			else {
@@ -435,10 +422,10 @@ namespace Pactolo {
 						pictureSC.BackColor = novaCor;
 					}
 
-					relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), feedback.ValorClick));
+					relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, SC, feedback.ValorClick));
 				}
 				else {
-					relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), 0));
+					relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, SC, 0));
 				}
 
 				await Task.Delay(1000);
@@ -451,7 +438,7 @@ namespace Pactolo {
 		}
 
 		private void FinalizarCC(string motivoFinalização, UnidadeDoExperimento SC) {
-			EventoSC eventoEncerramento = new EventoSC(sessaoAtual, CCAtual, GetNomeSc(SC), 0);
+			EventoSC eventoEncerramento = new EventoSC(sessaoAtual, CCAtual, SC, 0);
 			eventoEncerramento.MarcarComoEncerramento(motivoFinalização, sessaoAtual.NumeroTentativas.ToString());
 			relatorioSessao.AdicionarEvento(eventoEncerramento);
 			taskCC.TrySetResult(true);

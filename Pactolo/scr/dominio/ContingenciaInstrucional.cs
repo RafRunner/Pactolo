@@ -15,25 +15,18 @@ namespace Pactolo.scr.dominio {
 			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "nome da Contigência Instrucional");
 		}
 
-		public long Tato1Id { get; set; }
-		private UnidadeDoExperimento tato1;
-		public UnidadeDoExperimento Tato1 {
-			get => tato1;
-			set { tato1 = value; Tato1Id = GetId(value); }
-		}
-
-        public long AutocliticoId { get; set; }
-		private UnidadeDoExperimento autoclitico;
-		public UnidadeDoExperimento Autoclitico {
-			get => autoclitico;
-			set { autoclitico = value; AutocliticoId = GetId(value); }
-		}
-
-        public long Tato2Id { get; set; }
-		private UnidadeDoExperimento tato2;
-		public UnidadeDoExperimento Tato2 {
-			get => tato2;
-			set { tato2 = value; Tato2Id = GetId(value); }
+		private List<UnidadeDoExperimento> tatos;
+		public List<UnidadeDoExperimento> Tatos { 
+			get => tatos;
+			set {
+				if (value.Count == 0) {
+					throw new Exception("Uma CI deve ter no mínimo um tato! Para 'ter uma CI sem tatos', cadastre uma CC sem CI");
+				}
+				if (value.Count > 5) {
+					throw new Exception("Muitos Tatos! Por favor, adicione no máximo 5 tatos para cada CI");
+				}
+				tatos = value;
+			}
 		}
 	}
 }

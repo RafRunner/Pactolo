@@ -51,5 +51,5 @@ namespace Pactolo.scr.dominio {
 		}
 
         public int AcertosConcecutivos { get; set; }
-    }
+	}
 }

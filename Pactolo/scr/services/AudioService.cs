@@ -18,6 +18,9 @@ namespace Pactolo.scr.services {
         }
 
         public static string CopiaAudioParaPasta(string caminhoAudio) {
+			if (string.IsNullOrEmpty(caminhoAudio)) {
+				return "";
+			}
             CreateDirectoryIfNotExists();
             // Se não é um caminho já está na pasta e o caminho já é o nome
             if (!caminhoAudio.Contains("\\")) {

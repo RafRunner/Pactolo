@@ -21,7 +21,7 @@ namespace Pactolo.scr.services {
 
         public static void Salvar(List<UnidadeDoExperimento> unidadesDoExperimento) {
             foreach (UnidadeDoExperimento ui in unidadesDoExperimento) {
-                Salvar(ui);
+				Salvar(ui);
             }
         }
 
@@ -29,6 +29,10 @@ namespace Pactolo.scr.services {
             if (string.IsNullOrEmpty(unidadeDoExperimento.NomeImagem)) {
                 throw new System.Exception("Toda unidade do experimento deve ter uma imagem!");
             }
+
+			unidadeDoExperimento.NomeImagem = ImagemService.CopiaImagemParaPasta(unidadeDoExperimento.NomeImagem);
+			unidadeDoExperimento.NomeAudio = AudioService.CopiaAudioParaPasta(unidadeDoExperimento.NomeAudio);
+
             AbstractService.Salvar(unidadeDoExperimento,
                 "UnidadeDoExperimento",
                 "INSERT INTO UnidadeDoExperimento (NomeImagem, FeedbackId, NomeAudio) VALUES (@NomeImagem, @FeedbackId, @NomeAudio); SELECT CAST(last_insert_rowid() as int)",
@@ -64,5 +68,11 @@ namespace Pactolo.scr.services {
                 Deletar(unidade);
             }
         }
+
+		public static List<UnidadeDoExperimento> GetAllByCI(ContingenciaInstrucional contingenciaInstrucional) {
+			return AbstractService.GetByObj<UnidadeDoExperimento>(
+				"SELECT ue.* FROM UnidadeDoExperimento ue JOIN ContigenciaInstrucionalToTato CiTT ON ue.Id = CiTT.IdUnidadeExperimento WHERE CiTT.IdCI = @Id ORDER BY CiTT.Ordem",
+				contingenciaInstrucional);
+		}
     }
 }

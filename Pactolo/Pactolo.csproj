@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="scr\dominio\ContigenciaInstrucionalToTato.cs" />
     <Compile Include="scr\dominio\eventos\Evento.cs" />
     <Compile Include="scr\dominio\eventos\EventoCI.cs" />
     <Compile Include="scr\dominio\eventos\EventoSModelo.cs" />
@@ -104,6 +105,7 @@
       <DependentUpon>EditarExperimentador.cs</DependentUpon>
     </Compile>
     <Compile Include="scr\services\AudioService.cs" />
+    <Compile Include="scr\services\ContigenciaInstrucionalToTatoService.cs" />
     <Compile Include="scr\services\InstrucaoService.cs" />
     <Compile Include="scr\services\RelatorioSessaoService.cs" />
     <Compile Include="scr\services\ImagemService.cs" />

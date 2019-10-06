@@ -12,15 +12,12 @@ namespace Pactolo.scr.dominio.eventos {
 
         public EventoCI(Sessao sessao, ContingenciaInstrucional CI, UnidadeDoExperimento tato) : base(sessao) {
             this.CI = CI;
-            if (CI.Tato1.Id == tato.Id) {
-                nomeTato = "Tato1";
-            }
-            else if (CI.Autoclitico.Id == tato.Id) {
-                nomeTato = "Autoclítico";
-            }
-            else {
-                nomeTato = "Tato2";
-            }
+			for (int i = 0; i < CI.Tatos.Count; i++) {
+				if (CI.Tatos[i].Id == tato.Id) {
+					nomeTato = "Tato " + (i + 1).ToString();
+					break;
+				}
+			}
         }
 
         public override string MontaMensagem() {

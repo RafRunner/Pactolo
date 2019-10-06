@@ -163,50 +163,40 @@ namespace Pactolo {
                 CarregarParticipante);
         }
 
-        private void SelecionaArquivoComFiltro(TextBox textBox, string filter = null) {
+        private string SelecionaArquivoComFiltro(string filter = null) {
+			string retorno = string.Empty;
             if (filter != null) {
                 fileDialog.Filter = filter;
             }
             DialogResult result = fileDialog.ShowDialog();
             if (result == DialogResult.OK) {
-                textBox.Text = fileDialog.FileName;
-            }
-            else if (result == DialogResult.Cancel) {
-                textBox.Text = string.Empty;
+                retorno = fileDialog.FileName;
             }
             fileDialog.Filter = string.Empty;
+			return retorno;
         }
 
-        private void ButtonCarregarTato1_Click(object sender, EventArgs e) {
-            SelecionaArquivoComFiltro(textBoxTato1CI, imageFilter);
+        private void ButtonCarregarTato_CLick(object sender, EventArgs e) {
+			ListViewItem itemTato = new ListViewItem(SelecionaArquivoComFiltro(imageFilter));
+			listViewTatos.Items.Add(itemTato);
         }
 
-        private void ButtonCarregarAuto_Click(object sender, EventArgs e) {
-            SelecionaArquivoComFiltro(textBoxAutocliticoCI, imageFilter);
-        }
+		private void RemoverTato_Click(object sender, EventArgs e) {
+			listViewTatos.Items.Remove(listViewTatos.SelectedItems[0]);
+		}
 
-        private void ButtonCarregarTato2_Click(object sender, EventArgs e) {
-            SelecionaArquivoComFiltro(textBoxTato2CI, imageFilter);
-        }
-
-        private ContingenciaInstrucional CriaCIPelosCampos() {
-            string caminhoImagemTato1 = textBoxTato1CI.Text;
-            string caminhoImagemAuto = textBoxAutocliticoCI.Text;
-            string caminhoImagemTato2 = textBoxTato2CI.Text;
+		private ContingenciaInstrucional CriaCIPelosCampos() {
+			List<UnidadeDoExperimento> tatos = new List<UnidadeDoExperimento>();
+			foreach (ListViewItem item in listViewTatos.Items) {
+				UnidadeDoExperimento tato = new UnidadeDoExperimento { NomeImagem = item.Text };
+				tatos.Add(tato);
+			}
 
             string nome = textBoxNomeCI.Text;
 
-            UnidadeDoExperimento tato1 = new UnidadeDoExperimento { NomeImagem = ImagemService.CopiaImagemParaPasta(caminhoImagemTato1) };
-            UnidadeDoExperimento auto = new UnidadeDoExperimento { NomeImagem = ImagemService.CopiaImagemParaPasta(caminhoImagemAuto) };
-            UnidadeDoExperimento tato2 = new UnidadeDoExperimento { NomeImagem = ImagemService.CopiaImagemParaPasta(caminhoImagemTato2) };
-
-            UnidadeDoExperimentoService.Salvar(new List<UnidadeDoExperimento>() { tato1, auto, tato2 });
-
             ContingenciaInstrucional CI = new ContingenciaInstrucional {
                 Nome = nome,
-                Tato1 = tato1,
-                Autoclitico = auto,
-                Tato2 = tato2
+				Tatos = tatos
             };
             return CI;
         }
@@ -231,16 +221,18 @@ namespace Pactolo {
             return CI;
         }
 
-        private void ButtonSelecionrCI_Click(object sender, EventArgs e) {
+        private void ButtonSelecionarCI_Click(object sender, EventArgs e) {
             ContingenciaInstrucional CI = GetCISelecionada();
             if (CI == null) {
                 return;
             }
 
-            textBoxNomeCI.Text = CI.Nome;
-            textBoxTato1CI.Text = CI.Tato1.NomeImagem;
-            textBoxAutocliticoCI.Text = CI.Autoclitico.NomeImagem;
-            textBoxTato2CI.Text = CI.Tato2.NomeImagem;
+			textBoxNomeCI.Text = CI.Nome;
+
+            foreach (UnidadeDoExperimento tato in CI.Tatos) {
+				ListViewItem itemTato = new ListViewItem(tato.NomeImagem);
+				listViewTatos.Items.Add(itemTato);
+			}
         }
 
         private void ButtonApagarCI_Click(object sender, EventArgs e) {
@@ -388,31 +380,31 @@ namespace Pactolo {
         }
 
         private void ButtonCarregarModelo_Click(object sender, EventArgs e) {
-            SelecionaArquivoComFiltro(textBoxModelo, imageFilter);
+			textBoxModelo.Text = SelecionaArquivoComFiltro(imageFilter);
         }
 
         private void ButtonCarregarImagemSC1_Click(object sender, EventArgs e) {
-            SelecionaArquivoComFiltro(textBoxSC1, imageFilter);
+			textBoxSC1.Text = SelecionaArquivoComFiltro(imageFilter);
         }
 
         private void ButtonCarregarImagemSC2_Click(object sender, EventArgs e) {
-            SelecionaArquivoComFiltro(textBoxSC2, imageFilter);
+			textBoxSC2.Text = SelecionaArquivoComFiltro(imageFilter);
         }
 
         private void ButtonCarregarImagemSC3_Click(object sender, EventArgs e) {
-            SelecionaArquivoComFiltro(textBoxSC3, imageFilter);
+			textBoxSC3.Text = SelecionaArquivoComFiltro(imageFilter);
         }
 
         private void ButtonCarregarAudioSC1_Click(object sender, EventArgs e) {
-            SelecionaArquivoComFiltro(textBoxAudioSC1, audioFilter);
+			textBoxAudioSC1.Text =  SelecionaArquivoComFiltro(audioFilter);
         }
 
         private void ButtonCarregarAudioSC2_Click(object sender, EventArgs e) {
-            SelecionaArquivoComFiltro(textBoxAudioSC2, audioFilter);
+			textBoxAudioSC2.Text = SelecionaArquivoComFiltro(audioFilter);
         }
 
         private void ButtonCarregarAudioSC3_Click(object sender, EventArgs e) {
-            SelecionaArquivoComFiltro(textBoxAudioSC3, audioFilter);
+			textBoxAudioSC3.Text = SelecionaArquivoComFiltro(audioFilter);
         }
 
         private Sessao CriaSessaoPelosCampos() {
@@ -550,7 +542,17 @@ namespace Pactolo {
         }
 
         private void ButtonMaisSobreSoftware_Click(object sender, EventArgs e) {
-            MessageBox.Show("Desenvolvido por:\nRafal Nunes Santana e Emanuel Borges Passinato", "Informações");
+            MessageBox.Show("O Pactolo é um software para estudo da relação entre contingências. A primeira contingência tem como consequência o acesso à tarefa de escolha de acordo com o modelo, a segunda contingência. Originalmente foi desenvolvido para estudo do efeito de estímulos verbais sobre o aprendizado de discriminações condicionais e formação de classes de equivalência, entretanto o software permite variações quanto aos parâmetros.\n" +
+"O nome Pactolo vem do mito do Rei Midas, uma alegoria sobre a ganância.Baco, a pedido do próprio Midas, concedera ao rei o dom de transformar tudo que tocava em ouro. Entretanto, Midas percebeu que seu desejo era uma maldição, e acabou por transformar sua própria filha, Phoebe, em uma estátua de ouro.  Midas, em desespero, pede a Baco para se livrar de seu “dom”. Baco disse que Midas deveria se banhar na fonte do rio Pactolo, para que pudesse se livrar de sua maldição.\n" +
+"\nDelineamento: João Lucas Bernardy(Universidade de São Paulo)\n" +
+"Automação: Rafael Nunes Santana(Universidade Federal de Goiás) e Emanuel Borges Passinato(Universidade Federal de Goiás)\n" +
+"\nComo citar este software:\n" +
+"\nAPA\n" +
+"Bernardy, J.L., Santana, R.N., &Passinato, E.B. (2019).Pactolo(Versão 1.0). [Software].São Paulo, SP: Universidade de São Paulo\n" +
+"\nABNT\n" +
+"BERNARDY, João Lucas; SANTANA, Rafael Nunes; PASSINATO, Emanuel Borges. Pactolo.Versão 1.0.São Paulo.\n" +
+"\nContato: bernardy @usp.br\n"
+		,"Informações");
         }
-    }
+	}
 }

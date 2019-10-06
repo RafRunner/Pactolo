@@ -2,6 +2,8 @@
 using Pactolo.scr.dominio;
 using Pactolo.scr.utils;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
 using System.Linq;
 
 namespace Pactolo.scr.services {
@@ -17,10 +19,16 @@ namespace Pactolo.scr.services {
             return contingenciaInstrucional;
         }
 
+		private static void SalvarObjetosFilhos(ContingenciaInstrucional contingenciaInstrucional) {
+			for (int i = 0; i < contingenciaInstrucional.Tatos.Count; i++) {
+				UnidadeDoExperimento tato = contingenciaInstrucional.Tatos[i];
+				UnidadeDoExperimentoService.Salvar(tato);
+				ContigenciaInstrucionalToTatoService.Salvar(contingenciaInstrucional, tato, i);
+			}
+		}
+
         private static void ObterObjetosFilhos(ContingenciaInstrucional contingenciaInstrucional) {
-            contingenciaInstrucional.Tato1 = UnidadeDoExperimentoService.GetById(contingenciaInstrucional.Tato1Id);
-            contingenciaInstrucional.Autoclitico = UnidadeDoExperimentoService.GetById(contingenciaInstrucional.AutocliticoId);
-            contingenciaInstrucional.Tato2 = UnidadeDoExperimentoService.GetById(contingenciaInstrucional.Tato2Id);
+			contingenciaInstrucional.Tatos = UnidadeDoExperimentoService.GetAllByCI(contingenciaInstrucional);
         }
 
         public static List<ContingenciaInstrucional> GetAll(){
@@ -31,22 +39,26 @@ namespace Pactolo.scr.services {
             return contingenciasInstrucionais;
         }
 
+		private static void DeletarObjetosFilhos(ContingenciaInstrucional contingenciaInstrucional) {
+			ContigenciaInstrucionalToTatoService.DeletarPorCI(contingenciaInstrucional);
+			UnidadeDoExperimentoService.DeletarAll(contingenciaInstrucional.Tatos);
+		}
+
         public static void Salvar(ContingenciaInstrucional contingenciaInstrucional) {
-            AbstractService.Salvar(contingenciaInstrucional,
-                "ContingenciaInstrucional",
-                "INSERT INTO ContingenciaInstrucional (Nome, Tato1Id, AutocliticoId, Tato2Id) VALUES (@Nome, @Tato1Id, @AutocliticoId, @Tato2Id); SELECT CAST(last_insert_rowid() as int)",
-                "UPDATE ContingenciaInstrucional SET Tato1Id = @Tato1Id, AutocliticoId = @AutocliticoId, Tato2Id = @Tato2Id WHERE Id = @Id");
-        }
+			AbstractService.Salvar(contingenciaInstrucional,
+				"ContingenciaInstrucional",
+				"INSERT INTO ContingenciaInstrucional (Nome) VALUES (@Nome); SELECT CAST(last_insert_rowid() as int)",
+				"");
+			SalvarObjetosFilhos(contingenciaInstrucional);
+		}
 
         public static void Deletar(ContingenciaInstrucional contingenciaInstrucional) {
             List<ContingenciaColateral> CCsComEssaCI = ContingenciaColateralService.GetAllByCI(contingenciaInstrucional);
             if (CCsComEssaCI.Count > 0) {
                 throw new System.Exception($"Essa CI está cadastrada nas seguintes CCs: {ListUtils.Join(CCsComEssaCI.Select(it => it.Nome).Cast<string>().ToList(), ", ")}. Delete primeiro essas CCs ou as associe a outra CI");
             }
+			DeletarObjetosFilhos(contingenciaInstrucional);
             AbstractService.Deletar(contingenciaInstrucional, "ContingenciaInstrucional");
-            UnidadeDoExperimentoService.Deletar(contingenciaInstrucional.Tato1);
-            UnidadeDoExperimentoService.Deletar(contingenciaInstrucional.Tato2);
-            UnidadeDoExperimentoService.Deletar(contingenciaInstrucional.Autoclitico);
         }
     }
 }

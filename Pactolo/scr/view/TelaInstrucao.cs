@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Pactolo {
+namespace Pactolo.src.view {
     public partial class TelaInstrucao : Form {
 
         private readonly int height = Screen.PrimaryScreen.Bounds.Height;

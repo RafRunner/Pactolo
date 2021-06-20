@@ -2,26 +2,20 @@
 using Pactolo.scr.enums;
 using Pactolo.scr.services;
 using Pactolo.scr.utils;
+using Pactolo.src.utils;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Pactolo {
+namespace Pactolo.src.view {
     public partial class MenuInicial : Form {
 
         private readonly OpenFileDialog fileDialog = new OpenFileDialog();
         private readonly string imageFilter = "PNG|*.png";
         private readonly string audioFilter = "WAV|*.wav";
-
-        private readonly int height = Screen.PrimaryScreen.Bounds.Height;
-        private readonly int width = Screen.PrimaryScreen.Bounds.Width;
 
         public MenuInicial() {
             InitializeComponent();
@@ -55,15 +49,11 @@ namespace Pactolo {
                 return item;
             }).Cast<ListViewItem>().ToArray());
 
-            Image pactolo = new Bitmap(Pactolo.Properties.Resources.Pactolo);
-            picturePactolo.Image = ImageUtils.Resize(pactolo, picturePactolo.Width, picturePactolo.Height);
+            ViewUtils.CorrigeEscalaTodosOsFilhos(this);
+            ViewUtils.CorrigeTamanhoPosicaoFonte(this);
 
-            if (this.Width > width) {
-                this.Width = width;
-            }
-            if (this.Height + 70 > height) {
-                this.Height = height - 70;
-            }
+            Image pactolo = new Bitmap(Properties.Resources.Pactolo);
+            picturePactolo.Image = ImageUtils.Resize(pactolo, picturePactolo.Width, picturePactolo.Height);
         }
 
         private static void RemoverDeComboBox<T>(ComboBox combox, long id) where T : ElementoDeBanco {
@@ -119,6 +109,7 @@ namespace Pactolo {
 
         private void ButtonGerenciarExperimentador_Click(object sender, EventArgs e) {
             new GridCrud(
+                "Experimentador",
                 ExperimentadorService.GetAll,
                 Experimentador.GetOrdemCulunasGrid(),
                 ExperimentadorService.FilterDataTable,
@@ -155,6 +146,7 @@ namespace Pactolo {
 
         private void ButtonGerenciarParticipante_Click(object sender, EventArgs e) {
             new GridCrud(
+                "Participante",
                 ParticipanteService.GetAll,
                 Participante.GetOrdemColunasGrid(),
                 ParticipanteService.FilterDataTable,
@@ -163,21 +155,8 @@ namespace Pactolo {
                 CarregarParticipante);
         }
 
-        private string SelecionaArquivoComFiltro(string filter = null) {
-			string retorno = string.Empty;
-            if (filter != null) {
-                fileDialog.Filter = filter;
-            }
-            DialogResult result = fileDialog.ShowDialog();
-            if (result == DialogResult.OK) {
-                retorno = fileDialog.FileName;
-            }
-            fileDialog.Filter = string.Empty;
-			return retorno;
-        }
-
         private void ButtonCarregarTato_CLick(object sender, EventArgs e) {
-			ListViewItem itemTato = new ListViewItem(SelecionaArquivoComFiltro(imageFilter));
+			ListViewItem itemTato = new ListViewItem(ViewUtils.SelecionaArquivoComFiltro(fileDialog, imageFilter));
 			listViewTatos.Items.Add(itemTato);
         }
 
@@ -197,10 +176,12 @@ namespace Pactolo {
 			}
 
             string nome = textBoxNomeCI.Text;
+            bool semCor = checkBoxSemCorCI.Checked;
 
             ContingenciaInstrucional CI = new ContingenciaInstrucional {
                 Nome = nome,
-				Tatos = tatos
+				Tatos = tatos,
+                SemCor = semCor
             };
             return CI;
         }
@@ -220,7 +201,7 @@ namespace Pactolo {
                 return null;
             }
 
-            long id = long.Parse(listViewCI.SelectedItems[0].SubItems[1].Text);
+            long id = ViewUtils.GetIdSelecionadoInListView(listViewCI);
             ContingenciaInstrucional CI = ContingenciaInstrucionalService.GetById(id);
             return CI;
         }
@@ -307,6 +288,7 @@ namespace Pactolo {
                 SC2 = SC2,
                 SC3 = SC3
             };
+
             return CC;
         }
 
@@ -325,7 +307,7 @@ namespace Pactolo {
                 return null;
             }
 
-            long id = long.Parse(listViewCC.SelectedItems[0].SubItems[1].Text);
+            long id = ViewUtils.GetIdSelecionadoInListView(listViewCC);
             ContingenciaColateral CC = ContingenciaColateralService.GetById(id);
             return CC;
         }
@@ -384,31 +366,31 @@ namespace Pactolo {
         }
 
         private void ButtonCarregarModelo_Click(object sender, EventArgs e) {
-			textBoxModelo.Text = SelecionaArquivoComFiltro(imageFilter);
+			textBoxModelo.Text = ViewUtils.SelecionaArquivoComFiltro(fileDialog, imageFilter);
         }
 
         private void ButtonCarregarImagemSC1_Click(object sender, EventArgs e) {
-			textBoxSC1.Text = SelecionaArquivoComFiltro(imageFilter);
+			textBoxSC1.Text = ViewUtils.SelecionaArquivoComFiltro(fileDialog, imageFilter);
         }
 
         private void ButtonCarregarImagemSC2_Click(object sender, EventArgs e) {
-			textBoxSC2.Text = SelecionaArquivoComFiltro(imageFilter);
+			textBoxSC2.Text = ViewUtils.SelecionaArquivoComFiltro(fileDialog, imageFilter);
         }
 
         private void ButtonCarregarImagemSC3_Click(object sender, EventArgs e) {
-			textBoxSC3.Text = SelecionaArquivoComFiltro(imageFilter);
+			textBoxSC3.Text = ViewUtils.SelecionaArquivoComFiltro(fileDialog, imageFilter);
         }
 
         private void ButtonCarregarAudioSC1_Click(object sender, EventArgs e) {
-			textBoxAudioSC1.Text =  SelecionaArquivoComFiltro(audioFilter);
+			textBoxAudioSC1.Text = ViewUtils.SelecionaArquivoComFiltro(fileDialog, audioFilter);
         }
 
         private void ButtonCarregarAudioSC2_Click(object sender, EventArgs e) {
-			textBoxAudioSC2.Text = SelecionaArquivoComFiltro(audioFilter);
+			textBoxAudioSC2.Text = ViewUtils.SelecionaArquivoComFiltro(fileDialog, audioFilter);
         }
 
         private void ButtonCarregarAudioSC3_Click(object sender, EventArgs e) {
-			textBoxAudioSC3.Text = SelecionaArquivoComFiltro(audioFilter);
+			textBoxAudioSC3.Text = ViewUtils.SelecionaArquivoComFiltro(fileDialog, audioFilter);
         }
 
         private Sessao CriaSessaoPelosCampos() {
@@ -471,7 +453,7 @@ namespace Pactolo {
                 return;
             }
 
-            long id = long.Parse(listViewSessoes.SelectedItems[0].SubItems[1].Text);
+            long id = ViewUtils.GetIdSelecionadoInListView(listViewSessoes);
             Sessao sessao = SessaoService.GetById(id);
 
             textBoxNomeSessao.Text = sessao.Nome;
@@ -480,6 +462,7 @@ namespace Pactolo {
             numericNTentativas.Value = sessao.CriterioNumeroTentativas;
             checkBoxTentativasAgrp.Checked = !sessao.OrdemAleatoria;
             checkBoxTentativasRand.Checked = sessao.OrdemAleatoria;
+
             if (sessao.Instrucao != null) {
                 textInstrucao.Text = sessao.Instrucao.Texto;
             }
@@ -506,7 +489,7 @@ namespace Pactolo {
                 return;
             }
 
-            long id = long.Parse(listViewSessoes.SelectedItems[0].SubItems[1].Text);
+            long id = ViewUtils.GetIdSelecionadoInListView(listViewSessoes);
             Sessao sessao = SessaoService.GetById(id);
             SessaoService.Deletar(sessao);
 
@@ -552,6 +535,7 @@ namespace Pactolo {
 
         private void ButtonGerenciarInstrucoes_Click(object sender, EventArgs e) {
             new GridCrud(
+              "Instrução",
               InstrucaoService.GetAll,
               Instrucao.GetOrdemCulunasGrid(),
               InstrucaoService.FilterDataTable,

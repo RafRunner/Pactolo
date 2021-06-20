@@ -1,12 +1,6 @@
 ﻿using Pactolo.scr.services;
-using Pactolo.scr.utils;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Media;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
 
@@ -47,5 +41,13 @@ namespace Pactolo.scr.dominio {
                 soundPlayer.Play();
             }
         }
-    }
+
+		public override bool Equals(object obj) {
+			if (obj.GetType() != GetType()) {
+                return false;
+			}
+
+            return ((UnidadeDoExperimento)obj).Id.Equals(Id);
+		}
+	}
 }

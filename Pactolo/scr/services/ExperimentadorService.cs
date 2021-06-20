@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Pactolo.scr.dominio;
-using Pactolo.scr.dominio.DTOs;
 using Pactolo.scr.utils;
 using System;
 using System.Collections.Generic;
@@ -61,9 +60,8 @@ namespace Pactolo.scr.services {
             AbstractService.DeletarPorId(id, "Experimentador");
         }
 
-        public static List<object> FilterDataTable(DTOFiltro dtoFiltro) {
-            List<Experimentador> experimentadores = dtoFiltro.Itens.Cast<Experimentador>().ToList();
-            string textoDeBusca = dtoFiltro.TextoDeBusca.ToLower();
+        public static List<object> FilterDataTable(List<object> objetos, string textoDeBusca) {
+            List<Experimentador> experimentadores = objetos.Cast<Experimentador>().ToList();
 
             return experimentadores.FindAll(experimentador => {
                 if (experimentador.Nome.ToLower().Contains(textoDeBusca) || 

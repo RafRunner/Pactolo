@@ -1,4 +1,4 @@
-﻿namespace Pactolo {
+﻿namespace Pactolo.src.view {
     partial class GridCrud {
         /// <summary>
         /// Required designer variable.

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Pactolo.src.view;
+using System;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Pactolo {
@@ -21,15 +19,7 @@ namespace Pactolo {
         }
 
         private static void Form1_UIThreadException(object sender, ThreadExceptionEventArgs t) {
-            try {
-                ShowThreadExceptionDialog("Erro", false, t.Exception);
-            } catch {
-                try {
-                    MessageBox.Show("Erro fatal", "Um erro fatal inexperado ocorreu e o aplicativo será encerrado. Entre em contato com os desenvolvedores.", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                } finally {
-                    Application.Exit();
-                }
-            }
+             ShowThreadExceptionDialog("Erro", false, t.Exception);
         }
 
         private static void ShowThreadExceptionDialog(string title, bool debug, Exception e) {

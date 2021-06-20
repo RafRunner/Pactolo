@@ -1,9 +1,6 @@
 ﻿using Pactolo.scr.utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
 
@@ -12,7 +9,7 @@ namespace Pactolo.scr.dominio {
 		protected string nome;
 		public string Nome {
 			get => nome;
-			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "nome da Contigência Instrucional");
+			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "nome do Estímulo Contexto");
 		}
 
 		private List<UnidadeDoExperimento> tatos;
@@ -20,13 +17,15 @@ namespace Pactolo.scr.dominio {
 			get => tatos;
 			set {
 				if (value.Count == 0) {
-					throw new Exception("Uma CI deve ter no mínimo um tato! Para 'ter uma CI sem tatos', cadastre uma CC sem CI");
+					throw new Exception("Um EC deve ter no mínimo um tato! Para 'ter uma EC sem tatos', cadastre um MTS sem EC");
 				}
 				if (value.Count > 5) {
-					throw new Exception("Muitos Tatos! Por favor, adicione no máximo 5 tatos para cada CI");
+					throw new Exception("Muitos Tatos! Por favor, adicione no máximo 5 tatos para cada EC");
 				}
 				tatos = value;
 			}
 		}
+
+		public bool SemCor { get; set; }
 	}
 }

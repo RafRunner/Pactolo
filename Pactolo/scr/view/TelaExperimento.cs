@@ -2,40 +2,34 @@
 using Pactolo.scr.dominio.eventos;
 using Pactolo.scr.services;
 using Pactolo.scr.utils;
+using Pactolo.src.utils;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Media;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Pactolo {
+namespace Pactolo.src.view {
 	public partial class TelaExperimento : Form {
+
+		private readonly int height = Screen.PrimaryScreen.Bounds.Height;
+		private readonly int width = Screen.PrimaryScreen.Bounds.Width;
+
+		private readonly int imageHeight;
+		private readonly int imageWidth;
 
 		private readonly List<Sessao> sessoesExecutadas;
 
 		private Sessao sessaoAtual;
 		private ContingenciaColateral CCAtual;
-		private List<UnidadeDoExperimento> SCsEmbaralhados;
-		private System.Windows.Forms.Timer timerAtual;
+		private List<UnidadeDoExperimento> SCsEmbaralhados = new List<UnidadeDoExperimento>();
+		private Timer timerAtual;
 
 		private readonly Random random = new Random();
 
 		private readonly RelatorioSessao relatorioSessao;
-
-		private readonly int imageHeight;
-		private readonly int imageWidth;
-
-		private readonly int height = Screen.PrimaryScreen.Bounds.Height;
-		private readonly int width = Screen.PrimaryScreen.Bounds.Width;
-
-		private readonly double heightRatio;
-		private readonly double widthRatio;
 
 		private bool CIFinalizado = false;
 		private bool SessoesFinalizadas = false;
@@ -50,7 +44,6 @@ namespace Pactolo {
 		private Dictionary<PictureBox, int> pictureToTato;
 
 		private TaskCompletionSource<bool> taskSModelo;
-		private TaskCompletionSource<bool> taskFinalizacao;
 		private TaskCompletionSource<bool> taskCC;
 
 		public TelaExperimento(List<Sessao> sessoesExecutadas, Experimentador experimentador, Participante participante) {
@@ -59,10 +52,21 @@ namespace Pactolo {
 			this.sessoesExecutadas = sessoesExecutadas;
 
 			relatorioSessao = new RelatorioSessao(sessoesExecutadas.Select(it => it.Id).Cast<long>().ToList(), experimentador, participante);
-			heightRatio = height / 1080.0;
-			widthRatio = width / 1920.0;
-			imageHeight = Convert.ToInt32(283 * heightRatio);
-			imageWidth = Convert.ToInt32(333 * widthRatio);
+
+			imageHeight = Convert.ToInt32(283 * ViewUtils.heightRatio);
+			imageWidth = Convert.ToInt32(333 * ViewUtils.widthRatio);
+
+			Location = new Point(0, 0);
+			Size = new Size(width, height);
+
+			if (width != 1920 || height != 1080) {
+				ViewUtils.CorrigeEscalaTodosOsFilhos(this);
+			}
+
+			panelCI.Visible = false;
+			EscondeCC();
+
+			ApresentarSessoes();
 		}
 
 		private void EscondeCC() {
@@ -74,52 +78,6 @@ namespace Pactolo {
 			labelMensagemSC1.Visible = false;
 			labelMensagemSC2.Visible = false;
 			labelMensagemSC3.Visible = false;
-		}
-
-		private void TelaExperimento_Load(object sender, EventArgs e) {
-			Location = new Point(0, 0);
-			Size = new Size(width, height);
-			if (width != 1920 || height != 1080) {
-				ResizeComponents();
-			}
-
-			panelCI.Visible = false;
-			EscondeCC();
-
-			ApresentarSessoes();
-		}
-
-		private void CorrigeTamanhoEPosicao(Control controle) {
-			controle.Height = Convert.ToInt32(controle.Height * heightRatio);
-			controle.Width = Convert.ToInt32(controle.Width * widthRatio);
-			controle.Location = new Point {
-				X = Convert.ToInt32(controle.Location.X * widthRatio),
-				Y = Convert.ToInt32(controle.Location.Y * heightRatio)
-			};
-		}
-
-		private void CorrigeFonte(Label label) {
-			label.Font = new Font(label.Font.Name, Convert.ToInt32(label.Font.Size * heightRatio));
-		}
-
-		private void ResizeComponents() {
-			CorrigeTamanhoEPosicao(panelCI);
-			CorrigeTamanhoEPosicao(pictureTato1);
-			CorrigeTamanhoEPosicao(pictureTato3);
-			CorrigeTamanhoEPosicao(pictureTato5);
-			CorrigeTamanhoEPosicao(pictureSModelo);
-			CorrigeTamanhoEPosicao(pictureSC1);
-			CorrigeTamanhoEPosicao(pictureSC2);
-			CorrigeTamanhoEPosicao(pictureSC3);
-			CorrigeTamanhoEPosicao(panelPontos);
-			CorrigeTamanhoEPosicao(labelPontos);
-			CorrigeTamanhoEPosicao(labelMensagemSC1);
-			CorrigeTamanhoEPosicao(labelMensagemSC2);
-			CorrigeTamanhoEPosicao(labelMensagemSC3);
-			CorrigeFonte(labelPontos);
-			CorrigeFonte(labelMensagemSC1);
-			CorrigeFonte(labelMensagemSC2);
-			CorrigeFonte(labelMensagemSC3);
 		}
 
 		private void AtualizaPontos(int pontosGanhos) {
@@ -137,7 +95,6 @@ namespace Pactolo {
 			}
 			SessoesFinalizadas = true;
 			MessageBox.Show("Finalizado o Experimento! Por favor, chamar o experimentador", "Finalizado");
-			await taskFinalizacao.Task;
 		}
 
 		private void EventoFimTempo(Object myObject, EventArgs myEventArgs) {
@@ -157,7 +114,7 @@ namespace Pactolo {
 			}
 
 			if (sessaoAtual.CriterioDuracaoSegundos > 0) {
-				timerAtual = new System.Windows.Forms.Timer {
+				timerAtual = new Timer {
 					Interval = Convert.ToInt32(sessaoAtual.CriterioDuracaoSegundos) * 1000
 				};
 				timerAtual.Tick += new EventHandler(EventoFimTempo);
@@ -170,21 +127,16 @@ namespace Pactolo {
 				if (CC == null) {
 					break;
 				}
-				if (CCAtual != CC) {
-					EscondeCC();
-					ContingenciaInstrucional CI = CC.CI;
+				EscondeCC();
+				ContingenciaInstrucional CI = CC.CI;
 
-					if (CI != null) {
-						await ApresentarCI(CC);
-					}
-					else {
-						panelCI.Visible = false;
-						CIFinalizado = true;
-						await ApresentarCC(CC, true);
-					}
+				if (CI != null) {
+					await ApresentarCI(CC);
 				}
 				else {
-					await ApresentarCC(CC, false);
+					panelCI.Visible = false;
+					CIFinalizado = true;
+					await ApresentarCC(CC);
 				}
 
 				if (sessaoAtual.CriterioNumeroTentativas > 0 && sessaoAtual.NumeroTentativas >= sessaoAtual.CriterioNumeroTentativas) {
@@ -319,7 +271,6 @@ namespace Pactolo {
 					pictureTato4.Visible = true;
 					pictureTato5.Visible = true;
 					break;
-
 			}
 
 			panelCI.Visible = true;
@@ -332,7 +283,9 @@ namespace Pactolo {
 
 			for (int i = 0; i < quantidadeTatos; i++) {
 				await tasksTato[i].Task;
-				tatoToPicture[i + 1].BackColor = Color.Green;
+				if (!CI.SemCor) {
+					tatoToPicture[i + 1].BackColor = Color.Green;
+				}
 				relatorioSessao.AdicionarEvento(new EventoCI(sessaoAtual, CI, tatos[i]));
 			}
 
@@ -341,48 +294,60 @@ namespace Pactolo {
 			}
 
 			CIFinalizado = true;
-			await ApresentarCC(CC, true);
+			await ApresentarCC(CC);
 		}
 
-		private void EmbaralhaSCs() {
-			SCsEmbaralhados = ListUtils.EmbaralhaMudandoPosicao(SCsEmbaralhados);
+		private void EmbaralhaSCs(List<UnidadeDoExperimento> SCs) {
+			if (SCsEmbaralhados.Count == 0 || !SCs.All(sc => SCsEmbaralhados.Select(s => s.NomeImagem).Contains(sc.NomeImagem))) {
+				 ListUtils.EmbaralhaMudandoPosicao(SCs);
+			}
+			else {
+				Dictionary<string, int> ordemAnterior = new Dictionary<string, int>();
+
+				for (int i = 0; i < SCsEmbaralhados.Count; i++) {
+					UnidadeDoExperimento sc = SCsEmbaralhados[i];
+					ordemAnterior[sc.NomeImagem] = i;
+				}
+
+				while (SCs.Any(sc => ordemAnterior[sc.NomeImagem] == SCs.IndexOf(sc))) {
+					ListUtils.EmbaralhaMudandoPosicao(SCs);
+				}
+			}
+
+			SCsEmbaralhados = SCs;
 
 			pictureSC1.Image = ImageUtils.Resize(SCsEmbaralhados[0].Imagem, imageWidth, imageHeight);
 			pictureSC2.Image = ImageUtils.Resize(SCsEmbaralhados[1].Imagem, imageWidth, imageHeight);
 			pictureSC3.Image = ImageUtils.Resize(SCsEmbaralhados[2].Imagem, imageWidth, imageHeight);
 		}
 
-		private async Task ApresentarCC(ContingenciaColateral CC, bool recomecar) {
+		private async Task ApresentarCC(ContingenciaColateral CC) {
 			taskCC = new TaskCompletionSource<bool>(false);
+			taskSModelo = new TaskCompletionSource<bool>(false);
 
-			if (recomecar) {
-				taskFinalizacao = new TaskCompletionSource<bool>(false);
-				taskSModelo = new TaskCompletionSource<bool>(false);
+			pictureSC3.Visible = false;
+			panelPontos.Visible = false;
+			pictureSC2.Visible = false;
+			pictureSC1.Visible = false;
 
-				pictureSC3.Visible = false;
-				panelPontos.Visible = false;
-				pictureSC2.Visible = false;
-				pictureSC1.Visible = false;
+			CCAtual = CC;
+			pictureSModelo.Visible = true;
+			pictureSModelo.Image = ImageUtils.Resize(CC.sModelo.Imagem, imageWidth, imageHeight);
+			List<UnidadeDoExperimento> SCs = new List<UnidadeDoExperimento>() { CC.SC1, CC.SC2, CC.SC3 };
 
-				CCAtual = CC;
-				SCsEmbaralhados = new List<UnidadeDoExperimento>() { CC.SC1, CC.SC2, CC.SC3 };
-				pictureSModelo.Visible = true;
-				pictureSModelo.Image = ImageUtils.Resize(CC.sModelo.Imagem, imageWidth, imageHeight);
+			await taskSModelo.Task;
+			relatorioSessao.AdicionarEvento(new EventoSModelo(sessaoAtual, CC, CC.sModelo.NomeImagem));
 
-				await taskSModelo.Task;
-				relatorioSessao.AdicionarEvento(new EventoSModelo(sessaoAtual, CC, CC.sModelo.NomeImagem));
+			pictureSC3.Visible = true;
+			panelPontos.Visible = true;
+			pictureSC2.Visible = true;
+			pictureSC1.Visible = true;
 
-				pictureSC3.Visible = true;
-				panelPontos.Visible = true;
-				pictureSC2.Visible = true;
-				pictureSC1.Visible = true;
-			}
-
-			EmbaralhaSCs();
+			EmbaralhaSCs(SCs);
 			await taskCC.Task;
 		}
 
-		private async void ClickBotao(UnidadeDoExperimento SC, Label labelMensagem, PictureBox pictureSC) {
+		private async void ClickSC(UnidadeDoExperimento SC, Label labelMensagem, PictureBox pictureSC) {
 			if (SessoesFinalizadas) {
 				return;
 			}
@@ -482,15 +447,15 @@ namespace Pactolo {
 		}
 
 		private void PictureSC1_Click(object sender, EventArgs e) {
-			ClickBotao(SCsEmbaralhados[0], labelMensagemSC1, pictureSC1);
+			ClickSC(SCsEmbaralhados[0], labelMensagemSC1, pictureSC1);
 		}
 
 		private void PictureSC2_Click(object sender, EventArgs e) {
-			ClickBotao(SCsEmbaralhados[1], labelMensagemSC2, pictureSC2);
+			ClickSC(SCsEmbaralhados[1], labelMensagemSC2, pictureSC2);
 		}
 
 		private void PictureSC3_Click(object sender, EventArgs e) {
-			ClickBotao(SCsEmbaralhados[2], labelMensagemSC3, pictureSC3);
+			ClickSC(SCsEmbaralhados[2], labelMensagemSC3, pictureSC3);
 		}
 	}
 }

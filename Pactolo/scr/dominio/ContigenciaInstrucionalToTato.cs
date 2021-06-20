@@ -12,7 +12,7 @@ namespace Pactolo.scr.dominio {
 			get => idCI;
 			set {
 				if (value <= 0) {
-					throw new Exception($"O id da CI deve ser válido! IdCi: ${value}");
+					throw new Exception($"O id do EC deve ser válido! IdCi: ${value}");
 				}
 				idCI = value;
 			}
@@ -32,7 +32,7 @@ namespace Pactolo.scr.dominio {
 			get => ordem;
 			set {
 				if (value <= 0) {
-					throw new Exception($"A ordem deve ser válido! Ordem: ${value}");
+					throw new Exception($"A ordem deve ser válida! Ordem: ${value}");
 				}
 				ordem = value;
 			}

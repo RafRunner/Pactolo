@@ -45,7 +45,7 @@ namespace Pactolo.scr.services {
                 throw new Exception("Uma sessão não pode ser criada sem possuir ao menos um critério de encerramento.");
             }
             if (sessao.CCs.Count == 0) {
-                throw new Exception("Uma sessão deve possuir pelo menos uma CC");
+                throw new Exception("Uma sessão deve possuir pelo menos um MTS");
             }
             AbstractService.Salvar(sessao,
                 "Sessao",

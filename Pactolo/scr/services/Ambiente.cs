@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Pactolo.scr.services {
     class Ambiente {
@@ -23,7 +19,7 @@ namespace Pactolo.scr.services {
         }
 
         public static string GetFullPath(string nomePasta, string nomeArquivo = "") {
-            string caminhoPasta = Ambiente.GetDiretorioPastas() + "\\" + nomePasta;
+            string caminhoPasta = GetDiretorioPastas() + "\\" + nomePasta;
             if (string.IsNullOrEmpty(nomeArquivo)) {
                 return caminhoPasta;
             }

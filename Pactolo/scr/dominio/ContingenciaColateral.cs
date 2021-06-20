@@ -1,9 +1,4 @@
 ﻿using Pactolo.scr.utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
 
@@ -12,7 +7,7 @@ namespace Pactolo.scr.dominio {
         protected string nome;
 		public string Nome {
 			get => nome;
-			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "nome da Contigência Colateral");
+			set => nome = StringUtils.ValideNaoNuloNaoVazioENormalize(value, "nome do Match to Sample");
 		}
 
         public long sModeloId { get; set; }

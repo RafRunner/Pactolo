@@ -1,9 +1,7 @@
-﻿using Dapper;
-using Pactolo.scr.dominio;
+﻿using Pactolo.scr.dominio;
 using Pactolo.scr.utils;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 
 namespace Pactolo.scr.services {
@@ -47,7 +45,7 @@ namespace Pactolo.scr.services {
         public static void Salvar(ContingenciaInstrucional contingenciaInstrucional) {
 			AbstractService.Salvar(contingenciaInstrucional,
 				"ContingenciaInstrucional",
-				"INSERT INTO ContingenciaInstrucional (Nome) VALUES (@Nome); SELECT CAST(last_insert_rowid() as int)",
+				"INSERT INTO ContingenciaInstrucional (Nome, SemCor) VALUES (@Nome, @SemCor); SELECT CAST(last_insert_rowid() as int)",
 				"");
 			SalvarObjetosFilhos(contingenciaInstrucional);
 		}
@@ -55,7 +53,7 @@ namespace Pactolo.scr.services {
         public static void Deletar(ContingenciaInstrucional contingenciaInstrucional) {
             List<ContingenciaColateral> CCsComEssaCI = ContingenciaColateralService.GetAllByCI(contingenciaInstrucional);
             if (CCsComEssaCI.Count > 0) {
-                throw new System.Exception($"Essa CI está cadastrada nas seguintes CCs: {ListUtils.Join(CCsComEssaCI.Select(it => it.Nome).Cast<string>().ToList(), ", ")}. Delete primeiro essas CCs ou as associe a outra CI");
+                throw new System.Exception($"Esse EC está cadastrada nos seguintes MTSs: {ListUtils.Join(CCsComEssaCI.Select(it => it.Nome).Cast<string>().ToList(), ", ")}. Delete primeiro esses MTSs ou os associe a outro EC");
             }
 			DeletarObjetosFilhos(contingenciaInstrucional);
             AbstractService.Deletar(contingenciaInstrucional, "ContingenciaInstrucional");

@@ -1,4 +1,4 @@
-﻿namespace Pactolo {
+﻿namespace Pactolo.src.view {
     partial class TelaExperimento {
         /// <summary>
         /// Required designer variable.
@@ -175,7 +175,7 @@
 			// 
 			this.labelPontos.AutoSize = true;
 			this.labelPontos.Font = new System.Drawing.Font("Microsoft YaHei", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.labelPontos.Location = new System.Drawing.Point(3, 22);
+			this.labelPontos.Location = new System.Drawing.Point(47, 19);
 			this.labelPontos.Name = "labelPontos";
 			this.labelPontos.Size = new System.Drawing.Size(242, 62);
 			this.labelPontos.TabIndex = 0;
@@ -185,31 +185,31 @@
 			// 
 			this.labelMensagemSC1.AutoSize = true;
 			this.labelMensagemSC1.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.labelMensagemSC1.Location = new System.Drawing.Point(83, 920);
+			this.labelMensagemSC1.Location = new System.Drawing.Point(93, 920);
 			this.labelMensagemSC1.Name = "labelMensagemSC1";
-			this.labelMensagemSC1.Size = new System.Drawing.Size(197, 41);
+			this.labelMensagemSC1.Size = new System.Drawing.Size(179, 41);
 			this.labelMensagemSC1.TabIndex = 1;
-			this.labelMensagemSC1.Text = "CORREETO!";
+			this.labelMensagemSC1.Text = "CORRETO!";
 			// 
 			// labelMensagemSC2
 			// 
 			this.labelMensagemSC2.AutoSize = true;
 			this.labelMensagemSC2.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.labelMensagemSC2.Location = new System.Drawing.Point(824, 920);
+			this.labelMensagemSC2.Location = new System.Drawing.Point(836, 920);
 			this.labelMensagemSC2.Name = "labelMensagemSC2";
-			this.labelMensagemSC2.Size = new System.Drawing.Size(197, 41);
+			this.labelMensagemSC2.Size = new System.Drawing.Size(179, 41);
 			this.labelMensagemSC2.TabIndex = 9;
-			this.labelMensagemSC2.Text = "CORREETO!";
+			this.labelMensagemSC2.Text = "CORRETO!";
 			// 
 			// labelMensagemSC3
 			// 
 			this.labelMensagemSC3.AutoSize = true;
 			this.labelMensagemSC3.Font = new System.Drawing.Font("Microsoft YaHei", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.labelMensagemSC3.Location = new System.Drawing.Point(1643, 920);
+			this.labelMensagemSC3.Location = new System.Drawing.Point(1654, 920);
 			this.labelMensagemSC3.Name = "labelMensagemSC3";
-			this.labelMensagemSC3.Size = new System.Drawing.Size(197, 41);
+			this.labelMensagemSC3.Size = new System.Drawing.Size(179, 41);
 			this.labelMensagemSC3.TabIndex = 10;
-			this.labelMensagemSC3.Text = "CORREETO!";
+			this.labelMensagemSC3.Text = "CORRETO!";
 			// 
 			// TelaExperimento
 			// 
@@ -228,7 +228,6 @@
 			this.Controls.Add(this.panelCI);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "TelaExperimento";
-			this.Load += new System.EventHandler(this.TelaExperimento_Load);
 			this.panelCI.ResumeLayout(false);
 			this.panelCI.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureTato4)).EndInit();

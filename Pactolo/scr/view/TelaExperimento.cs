@@ -39,9 +39,8 @@ namespace Pactolo.src.view {
 
 		private int indiceCCAtual = 0;
 
+		private List<PictureBox> tatoToPicture = new List<PictureBox>();
 		private List<TaskCompletionSource<bool>> tasksTato;
-		private Dictionary<int, PictureBox> tatoToPicture;
-		private Dictionary<PictureBox, int> pictureToTato;
 
 		private TaskCompletionSource<bool> taskSModelo;
 		private TaskCompletionSource<bool> taskCC;
@@ -197,73 +196,53 @@ namespace Pactolo.src.view {
 			int quantidadeTatos = tatos.Count;
 
 			tasksTato = new List<TaskCompletionSource<bool>>();
-			tatoToPicture = new Dictionary<int, PictureBox>();
-			pictureToTato = new Dictionary<PictureBox, int>();
+			tatoToPicture = new List<PictureBox>();
+
+			pictureTato1.Visible = false;
+			pictureTato2.Visible = false;
+			pictureTato3.Visible = false;
+			pictureTato4.Visible = false;
+			pictureTato5.Visible = false;
 
 			switch (quantidadeTatos) {
 				case 1:
-					tatoToPicture.Add(1, pictureTato3);
-					pictureToTato.Add(pictureTato3, 1);
+					tatoToPicture.Add(pictureTato3);
 
-					pictureTato1.Visible = false;
-					pictureTato2.Visible = false;
 					pictureTato3.Visible = true;
-					pictureTato4.Visible = false;
-					pictureTato5.Visible = false;
 					break;
 				case 2:
-					tatoToPicture.Add(1, pictureTato2);
-					tatoToPicture.Add(2, pictureTato4);
-					pictureToTato.Add(pictureTato2, 1);
-					pictureToTato.Add(pictureTato4, 2);
+					tatoToPicture.Add(pictureTato2);
+					tatoToPicture.Add(pictureTato4);
 
-					pictureTato1.Visible = false;
 					pictureTato2.Visible = true;
-					pictureTato3.Visible = false;
 					pictureTato4.Visible = true;
-					pictureTato5.Visible = false;
 					break;
 				case 3:
-					tatoToPicture.Add(1, pictureTato1);
-					tatoToPicture.Add(2, pictureTato3);
-					tatoToPicture.Add(3, pictureTato5);
-					pictureToTato.Add(pictureTato1, 1);
-					pictureToTato.Add(pictureTato3, 2);
-					pictureToTato.Add(pictureTato5, 3);
+					tatoToPicture.Add(pictureTato1);
+					tatoToPicture.Add(pictureTato3);
+					tatoToPicture.Add(pictureTato5);
 
 					pictureTato1.Visible = true;
-					pictureTato2.Visible = false;
 					pictureTato3.Visible = true;
-					pictureTato4.Visible = false;
 					pictureTato5.Visible = true;
 					break;
 				case 4:
-					tatoToPicture.Add(1, pictureTato1);
-					tatoToPicture.Add(2, pictureTato2);
-					tatoToPicture.Add(3, pictureTato4);
-					tatoToPicture.Add(4, pictureTato5);
-					pictureToTato.Add(pictureTato1, 1);
-					pictureToTato.Add(pictureTato2, 2);
-					pictureToTato.Add(pictureTato4, 3);
-					pictureToTato.Add(pictureTato5, 4);
+					tatoToPicture.Add(pictureTato1);
+					tatoToPicture.Add(pictureTato2);
+					tatoToPicture.Add(pictureTato4);
+					tatoToPicture.Add(pictureTato5);
 
 					pictureTato1.Visible = true;
 					pictureTato2.Visible = true;
-					pictureTato3.Visible = false;
 					pictureTato4.Visible = true;
 					pictureTato5.Visible = true;
 					break;
 				case 5:
-					tatoToPicture.Add(1, pictureTato1);
-					tatoToPicture.Add(2, pictureTato2);
-					tatoToPicture.Add(3, pictureTato3);
-					tatoToPicture.Add(4, pictureTato4);
-					tatoToPicture.Add(5, pictureTato5);
-					pictureToTato.Add(pictureTato1, 1);
-					pictureToTato.Add(pictureTato2, 2);
-					pictureToTato.Add(pictureTato3, 3);
-					pictureToTato.Add(pictureTato4, 4);
-					pictureToTato.Add(pictureTato5, 5);
+					tatoToPicture.Add(pictureTato1);
+					tatoToPicture.Add(pictureTato2);
+					tatoToPicture.Add(pictureTato3);
+					tatoToPicture.Add(pictureTato4);
+					tatoToPicture.Add(pictureTato5);
 
 					pictureTato1.Visible = true;
 					pictureTato2.Visible = true;
@@ -277,14 +256,14 @@ namespace Pactolo.src.view {
 
 			for (int i = 0; i < quantidadeTatos; i++) {
 				tasksTato.Add(new TaskCompletionSource<bool>(false));
-				tatoToPicture[i + 1].BackColor = Color.White;
-				tatoToPicture[i + 1].Image = ImageUtils.Resize(tatos[i].Imagem, imageWidth, imageHeight);
+				tatoToPicture[i].BackColor = Color.White;
+				tatoToPicture[i].Image = ImageUtils.Resize(tatos[i].Imagem, imageWidth, imageHeight);
 			}
 
 			for (int i = 0; i < quantidadeTatos; i++) {
 				await tasksTato[i].Task;
 				if (!CI.SemCor) {
-					tatoToPicture[i + 1].BackColor = Color.Green;
+					tatoToPicture[i].BackColor = Color.Green;
 				}
 				relatorioSessao.AdicionarEvento(new EventoCI(sessaoAtual, CI, tatos[i]));
 			}
@@ -325,11 +304,6 @@ namespace Pactolo.src.view {
 			taskCC = new TaskCompletionSource<bool>(false);
 			taskSModelo = new TaskCompletionSource<bool>(false);
 
-			pictureSC3.Visible = false;
-			panelPontos.Visible = false;
-			pictureSC2.Visible = false;
-			pictureSC1.Visible = false;
-
 			CCAtual = CC;
 			pictureSModelo.Visible = true;
 			pictureSModelo.Image = ImageUtils.Resize(CC.sModelo.Imagem, imageWidth, imageHeight);
@@ -338,12 +312,13 @@ namespace Pactolo.src.view {
 			await taskSModelo.Task;
 			relatorioSessao.AdicionarEvento(new EventoSModelo(sessaoAtual, CC, CC.sModelo.NomeImagem));
 
+			EmbaralhaSCs(SCs);
+
 			pictureSC3.Visible = true;
 			panelPontos.Visible = true;
 			pictureSC2.Visible = true;
 			pictureSC1.Visible = true;
 
-			EmbaralhaSCs(SCs);
 			await taskCC.Task;
 		}
 
@@ -410,13 +385,13 @@ namespace Pactolo.src.view {
 		}
 
 		private void ComportamentoPicturesCI(PictureBox pictureBox) {
-			if (!pictureToTato.ContainsKey(pictureBox)) {
+			if (!tatoToPicture.Contains(pictureBox)) {
 				return;
 			}
 
-			int indiceTato = pictureToTato[pictureBox];
-			if (indiceTato == 1 || tasksTato[indiceTato - 2].Task.IsCompleted) {
-				tasksTato[indiceTato - 1].TrySetResult(true);
+			int indiceTato = tatoToPicture.IndexOf(pictureBox);
+			if (indiceTato == 0 || tasksTato[indiceTato - 1].Task.IsCompleted) {
+				tasksTato[indiceTato].TrySetResult(true);
 			}
 		}
 

@@ -1,21 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pactolo.scr.dominio {
-    public abstract class Evento {
+    public class Evento {
 
-        public Evento(Sessao sessao) {
-            NomeSesssao = sessao.Nome;
+        public Evento(string mensagem) {
+            Mensagem = mensagem;
             HoraEvento = DateTime.Now;
+            Acerto = -2;
         }
 
-        public string NomeSesssao { get; set; }
-        public DateTime HoraEvento { get; set; }
-        public Boolean EventoEncerramento { get; set; }
+        public Evento(string mensagem, int acerto) : this(mensagem) {
+            Acerto = acerto;
+        }
 
-        public abstract string MontaMensagem();
+        public DateTime HoraEvento { get; set; }
+        // -2 não é evento de toque em SC, -1 neutro, 0 erro, 1 acerto
+        public int Acerto { get; set; }
+        public string Mensagem { get; set; }
+
+        public string MontaMensagem() {
+            return HoraEvento.ToString("hh:mm:ss") + ": " + Mensagem;
+		}
     }
 }

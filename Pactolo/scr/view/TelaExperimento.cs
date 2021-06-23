@@ -1,5 +1,4 @@
 ﻿using Pactolo.scr.dominio;
-using Pactolo.scr.dominio.eventos;
 using Pactolo.scr.services;
 using Pactolo.scr.utils;
 using Pactolo.src.utils;
@@ -35,7 +34,6 @@ namespace Pactolo.src.view {
 		private bool SessoesFinalizadas = false;
 
 		private List<ContingenciaColateral> pacoteCC;
-		private UnidadeDoExperimento ultimoSC;
 
 		private int indiceCCAtual = 0;
 
@@ -99,7 +97,7 @@ namespace Pactolo.src.view {
 		private void EventoFimTempo(Object myObject, EventArgs myEventArgs) {
 			timerAtual.Stop();
 			taskSModelo.TrySetResult(true);
-			FinalizarCC("Fim do tempo limite", CCAtual.SC1);
+			FinalizarCC("Fim do tempo limite");
 			return;
 		}
 
@@ -139,13 +137,13 @@ namespace Pactolo.src.view {
 				}
 
 				if (sessaoAtual.CriterioNumeroTentativas > 0 && sessaoAtual.NumeroTentativas >= sessaoAtual.CriterioNumeroTentativas) {
-					FinalizarCC("Númeo de Tentativas", ultimoSC);
+					FinalizarCC("Númeo de Tentativas");
 					encerrada = true;
 				}
 
 
 				if (sessaoAtual.CriterioAcertosConcecutivos > 0 && sessaoAtual.AcertosConcecutivos >= sessaoAtual.CriterioAcertosConcecutivos) {
-					FinalizarCC("Acertos Consecutivos", ultimoSC);
+					FinalizarCC("Acertos Consecutivos");
 					encerrada = true;
 				}
 
@@ -265,7 +263,7 @@ namespace Pactolo.src.view {
 				if (!CI.SemCor) {
 					tatoToPicture[i].BackColor = Color.Green;
 				}
-				relatorioSessao.AdicionarEvento(new EventoCI(sessaoAtual, CI, tatos[i]));
+				relatorioSessao.AdicionarEvento(new Evento($"Sessão {sessaoAtual.Nome};EC {CI.Nome}; Tato da imagem {tatos[i].NomeImagem} Tocado."));
 			}
 
 			for (int i = 0; i < quantidadeTatos; i++) {
@@ -310,7 +308,7 @@ namespace Pactolo.src.view {
 			List<UnidadeDoExperimento> SCs = new List<UnidadeDoExperimento>() { CC.SC1, CC.SC2, CC.SC3 };
 
 			await taskSModelo.Task;
-			relatorioSessao.AdicionarEvento(new EventoSModelo(sessaoAtual, CC, CC.sModelo.NomeImagem));
+			relatorioSessao.AdicionarEvento(new Evento($"Sessão {sessaoAtual.Nome}; MTS {CC.Nome}; SModelo da imagem {CC.sModelo.NomeImagem} tocado."));
 
 			EmbaralhaSCs(SCs);
 
@@ -332,15 +330,15 @@ namespace Pactolo.src.view {
 			if (feedback.Neutro || feedback.ValorClick == 0) {
 				sessaoAtual.AcertosConcecutivos = 0;
 				sessaoAtual.NumeroTentativas++;
-				relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, SC, 0));
+				relatorioSessao.AdicionarEvento(new Evento($"Sessão {sessaoAtual.Nome}; MTS {CCAtual.Nome}; SC da imagem {SC.NomeImagem} neutro tocado.", -1));
 				await Task.Delay(1000);
 			}
 			else {
-				if (feedback.ProbabilidadeComplementar > random.Next(0, 100)) {
-					bool positivo = feedback.ValorClick > 0;
-					Color novaCor = positivo ? Color.Green : Color.Red;
-					string mensagem = positivo ? "CORRETO!" : "ERRADO!";
+				bool positivo = feedback.ValorClick > 0;
+				Color novaCor = positivo ? Color.Green : Color.Red;
+				string mensagem = positivo ? "CORRETO!" : "ERRADO!";
 
+				if (feedback.ProbabilidadeComplementar > random.Next(0, 100)) {
 					sessaoAtual.NumeroTentativas++;
 
 					if (positivo) {
@@ -362,10 +360,10 @@ namespace Pactolo.src.view {
 						pictureSC.BackColor = novaCor;
 					}
 
-					relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, SC, feedback.ValorClick));
+					relatorioSessao.AdicionarEvento(new Evento($"Sessão {sessaoAtual.Nome}; MTS {CCAtual.Nome}; SC da imagem {SC.NomeImagem} {mensagem} tocado, valendo {feedback.ValorClick} pontos.", positivo ? 1: 0));
 				}
 				else {
-					relatorioSessao.AdicionarEvento(new EventoSC(sessaoAtual, CCAtual, SC, 0));
+					relatorioSessao.AdicionarEvento(new Evento($"Sessão {sessaoAtual.Nome}; MTS {CCAtual.Nome}; SC da imagem {SC.NomeImagem} {mensagem} tocado, porém não houve feedback por probabilidade.",-1));
 				}
 
 				await Task.Delay(1000);
@@ -373,14 +371,11 @@ namespace Pactolo.src.view {
 				pictureSC.BackColor = Color.White;
 			}
 
-			ultimoSC = SC;
 			taskCC.TrySetResult(true);
 		}
 
-		private void FinalizarCC(string motivoFinalização, UnidadeDoExperimento SC) {
-			EventoSC eventoEncerramento = new EventoSC(sessaoAtual, CCAtual, SC, 0);
-			eventoEncerramento.MarcarComoEncerramento(motivoFinalização, sessaoAtual.NumeroTentativas.ToString());
-			relatorioSessao.AdicionarEvento(eventoEncerramento);
+		private void FinalizarCC(string motivoFinalização) {
+			relatorioSessao.AdicionarEvento(new Evento($"Sessão {sessaoAtual.Nome}; Fim da sessão. Critério: {motivoFinalização}."));
 			taskCC.TrySetResult(true);
 		}
 

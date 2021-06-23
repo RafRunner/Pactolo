@@ -1,8 +1,5 @@
-﻿using Pactolo.scr.services;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace Pactolo.scr.dominio {
     public class RelatorioSessao {

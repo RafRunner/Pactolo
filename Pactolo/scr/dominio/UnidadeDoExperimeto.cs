@@ -38,6 +38,7 @@ namespace Pactolo.scr.dominio {
 
         public void PlayAudio() {
             if (soundPlayer != null) {
+                soundPlayer.Stop();
                 soundPlayer.Play();
             }
         }

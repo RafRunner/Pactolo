@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pactolo.scr.services;
+using System;
 
 namespace Pactolo.scr.dominio {
     public class Evento {
@@ -19,7 +20,7 @@ namespace Pactolo.scr.dominio {
         public string Mensagem { get; set; }
 
         public string MontaMensagem() {
-            return HoraEvento.ToString("hh:mm:ss") + ": " + Mensagem;
+            return HoraEvento.ToString(RelatorioSessaoService.FORMATO_HORA) + ": " + Mensagem;
 		}
     }
 }

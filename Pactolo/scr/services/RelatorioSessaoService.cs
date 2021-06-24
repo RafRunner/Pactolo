@@ -7,7 +7,9 @@ using System.Text;
 namespace Pactolo.scr.services {
     class RelatorioSessaoService {
 
-        private static string PASTA_RELATORIOS = "Relatorios";
+        private static readonly string PASTA_RELATORIOS = "Relatorios";
+        public static readonly string FORMATO_HORA = "HH:mm:ss";
+
         private static void CreateDirectoryIfNotExists() {
             if (!Directory.Exists(GetPath())) {
                 Directory.CreateDirectory(GetPath());
@@ -20,6 +22,8 @@ namespace Pactolo.scr.services {
 
         public static void GeraRelatorio(RelatorioSessao relatorioSessao) {
             CreateDirectoryIfNotExists();
+
+            relatorioSessao.FinalizarExperimento();
 
             StringBuilder relatorio = new StringBuilder();
             relatorio.Append(GetCabecalhoExperimento(relatorioSessao));
@@ -58,8 +62,8 @@ namespace Pactolo.scr.services {
             StringBuilder cabeçalhoExperimento = new StringBuilder();
 
             string dataRealizacao = relatorioSessao.HoraInicio.ToString("dd/MM/yyyy");
-            string horaInicio = relatorioSessao.HoraInicio.ToString("hh:mm:ss");
-            string horaFim = relatorioSessao.HoraFim.ToString("hh:mm:ss");
+            string horaInicio = relatorioSessao.HoraInicio.ToString(FORMATO_HORA);
+            string horaFim = relatorioSessao.HoraFim.ToString(FORMATO_HORA);
 
             cabeçalhoExperimento.AppendLine("Data realização: "+ dataRealizacao);
             cabeçalhoExperimento.AppendLine("Hora inicio: " + horaInicio);
@@ -180,7 +184,7 @@ namespace Pactolo.scr.services {
             double latenciaTotal = 0.0;
 
             infoEventos.AppendLine("Eventos Realizados pelo participante {");
-            infoEventos.AppendLine("   Iniciou (apos leitura das instruções): " + relatorio.HoraInicio.ToString("hh:mm:ss"));
+            infoEventos.AppendLine("   Iniciou (apos leitura das instruções): " + relatorio.HoraInicio.ToString(FORMATO_HORA));
 
             DateTime eventoAnterior = relatorio.HoraInicio;
             foreach (Evento evento in eventos) {
@@ -189,7 +193,7 @@ namespace Pactolo.scr.services {
                 // É um evento de SC, registramos o intervalo
                 if (evento.Acerto != -2) {
                     double diferencaDoEventoAnterior = (evento.HoraEvento - eventoAnterior).TotalSeconds;
-                    infoEventos.Append("| Intervalo do último evento: ").Append(diferencaDoEventoAnterior).AppendLine("s");
+                    infoEventos.Append(" | Intervalo do último evento: ").Append(diferencaDoEventoAnterior).AppendLine("s");
 
                     switch (evento.Acerto) {
                         case -1: totalNeutros++; break;
@@ -209,10 +213,10 @@ namespace Pactolo.scr.services {
             infoEventos.AppendLine("}\n");
 
             infoEventos.AppendLine("Resumo dos eventos {");
-            infoEventos.AppendLine("   Total de Acetos:  ").Append(totalAcertos);
-            infoEventos.AppendLine("   Total de Erros:   ").Append(totalErros);
-            infoEventos.AppendLine("   Total de Neutros: ").Append(totalNeutros);
-            infoEventos.AppendLine("   Latência média:   ").Append(latenciaTotal / (totalAcertos + totalErros + totalNeutros));
+            infoEventos.Append("   Total de Acetos: ").AppendLine(totalAcertos.ToString());
+            infoEventos.Append("   Total de Erros: ").AppendLine(totalErros.ToString());
+            infoEventos.Append("   Total de Neutros: ").AppendLine(totalNeutros.ToString());
+            infoEventos.Append("   Latência média: ").Append(latenciaTotal / (totalAcertos + totalErros + totalNeutros)).AppendLine("s");
             infoEventos.AppendLine("}\n");
 
             return infoEventos;

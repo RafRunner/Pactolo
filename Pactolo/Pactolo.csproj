@@ -123,11 +123,11 @@
     <Compile Include="scr\view\TelaExperimento.Designer.cs">
       <DependentUpon>TelaExperimento.cs</DependentUpon>
     </Compile>
-    <Compile Include="scr\view\TelaInstrucao.cs">
+    <Compile Include="scr\view\TelaMensagem.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="scr\view\TelaInstrucao.Designer.cs">
-      <DependentUpon>TelaInstrucao.cs</DependentUpon>
+    <Compile Include="scr\view\TelaMensagem.Designer.cs">
+      <DependentUpon>TelaMensagem.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="scr\view\EditarParticipante.resx">
       <DependentUpon>EditarParticipante.cs</DependentUpon>
@@ -154,8 +154,8 @@
     <EmbeddedResource Include="scr\view\TelaExperimento.resx">
       <DependentUpon>TelaExperimento.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="scr\view\TelaInstrucao.resx">
-      <DependentUpon>TelaInstrucao.cs</DependentUpon>
+    <EmbeddedResource Include="scr\view\TelaMensagem.resx">
+      <DependentUpon>TelaMensagem.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="localDB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -234,8 +234,17 @@ namespace Pactolo.src.view {
         private ContingenciaColateral CriaCCPelosCampos() {
             ContingenciaInstrucional CI = comboBoxCI.SelectedItem as ContingenciaInstrucional;
 
+            Feedback feedbackSModelo = new Feedback {
+                ValorClick = 0,
+                Neutro = checkBoxSemCorModelo.Checked,
+                SemCor = checkBoxSemCorModelo.Checked,
+                ProbabilidadeComplementar = 100
+            };
+            FeedbackService.Salvar(feedbackSModelo);
             UnidadeDoExperimento sModelo = new UnidadeDoExperimento {
-                NomeImagem = ImagemService.CopiaImagemParaPasta(textBoxModelo.Text)
+                Feedback = feedbackSModelo,
+                NomeImagem = ImagemService.CopiaImagemParaPasta(textBoxModelo.Text),
+                NomeAudio = AudioService.CopiaAudioParaPasta(textBoxAudioModelo.Text)
             };
 
             Feedback feedbackSC1 = new Feedback {
@@ -319,17 +328,23 @@ namespace Pactolo.src.view {
             }
 
             textBoxNomeCC.Text = CC.Nome;
-            foreach (ContingenciaInstrucional CI in comboBoxCI.Items) {
-                if (CI.Id == CC.CI?.Id) {
-                    comboBoxCI.SelectedItem = CI;
-                    break;
+            if (CC.CI != null) {
+                foreach (ContingenciaInstrucional CI in comboBoxCI.Items) {
+                    if (CI.Id == CC.CI?.Id) {
+                        comboBoxCI.SelectedItem = CI;
+                        break;
+                    }
                 }
             }
+            else {
+                comboBoxCI.SelectedIndex = -1;
+			}
 
             textBoxModelo.Text = CC.sModelo.NomeImagem;
             textBoxSC1.Text = CC.SC1.NomeImagem;
             textBoxSC2.Text = CC.SC2.NomeImagem;
             textBoxSC3.Text = CC.SC3.NomeImagem;
+            textBoxAudioModelo.Text = CC.sModelo.NomeAudio;
             textBoxAudioSC1.Text = CC.SC1.NomeAudio;
             textBoxAudioSC2.Text = CC.SC2.NomeAudio;
             textBoxAudioSC3.Text = CC.SC3.NomeAudio;
@@ -337,6 +352,7 @@ namespace Pactolo.src.view {
             checkBoxNeutroSC1.Checked = CC.SC1.Feedback.Neutro;
             checkBoxNeutroSC2.Checked = CC.SC2.Feedback.Neutro;
             checkBoxNeutroSC3.Checked = CC.SC3.Feedback.Neutro;
+            checkBoxSemCorModelo.Checked = CC.sModelo.Feedback == null ? false : CC.sModelo.Feedback.SemCor;
             checkBoxSemCorSC1.Checked = CC.SC1.Feedback.SemCor;
             checkBoxSemCorSC2.Checked = CC.SC2.Feedback.SemCor;
             checkBoxSemCorSC3.Checked = CC.SC3.Feedback.SemCor;
@@ -350,7 +366,7 @@ namespace Pactolo.src.view {
         }
 
         private void ButtonApagarCC_Click(object sender, EventArgs e) {
-            DialogResult result = MessageBox.Show("Ao deletar essa CC ela será deletada também das sessoes onde estiver cadastrada, deseja continuar?", "Confirmação necessária", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Ao deletar essa MTS ela será deletada também das sessoes onde estiver cadastrada, deseja continuar?", "Confirmação necessária", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.No) {
                 return;
             }
@@ -379,6 +395,10 @@ namespace Pactolo.src.view {
 
         private void ButtonCarregarImagemSC3_Click(object sender, EventArgs e) {
 			textBoxSC3.Text = ViewUtils.SelecionaArquivoComFiltro(fileDialog, imageFilter);
+        }
+
+        private void ButtonCarregarAudioModelo_Click(object sender, EventArgs e) {
+            textBoxAudioModelo.Text = ViewUtils.SelecionaArquivoComFiltro(fileDialog, audioFilter);
         }
 
         private void ButtonCarregarAudioSC1_Click(object sender, EventArgs e) {
@@ -524,8 +544,12 @@ namespace Pactolo.src.view {
             Experimentador experimentador = CriaExperimentadorPelosCampos();
             Participante participante = CriarParticipantePelosCampos();
 
-            TelaExperimento telaExperimento = new TelaExperimento(sessoes, experimentador, participante);
-            telaExperimento.ShowDialog();
+            TelaMensagem background = new TelaMensagem("");
+            background.BackColor = Color.White;
+            background.Show();
+
+            new TelaExperimento(sessoes, experimentador, participante).ShowDialog();
+            background.Close();
         }
 
         private void CarregarInstrucao(long id) {
@@ -549,6 +573,7 @@ namespace Pactolo.src.view {
 "O nome Pactolo vem do mito do Rei Midas, uma alegoria sobre a ganância.Baco, a pedido do próprio Midas, concedera ao rei o dom de transformar tudo que tocava em ouro. Entretanto, Midas percebeu que seu desejo era uma maldição, e acabou por transformar sua própria filha, Phoebe, em uma estátua de ouro.  Midas, em desespero, pede a Baco para se livrar de seu “dom”. Baco disse que Midas deveria se banhar na fonte do rio Pactolo, para que pudesse se livrar de sua maldição.\n" +
 "\nDelineamento: João Lucas Bernardy(Universidade de São Paulo)\n" +
 "Automação: Rafael Nunes Santana(Universidade Federal de Goiás) e Emanuel Borges Passinato(Universidade Federal de Goiás)\n" +
+"\nCódigo fonte disponível em: https://github.com/RafRunner/Pactolo\n" +
 "\nComo citar este software:\n" +
 "\nAPA\n" +
 "Bernardy, J.L., Santana, R.N., &Passinato, E.B. (2019).Pactolo(Versão 1.0). [Software].São Paulo, SP: Universidade de São Paulo\n" +

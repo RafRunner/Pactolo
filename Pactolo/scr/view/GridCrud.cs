@@ -1,9 +1,9 @@
-﻿using Pactolo.src.utils;
+﻿using Pactolo.scr.utils;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Pactolo.src.view {
+namespace Pactolo.scr.view {
 	public partial class GridCrud : Form {
 
 		private List<object> tabelaCompleta;

@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Pactolo.src.utils {
+namespace Pactolo.scr.utils {
     public class ViewUtils {
 
         public static readonly double heightRatio = Screen.PrimaryScreen.Bounds.Height / 1080.0;

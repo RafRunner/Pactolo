@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Pactolo.src.view {
+namespace Pactolo.scr.view {
     public partial class EditarParticipante : Form {
 
         private readonly Participante participante;

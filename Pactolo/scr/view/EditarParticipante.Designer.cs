@@ -1,6 +1,6 @@
 ﻿using Pactolo.scr.enums;
 
-namespace Pactolo.src.view {
+namespace Pactolo.scr.view {
     partial class EditarParticipante {
         /// <summary>
         /// Required designer variable.

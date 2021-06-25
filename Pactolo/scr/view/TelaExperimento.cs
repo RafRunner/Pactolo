@@ -1,7 +1,7 @@
 ﻿using Pactolo.scr.dominio;
 using Pactolo.scr.services;
 using Pactolo.scr.utils;
-using Pactolo.src.utils;
+using Pactolo.scr.utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Pactolo.src.view {
+namespace Pactolo.scr.view {
 	public partial class TelaExperimento : Form {
 
 		private readonly int height = Screen.PrimaryScreen.Bounds.Height;

@@ -1,4 +1,4 @@
-﻿using Pactolo.src.view;
+﻿using Pactolo.scr.view;
 using System;
 using System.Threading;
 using System.Windows.Forms;

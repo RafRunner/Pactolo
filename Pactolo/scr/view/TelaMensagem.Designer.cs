@@ -1,4 +1,4 @@
-﻿namespace Pactolo.src.view {
+﻿namespace Pactolo.scr.view {
 	partial class TelaMensagem {
 		/// <summary>
 		/// Required designer variable.

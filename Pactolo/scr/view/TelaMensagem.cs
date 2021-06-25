@@ -1,9 +1,9 @@
-﻿using Pactolo.src.utils;
+﻿using Pactolo.scr.utils;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Pactolo.src.view {
+namespace Pactolo.scr.view {
 	public partial class TelaMensagem : Form {
 
 		private readonly int height = Screen.PrimaryScreen.Bounds.Height;

@@ -61,6 +61,12 @@
     <Compile Include="scr\view\EditarParticipante.Designer.cs">
       <DependentUpon>EditarParticipante.cs</DependentUpon>
     </Compile>
+    <Compile Include="scr\view\TelaInformacoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="scr\view\TelaInformacoes.Designer.cs">
+      <DependentUpon>TelaInformacoes.cs</DependentUpon>
+    </Compile>
     <Compile Include="scr\view\MenuInicial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +137,9 @@
     </Compile>
     <EmbeddedResource Include="scr\view\EditarParticipante.resx">
       <DependentUpon>EditarParticipante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="scr\view\TelaInformacoes.resx">
+      <DependentUpon>TelaInformacoes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="scr\view\MenuInicial.resx">
       <DependentUpon>MenuInicial.cs</DependentUpon>

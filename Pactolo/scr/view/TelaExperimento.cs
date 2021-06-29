@@ -1,7 +1,6 @@
 ﻿using Pactolo.scr.dominio;
 using Pactolo.scr.services;
 using Pactolo.scr.utils;
-using Pactolo.scr.utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -272,19 +271,25 @@ namespace Pactolo.scr.view {
 		}
 
 		private void EmbaralhaSCs(List<UnidadeDoExperimento> SCs) {
-			if (SCsEmbaralhados.Count == 0 || !SCs.All(sc => SCsEmbaralhados.Select(s => s.NomeImagem).Contains(sc.NomeImagem))) {
-				 ListUtils.EmbaralhaMudandoPosicao(SCs);
+			if (SCsEmbaralhados.Count == 0) {
+				SCs = SCs.OrderBy(x => random.Next()).ToList();
 			}
 			else {
-				Dictionary<string, int> ordemAnterior = new Dictionary<string, int>();
+				IEnumerable<string> imagensAnteriores = SCsEmbaralhados.Select(s => s.NomeImagem);
 
-				for (int i = 0; i < SCsEmbaralhados.Count; i++) {
-					UnidadeDoExperimento sc = SCsEmbaralhados[i];
-					ordemAnterior[sc.NomeImagem] = i;
+				if (SCs.Any(sc => !imagensAnteriores.Contains(sc.NomeImagem))) {
+					SCs = SCs.OrderBy(x => random.Next()).ToList();
 				}
+				else {
+					Dictionary<string, int> ordemAnterior = new Dictionary<string, int>();
 
-				while (SCs.Any(sc => ordemAnterior[sc.NomeImagem] == SCs.IndexOf(sc))) {
-					ListUtils.EmbaralhaMudandoPosicao(SCs);
+					for (int i = 0; i < SCsEmbaralhados.Count; i++) {
+						ordemAnterior[SCsEmbaralhados[i].NomeImagem] = i;
+					}
+
+					while (SCs.Any(sc => ordemAnterior[sc.NomeImagem] == SCs.IndexOf(sc))) {
+						SCs = SCs.OrderBy(x => random.Next()).ToList();
+					}
 				}
 			}
 
@@ -306,19 +311,21 @@ namespace Pactolo.scr.view {
 			List<UnidadeDoExperimento> SCs = new List<UnidadeDoExperimento>() { CC.SC1, CC.SC2, CC.SC3 };
 
 			await taskSModelo.Task;
-			relatorioSessao.AdicionarEvento(new Evento($"Sessão {sessaoAtual.Nome}; MTS {CC.Nome}; SModelo da imagem {CC.sModelo.NomeImagem} tocado"));
+			UnidadeDoExperimento sModelo = CC.sModelo;
 
-			if (!CC.sModelo.Feedback.SemCor) {
+			relatorioSessao.AdicionarEvento(new Evento($"Sessão {sessaoAtual.Nome}; MTS {CC.Nome}; SModelo da imagem {sModelo.NomeImagem} tocado"));
+
+			if (sModelo.Feedback != null && !sModelo.Feedback.SemCor) {
 				pictureSModelo.BackColor = Color.Green;
 			}
-			CC.sModelo.PlayAudio();
-
-			EmbaralhaSCs(SCs);
+			sModelo.PlayAudio();
 
 			pictureSC3.Visible = true;
 			panelPontos.Visible = true;
 			pictureSC2.Visible = true;
 			pictureSC1.Visible = true;
+
+			EmbaralhaSCs(SCs);
 
 			await taskCC.Task;
 		}

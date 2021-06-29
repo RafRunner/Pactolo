@@ -16,6 +16,7 @@ namespace Pactolo.scr.view {
 "\nABNT\n" +
 "BERNARDY, João Lucas; SANTANA, Rafael Nunes; PASSINATO, Emanuel Borges. Pactolo.Versão 1.0.São Paulo.\n" +
 "\nContato: bernardy@usp.br";
+			tbInformacoes.SelectionBullet = false;
 		}
 	}
 }

@@ -49,7 +49,7 @@ namespace Pactolo.scr.view {
             }).Cast<ListViewItem>().ToArray());
 
             ViewUtils.CorrigeEscalaTodosOsFilhos(this);
-            ViewUtils.CorrigeTamanhoPosicaoFonte(this);
+            ViewUtils.CorrigeTamanhoPosicao(this);
 
             Image pactolo = new Bitmap(Properties.Resources.Pactolo);
             picturePactolo.Image = ImageUtils.Resize(pactolo, picturePactolo.Width, picturePactolo.Height);

@@ -10,6 +10,7 @@ namespace Pactolo.scr.view {
 
 		private readonly string nomeRegistros;
 		private readonly Func<List<object>> funcaoCarregaDados;
+		private readonly List<string> ordemColunas;
 		private readonly Func<List<object>, string, List<object>> funcaoFiltro;
 		private readonly Action<long> funcaoEditar;
 		private readonly Action<long> funcaoDeletar;
@@ -27,6 +28,7 @@ namespace Pactolo.scr.view {
 			InitializeComponent();
 
 			this.nomeRegistros = nomeRegistros;
+			this.ordemColunas = ordemColunas;
 			this.tabelaCompleta = funcaoCarregaDados();
 
 			if (tabelaCompleta.Count == 0) {
@@ -47,7 +49,18 @@ namespace Pactolo.scr.view {
 				buttonEditar.Visible = false;
 			}
 
-			dataGrid.DataSource = tabelaCompleta;
+			ReloadDataSource(tabelaCompleta);
+
+			dataGrid.CellDoubleClick += new DataGridViewCellEventHandler((sender, e) => {
+				funcaoSelecionar.Invoke(long.Parse(dataGrid.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+				Close();
+			});
+
+			ShowDialog();
+		}
+
+		private void ReloadDataSource(List<object> tabela) {
+			dataGrid.DataSource = tabela;
 
 			var tamanhoHeaders = Math.Max(200, (dataGrid.Width - 40) / ordemColunas.Count);
 
@@ -64,13 +77,11 @@ namespace Pactolo.scr.view {
 					coluna.Width = tamanhoHeaders;
 				}
 			}
-
-			ShowDialog();
 		}
 
 		private bool VerifiqueQuantidadeColunasSelecionadasEAvise() {
 			if (dataGrid.SelectedRows.Count == 0) {
-				MessageBox.Show($"Por favor, selecione pelo menos um(a) {nomeRegistros}. Selecione toda a linha clicanco na primeira coluna (a vazia)!", "Atenção");
+				MessageBox.Show($"Por favor, selecione pelo menos um(a) {nomeRegistros}!", "Atenção");
 				return false;
 			}
 			else {
@@ -85,7 +96,7 @@ namespace Pactolo.scr.view {
 
 			funcaoEditar.Invoke(ViewUtils.GetIdColunaSelecionada(dataGrid));
 			tabelaCompleta = funcaoCarregaDados();
-			dataGrid.DataSource = tabelaCompleta;
+			ReloadDataSource(tabelaCompleta);
 		}
 
 		private void ButtonDeletar_Click(object sender, EventArgs e) {
@@ -95,7 +106,7 @@ namespace Pactolo.scr.view {
 
 			funcaoDeletar.Invoke(ViewUtils.GetIdColunaSelecionada(dataGrid));
 			tabelaCompleta = funcaoCarregaDados();
-			dataGrid.DataSource = tabelaCompleta;
+			ReloadDataSource(tabelaCompleta);
 			MessageBox.Show($"{nomeRegistros} deletado com sucesso!", "Sucesso");
 		}
 
@@ -108,18 +119,12 @@ namespace Pactolo.scr.view {
 			Close();
 		}
 
-		private void textBoxFiltro_KeyDown(object sender, KeyEventArgs e) {
+		private void TextBoxFiltro_KeyDown(object sender, KeyEventArgs e) {
 			if (e.KeyCode == Keys.Enter) {
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 
-				var textoDeBusca = textBoxFiltro.Text;
-				if (string.IsNullOrWhiteSpace(textoDeBusca)) {
-					dataGrid.DataSource = tabelaCompleta;
-					return;
-				}
-
-				dataGrid.DataSource = funcaoFiltro.Invoke(tabelaCompleta, textoDeBusca);
+				ReloadDataSource(funcaoFiltro.Invoke(tabelaCompleta, textBoxFiltro.Text));
 			}
 		}
 
@@ -127,7 +132,7 @@ namespace Pactolo.scr.view {
 			var textoDeBusca = textBoxFiltro.Text;
 
 			if (string.IsNullOrWhiteSpace(textoDeBusca)) {
-				dataGrid.DataSource = tabelaCompleta;
+				ReloadDataSource(tabelaCompleta);
 				return;
 			}
 
@@ -135,7 +140,7 @@ namespace Pactolo.scr.view {
 				return;
 			}
 
-			dataGrid.DataSource = funcaoFiltro.Invoke(tabelaCompleta, textoDeBusca);
+			ReloadDataSource(funcaoFiltro.Invoke(tabelaCompleta, textoDeBusca));
 		}
 	}
 }

@@ -487,7 +487,7 @@ namespace Pactolo.scr.view {
 			this.RemoverTato.Location = new System.Drawing.Point(388, 161);
 			this.RemoverTato.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.RemoverTato.Name = "RemoverTato";
-			this.RemoverTato.Size = new System.Drawing.Size(108, 30);
+			this.RemoverTato.Size = new System.Drawing.Size(108, 32);
 			this.RemoverTato.TabIndex = 28;
 			this.RemoverTato.Text = "Remover";
 			this.RemoverTato.UseVisualStyleBackColor = true;
@@ -519,7 +519,7 @@ namespace Pactolo.scr.view {
 			this.buttonSelecionrCI.Location = new System.Drawing.Point(184, 259);
 			this.buttonSelecionrCI.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.buttonSelecionrCI.Name = "buttonSelecionrCI";
-			this.buttonSelecionrCI.Size = new System.Drawing.Size(155, 29);
+			this.buttonSelecionrCI.Size = new System.Drawing.Size(155, 38);
 			this.buttonSelecionrCI.TabIndex = 26;
 			this.buttonSelecionrCI.Text = "Selecionar EC";
 			this.buttonSelecionrCI.UseVisualStyleBackColor = true;
@@ -535,7 +535,7 @@ namespace Pactolo.scr.view {
 			this.listViewCI.Location = new System.Drawing.Point(513, 46);
 			this.listViewCI.MultiSelect = false;
 			this.listViewCI.Name = "listViewCI";
-			this.listViewCI.Size = new System.Drawing.Size(417, 242);
+			this.listViewCI.Size = new System.Drawing.Size(417, 251);
 			this.listViewCI.TabIndex = 25;
 			this.listViewCI.UseCompatibleStateImageBehavior = false;
 			this.listViewCI.View = System.Windows.Forms.View.Details;
@@ -561,7 +561,7 @@ namespace Pactolo.scr.view {
 			this.buttonCadastrarCI.Location = new System.Drawing.Point(12, 259);
 			this.buttonCadastrarCI.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.buttonCadastrarCI.Name = "buttonCadastrarCI";
-			this.buttonCadastrarCI.Size = new System.Drawing.Size(155, 29);
+			this.buttonCadastrarCI.Size = new System.Drawing.Size(155, 38);
 			this.buttonCadastrarCI.TabIndex = 23;
 			this.buttonCadastrarCI.Text = "Cadastrar EC";
 			this.buttonCadastrarCI.UseVisualStyleBackColor = true;
@@ -573,7 +573,7 @@ namespace Pactolo.scr.view {
 			this.buttonApagarCI.Location = new System.Drawing.Point(356, 259);
 			this.buttonApagarCI.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.buttonApagarCI.Name = "buttonApagarCI";
-			this.buttonApagarCI.Size = new System.Drawing.Size(139, 29);
+			this.buttonApagarCI.Size = new System.Drawing.Size(139, 38);
 			this.buttonApagarCI.TabIndex = 21;
 			this.buttonApagarCI.Text = "Apagar EC";
 			this.buttonApagarCI.UseVisualStyleBackColor = true;
@@ -585,7 +585,7 @@ namespace Pactolo.scr.view {
 			this.buttonCarregarTato.Location = new System.Drawing.Point(388, 118);
 			this.buttonCarregarTato.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.buttonCarregarTato.Name = "buttonCarregarTato";
-			this.buttonCarregarTato.Size = new System.Drawing.Size(108, 30);
+			this.buttonCarregarTato.Size = new System.Drawing.Size(108, 35);
 			this.buttonCarregarTato.TabIndex = 18;
 			this.buttonCarregarTato.Text = "Adicionar";
 			this.buttonCarregarTato.UseVisualStyleBackColor = true;
@@ -743,10 +743,10 @@ namespace Pactolo.scr.view {
 			// buttonSelecionarCC
 			// 
 			this.buttonSelecionarCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonSelecionarCC.Location = new System.Drawing.Point(355, 152);
+			this.buttonSelecionarCC.Location = new System.Drawing.Point(355, 150);
 			this.buttonSelecionarCC.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.buttonSelecionarCC.Name = "buttonSelecionarCC";
-			this.buttonSelecionarCC.Size = new System.Drawing.Size(140, 29);
+			this.buttonSelecionarCC.Size = new System.Drawing.Size(140, 33);
 			this.buttonSelecionarCC.TabIndex = 64;
 			this.buttonSelecionarCC.Text = "Selecionar MTS";
 			this.buttonSelecionarCC.UseVisualStyleBackColor = true;
@@ -1141,10 +1141,10 @@ namespace Pactolo.scr.view {
 			// buttonApagarCC
 			// 
 			this.buttonApagarCC.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonApagarCC.Location = new System.Drawing.Point(355, 202);
+			this.buttonApagarCC.Location = new System.Drawing.Point(355, 197);
 			this.buttonApagarCC.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.buttonApagarCC.Name = "buttonApagarCC";
-			this.buttonApagarCC.Size = new System.Drawing.Size(140, 29);
+			this.buttonApagarCC.Size = new System.Drawing.Size(140, 34);
 			this.buttonApagarCC.TabIndex = 26;
 			this.buttonApagarCC.Text = "Apagar MTS";
 			this.buttonApagarCC.UseVisualStyleBackColor = true;
@@ -1156,7 +1156,7 @@ namespace Pactolo.scr.view {
 			this.buttonCadastrarCC.Location = new System.Drawing.Point(355, 100);
 			this.buttonCadastrarCC.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.buttonCadastrarCC.Name = "buttonCadastrarCC";
-			this.buttonCadastrarCC.Size = new System.Drawing.Size(140, 29);
+			this.buttonCadastrarCC.Size = new System.Drawing.Size(140, 33);
 			this.buttonCadastrarCC.TabIndex = 27;
 			this.buttonCadastrarCC.Text = "Cadastrar MTS";
 			this.buttonCadastrarCC.UseVisualStyleBackColor = true;

@@ -47,6 +47,7 @@
 			this.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Margin = new System.Windows.Forms.Padding(5);
 			this.Name = "TelaInformacoes";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Informações sobre o software";
 			this.ResumeLayout(false);
 

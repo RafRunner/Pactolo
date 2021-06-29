@@ -31,7 +31,7 @@ namespace Pactolo.scr.dominio {
             set {
                 nomeAudio = value;
                 if (!string.IsNullOrEmpty(nomeAudio)) {
-                    soundPlayer = new SoundPlayer(@AudioService.GetFullPath(nomeAudio));
+                    soundPlayer = new SoundPlayer(AudioService.GetFullPath(nomeAudio));
                 }
             }
         }
@@ -42,13 +42,5 @@ namespace Pactolo.scr.dominio {
                 soundPlayer.Play();
             }
         }
-
-		public override bool Equals(object obj) {
-			if (obj.GetType() != GetType()) {
-                return false;
-			}
-
-            return ((UnidadeDoExperimento)obj).Id.Equals(Id);
-		}
 	}
 }

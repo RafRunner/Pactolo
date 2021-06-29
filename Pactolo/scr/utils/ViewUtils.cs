@@ -27,7 +27,7 @@ namespace Pactolo.scr.utils {
             return retorno;
         }
 
-        public static void CorrigeTamanhoPosicaoFonte(Control controle) {
+        public static void CorrigeTamanhoPosicao(Control controle) {
             if (heightRatio == 1.0 && widthRatio == 1.0) {
                 return;
 			}
@@ -38,6 +38,14 @@ namespace Pactolo.scr.utils {
                 X = Convert.ToInt32(controle.Location.X * widthRatio),
                 Y = Convert.ToInt32(controle.Location.Y * heightRatio)
             };
+        }
+
+        public static void CorrigeTamanhoPosicaoFonte(Control controle) {
+            if (heightRatio == 1.0 && widthRatio == 1.0) {
+                return;
+            }
+
+            CorrigeTamanhoPosicao(controle);
             controle.Font = new Font(controle.Font.Name, Convert.ToInt32(controle.Font.Size * heightRatio), controle.Font.Style);
         }
 
@@ -57,6 +65,10 @@ namespace Pactolo.scr.utils {
         }
 
         public static void CorrigeEscalaTodosOsFilhos(Control root) {
+            if (heightRatio == 1.0 && widthRatio == 1.0) {
+                return;
+            }
+
             foreach (Control filho in GetAllFilhos(root)) {
                 CorrigeTamanhoPosicaoFonte(filho);
             }

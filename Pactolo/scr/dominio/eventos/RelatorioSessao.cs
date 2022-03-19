@@ -9,7 +9,7 @@ namespace Pactolo.scr.dominio {
             Participante = participante;
             Experimentador = experimentador;
             HoraInicio = DateTime.Now;
-            Eventos = new List<Evento>();
+            Eventos = new Dictionary<long, List<Evento>>();
         }
 
         public Participante Participante { get; set; }
@@ -18,14 +18,17 @@ namespace Pactolo.scr.dominio {
         public DateTime HoraInicio { get; set; }
         public DateTime HoraFim { get; set; }
         public string NomeArquivoDigitado { get; set; }
-        public List<Evento> Eventos { get; set; }
+        public Dictionary<long, List<Evento>> Eventos { get; set; }
 
         public void FinalizarExperimento() {
             HoraFim = DateTime.Now;
         }
 
-        public void AdicionarEvento(Evento evento) {
-            Eventos.Add(evento);
+        public void AdicionarEvento(long idSessao, Evento evento) {
+            if (!Eventos.ContainsKey(idSessao)) {
+                Eventos.Add(idSessao, new List<Evento>());
+			}
+            Eventos[idSessao].Add(evento);
         }
 
         public string GetNomeArquivo() {

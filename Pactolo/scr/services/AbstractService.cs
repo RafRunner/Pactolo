@@ -1,15 +1,10 @@
 ﻿using Dapper;
 using Pactolo.scr.dominio;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Linq;
-using System.Data.OleDb;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pactolo.scr.services {
 

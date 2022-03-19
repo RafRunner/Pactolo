@@ -31,29 +31,29 @@ namespace Pactolo.scr.services {
             relatorio.Append(GetInformacoesParticipante(relatorioSessao.Participante));
 
             List<long> sessoesIds = relatorioSessao.IdSessoesSelecionadas;
-            List<ContingenciaColateral> contingeciasColaterais = new List<ContingenciaColateral>();
+            List<Sessao> sessoes = SessaoService.GetAllByIds(sessoesIds);
 
-            foreach (long sessaoId in sessoesIds) {
-                contingeciasColaterais.AddRange(CCPorSessaoService.GetAllCCBySessaoId(sessaoId));
-            }
+            foreach (var sessao in sessoes) {
+                List<ContingenciaColateral> contingeciasColaterais = sessao.CCs;
 
-            HashSet<ContingenciaColateral> contingenciasColateraisDoExperimento = new HashSet<ContingenciaColateral>(contingeciasColaterais);
-            List<ContingenciaInstrucional> contingeciasInstrucionais = new List<ContingenciaInstrucional>();
+                List<ContingenciaInstrucional> contingeciasInstrucionais = new List<ContingenciaInstrucional>();
 
-            foreach (ContingenciaColateral contingenciaColateral in contingenciasColateraisDoExperimento) {
-                if (contingenciaColateral.CI != null) {
-                    contingeciasInstrucionais.Add(contingenciaColateral.CI);
+                foreach (ContingenciaColateral contingenciaColateral in contingeciasColaterais) {
+                    if (contingenciaColateral.CI != null) {
+                        contingeciasInstrucionais.Add(contingenciaColateral.CI);
+                    }
                 }
-            }
 
-            if (contingeciasInstrucionais.Count > 0) {
-                HashSet<ContingenciaInstrucional> contingeciasInstrucionaisDoExperimento = new HashSet<ContingenciaInstrucional>(contingeciasInstrucionais);
-                relatorio.Append(GetInformacoesCIs(contingeciasInstrucionaisDoExperimento));
-            }
+                relatorio.Append(GetInformacoeSessoes(sessao));
 
-            relatorio.Append(GetInformacoesCCs(contingenciasColateraisDoExperimento));
-            relatorio.Append(GetInformacoeSessoes(SessaoService.GetAllByIds(sessoesIds)));
-            relatorio.Append(GetInformacoesEventos(relatorioSessao));
+                if (contingeciasInstrucionais.Count > 0) {
+                    relatorio.Append(GetInformacoesCIs(contingeciasInstrucionais));
+                }
+
+                relatorio.Append(GetInformacoesCCs(contingeciasColaterais));
+                relatorio.Append(GetInformacoesEventos(sessao.Id, relatorioSessao));
+                relatorio.AppendLine("///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
+            }
 
             File.WriteAllText(GetPath(relatorioSessao.GetNomeArquivo()) + ".txt", relatorio.ToString());
         }
@@ -100,7 +100,7 @@ namespace Pactolo.scr.services {
         }
 
 
-        private static StringBuilder GetInformacoesCIs(HashSet<ContingenciaInstrucional> ContingenciasInstrucionais) {
+        private static StringBuilder GetInformacoesCIs(List<ContingenciaInstrucional> ContingenciasInstrucionais) {
             StringBuilder informacoesCIs = new StringBuilder();
             informacoesCIs.AppendLine("Estímulos Contexto {");
 
@@ -112,7 +112,7 @@ namespace Pactolo.scr.services {
             return informacoesCIs;
         }
 
-        private static StringBuilder GetInformacoesCCs(HashSet<ContingenciaColateral> ContingenciasColaterais) {
+        private static StringBuilder GetInformacoesCCs(List<ContingenciaColateral> ContingenciasColaterais) {
             StringBuilder informacoesCIs = new StringBuilder();
             informacoesCIs.AppendLine("Matches to Sample {");
 
@@ -134,49 +134,48 @@ namespace Pactolo.scr.services {
             return informacoesCIs;
         }
 
-        private static StringBuilder GetInformacoeSessoes(List<Sessao> sessoes) {
+        private static StringBuilder GetInformacoeSessoes(Sessao sessao) {
             StringBuilder informacoesCIs = new StringBuilder();
-            informacoesCIs.AppendLine("Sessões Utilizadas {");
+            informacoesCIs.AppendLine("Sessão Atual {");
 
-            foreach (Sessao sessao in sessoes) {
-                informacoesCIs.AppendLine("   " + sessao.Nome + " {");
-                List<ContingenciaColateral> contingeciasDaSessao = sessao.CCs;
-                int i = 0;
+            informacoesCIs.AppendLine("   " + sessao.Nome + " {");
+            List<ContingenciaColateral> contingeciasDaSessao = sessao.CCs;
+            int i = 0;
 
-                foreach (ContingenciaColateral contingencia in contingeciasDaSessao) {
-                    i++;
-                    informacoesCIs.AppendLine("      -MTS" + i + ": " + contingencia.Nome);
-                }
-
-                informacoesCIs.AppendLine("      -Ordem Exposicao: " + (sessao.OrdemAleatoria ? "Aleatória" : "Agrupada"));
-
-                i = 0;
-                if (sessao.NumeroTentativas != 0) {
-                    i++;
-                    informacoesCIs.AppendLine("      -Criterio " + i + ": Numero Tentativas");
-                    informacoesCIs.AppendLine("      -Numero Tentativas: " + sessao.NumeroTentativas);
-                }
-                if (sessao.DuracaoSegundos != 0) {
-                    i++;
-                    informacoesCIs.AppendLine("      -Criterio " + i + ": Duracao Segundos");
-                    informacoesCIs.AppendLine("      -Numero Tentativas: " + sessao.DuracaoSegundos);
-                }
-                if (sessao.AcertosConcecutivos != 0) {
-                    i++;
-                    informacoesCIs.AppendLine("      -Criterio " + i + ": Acertos Concecutivos");
-                    informacoesCIs.AppendLine("      -Acertos Concecutivos: " + sessao.DuracaoSegundos);
-                }
-
-                informacoesCIs.AppendLine("   }");
+            foreach (ContingenciaColateral contingencia in contingeciasDaSessao) {
+                i++;
+                informacoesCIs.AppendLine("      -MTS" + i + ": " + contingencia.Nome);
             }
+
+            informacoesCIs.AppendLine("      -Ordem Exposicao: " + (sessao.OrdemAleatoria ? "Aleatória" : "Agrupada"));
+
+            i = 0;
+            if (sessao.NumeroTentativas != 0) {
+                i++;
+                informacoesCIs.AppendLine("      -Criterio " + i + ": Numero Tentativas");
+                informacoesCIs.AppendLine("      -Numero Tentativas: " + sessao.NumeroTentativas);
+            }
+            if (sessao.DuracaoSegundos != 0) {
+                i++;
+                informacoesCIs.AppendLine("      -Criterio " + i + ": Duracao Segundos");
+                informacoesCIs.AppendLine("      -Numero Tentativas: " + sessao.DuracaoSegundos);
+            }
+            if (sessao.AcertosConcecutivos != 0) {
+                i++;
+                informacoesCIs.AppendLine("      -Criterio " + i + ": Acertos Concecutivos");
+                informacoesCIs.AppendLine("      -Acertos Concecutivos: " + sessao.DuracaoSegundos);
+            }
+
+            informacoesCIs.AppendLine("   }");
+
             informacoesCIs.AppendLine("}\n");
 
             return informacoesCIs;
         }
 
-        private static StringBuilder GetInformacoesEventos(RelatorioSessao relatorio) {
+        private static StringBuilder GetInformacoesEventos(long sessaoId, RelatorioSessao relatorio) {
             StringBuilder infoEventos = new StringBuilder();
-            List<Evento> eventos = relatorio.Eventos;
+            List<Evento> eventos = relatorio.Eventos[sessaoId];
 
             int totalAcertos = 0;
             int totalErros = 0;
@@ -184,7 +183,6 @@ namespace Pactolo.scr.services {
             double latenciaTotal = 0.0;
 
             infoEventos.AppendLine("Eventos Realizados pelo participante {");
-            infoEventos.AppendLine("   Iniciou (apos leitura das instruções): " + relatorio.HoraInicio.ToString(FORMATO_HORA));
 
             DateTime eventoAnterior = relatorio.HoraInicio;
             foreach (Evento evento in eventos) {

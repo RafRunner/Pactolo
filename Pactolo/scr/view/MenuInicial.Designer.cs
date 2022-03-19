@@ -691,7 +691,7 @@ namespace Pactolo.scr.view {
 			// 
 			this.checkBoxSemCorModelo.AutoSize = true;
 			this.checkBoxSemCorModelo.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.checkBoxSemCorModelo.Location = new System.Drawing.Point(1046, 52);
+			this.checkBoxSemCorModelo.Location = new System.Drawing.Point(890, 52);
 			this.checkBoxSemCorModelo.Name = "checkBoxSemCorModelo";
 			this.checkBoxSemCorModelo.Size = new System.Drawing.Size(94, 25);
 			this.checkBoxSemCorModelo.TabIndex = 71;

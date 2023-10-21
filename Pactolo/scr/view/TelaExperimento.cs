@@ -6,11 +6,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Pactolo.scr.view {
 	public partial class TelaExperimento : Form {
+
+		private readonly SemaphoreSlim lockCC = new SemaphoreSlim(1);
 
 		private readonly int height = Screen.PrimaryScreen.Bounds.Height;
 		private readonly int width = Screen.PrimaryScreen.Bounds.Width;
@@ -23,7 +26,7 @@ namespace Pactolo.scr.view {
 		private Sessao sessaoAtual;
 		private ContingenciaColateral CCAtual;
 		private List<UnidadeDoExperimento> SCsEmbaralhados = new List<UnidadeDoExperimento>();
-		private Timer timerAtual;
+		private System.Windows.Forms.Timer timerAtual;
 
 		private readonly Random random = new Random();
 
@@ -112,7 +115,7 @@ namespace Pactolo.scr.view {
 			timerAtual?.Stop();
 
 			if (sessaoAtual.CriterioDuracaoSegundos > 0) {
-				timerAtual = new Timer {
+				timerAtual = new System.Windows.Forms.Timer {
 					Interval = Convert.ToInt32(sessaoAtual.CriterioDuracaoSegundos) * 1000
 				};
 				timerAtual.Tick += new EventHandler(EventoFimTempo);
@@ -335,48 +338,57 @@ namespace Pactolo.scr.view {
 		}
 
 		private async void ClickSC(UnidadeDoExperimento SC, Label labelMensagem, PictureBox pictureSC) {
-			Feedback feedback = SC.Feedback;
-			bool positivo = feedback.ValorClick > 0;
-			Color novaCor = positivo ? Color.Green : Color.Red;
-			string mensagem = feedback.Neutro ? "NEUTRO!" : positivo ? "CORRETO!" : "ERRADO!";
-			string textoEvento = $"Sessão {sessaoAtual.Nome}; MTS {CCAtual.Nome}; SC da imagem {SC.NomeImagem} {mensagem} tocado";
+			if (!await lockCC.WaitAsync(TimeSpan.Zero)) {
+				Console.WriteLine("Lock não obtido " + SC.NomeImagem);
+				return;
+			}
 
-			sessaoAtual.NumeroTentativas++;
+			try {
+				Feedback feedback = SC.Feedback;
+				bool positivo = feedback.ValorClick > 0;
+				Color novaCor = positivo ? Color.Green : Color.Red;
+				string mensagem = feedback.Neutro ? "NEUTRO!" : positivo ? "CORRETO!" : "ERRADO!";
+				string textoEvento = $"Sessão {sessaoAtual.Nome}; MTS {CCAtual.Nome}; SC da imagem {SC.NomeImagem} {mensagem} tocado";
 
-			if (feedback.ProbabilidadeComplementar >= random.Next(0, 101)) {
-				relatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"{textoEvento}, valendo {feedback.ValorClick} pontos", positivo ? 1 : 0));
+				sessaoAtual.NumeroTentativas++;
 
-				if (positivo) {
-					sessaoAtual.AcertosConcecutivos++;
-					CCAtual.AcertosConcecutivos++;
+				if (feedback.ProbabilidadeComplementar >= random.Next(0, 101)) {
+					relatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"{textoEvento}, valendo {feedback.ValorClick} pontos", positivo ? 1 : 0));
+
+					if (positivo) {
+						sessaoAtual.AcertosConcecutivos++;
+						CCAtual.AcertosConcecutivos++;
+					}
+					else {
+						sessaoAtual.AcertosConcecutivos = 0;
+						CCAtual.AcertosConcecutivos = 0;
+					}
+
+					AtualizaPontos(feedback.ValorClick);
+
+					if (!feedback.Neutro) {
+						SC.PlayAudio();
+						labelMensagem.Text = mensagem;
+						labelMensagem.ForeColor = novaCor;
+						labelMensagem.Visible = true;
+					}
+
+					if (!feedback.SemCor) {
+						pictureSC.BackColor = novaCor;
+					}
 				}
 				else {
-					sessaoAtual.AcertosConcecutivos = 0;
-					CCAtual.AcertosConcecutivos = 0;
+					relatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"{textoEvento}, porém não houve feedback por probabilidade", -1));
 				}
 
-				AtualizaPontos(feedback.ValorClick);
+				await Task.Delay(1000);
+				labelMensagem.Visible = false;
+				pictureSC.BackColor = Color.Transparent;
 
-				if (!feedback.Neutro) {
-					SC.PlayAudio();
-					labelMensagem.Text = mensagem;
-					labelMensagem.ForeColor = novaCor;
-					labelMensagem.Visible = true;
-				}
-
-				if (!feedback.SemCor) {
-					pictureSC.BackColor = novaCor;
-				}
+				taskCC.TrySetResult(true);
+			} finally {
+				lockCC.Release();
 			}
-			else {
-				relatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"{textoEvento}, porém não houve feedback por probabilidade", -1));
-			}
-
-			await Task.Delay(1000);
-			labelMensagem.Visible = false;
-			pictureSC.BackColor = Color.Transparent;
-
-			taskCC.TrySetResult(true);
 		}
 
 		private void FinalizarCC(string motivoFinalização) {

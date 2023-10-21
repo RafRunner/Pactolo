@@ -5,6 +5,9 @@ using System.Text.RegularExpressions;
 namespace Pactolo.scr.services {
     class Ambiente {
 
+        private static readonly string NOME_PASTA_ERROS = "Erros";
+        private static readonly string NOME_ARQUIVO_LOG_ERRO = "log erros.txt";
+
         public static string GetDiretorioPastas() {
             return Directory.GetCurrentDirectory();
         }
@@ -24,6 +27,17 @@ namespace Pactolo.scr.services {
                 return caminhoPasta;
             }
             return caminhoPasta + "\\" + nomeArquivo;
+        }
+
+        public static void RegistraLogErro(Exception e) {
+            if (!Directory.Exists(NOME_PASTA_ERROS)) {
+                Directory.CreateDirectory(NOME_PASTA_ERROS);
+			}
+            var arquivoLog = File.AppendText(GetFullPath(NOME_PASTA_ERROS, NOME_ARQUIVO_LOG_ERRO));
+            var agora = DateTime.Now;
+            arquivoLog.WriteLine($"${agora}: Erro: {e.Message}");
+            arquivoLog.WriteLine($"${agora}: Stack Trace: ${e.StackTrace}");
+            arquivoLog.Close();
         }
     }
 }

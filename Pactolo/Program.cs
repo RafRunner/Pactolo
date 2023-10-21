@@ -1,4 +1,5 @@
-﻿using Pactolo.scr.view;
+﻿using Pactolo.scr.services;
+using Pactolo.scr.view;
 using System;
 using System.Threading;
 using System.Windows.Forms;
@@ -31,6 +32,9 @@ namespace Pactolo {
             else {
                 errorMsg = e.Message;
             }
+
+            Ambiente.RegistraLogErro(e);
+
             MessageBox.Show(errorMsg, title, MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
     }

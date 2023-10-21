@@ -12,9 +12,9 @@ namespace Pactolo.scr.view {
 "\nCódigo fonte disponível em: https://github.com/RafRunner/Pactolo\n" +
 "\nComo citar este software:\n" +
 "\nAPA\n" +
-"Bernardy, J.L., Santana, R.N., & Passinato, E.B. (2019). Pactolo (Versão 2.2.0). [Software]. São Paulo, SP: Universidade de São Paulo.\n" +
+"Bernardy, J.L., Santana, R.N., & Passinato, E.B. (2019). Pactolo (Versão 2.2.1). [Software]. São Paulo, SP: Universidade de São Paulo.\n" +
 "\nABNT\n" +
-"BERNARDY, João Lucas; SANTANA, Rafael Nunes; PASSINATO, Emanuel Borges. Pactolo. Versão 2.2.0. São Paulo.\n" +
+"BERNARDY, João Lucas; SANTANA, Rafael Nunes; PASSINATO, Emanuel Borges. Pactolo. Versão 2.2.2. São Paulo.\n" +
 "\nContato: bernardy@usp.br";
 			tbInformacoes.SelectionBullet = false;
 		}

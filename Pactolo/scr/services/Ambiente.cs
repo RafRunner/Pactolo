@@ -33,11 +33,11 @@ namespace Pactolo.scr.services {
             if (!Directory.Exists(NOME_PASTA_ERROS)) {
                 Directory.CreateDirectory(NOME_PASTA_ERROS);
 			}
-            var arquivoLog = File.AppendText(GetFullPath(NOME_PASTA_ERROS, NOME_ARQUIVO_LOG_ERRO));
-            var agora = DateTime.Now;
-            arquivoLog.WriteLine($"${agora}: Erro: {e.Message}");
-            arquivoLog.WriteLine($"${agora}: Stack Trace: ${e.StackTrace}");
-            arquivoLog.Close();
+            using (var arquivoLog = File.AppendText(GetFullPath(NOME_PASTA_ERROS, NOME_ARQUIVO_LOG_ERRO))) {
+                var agora = DateTime.Now;
+                arquivoLog.WriteLine($"{agora}: Erro: {e.Message}");
+                arquivoLog.WriteLine($"{agora}: Stack Trace: {e.StackTrace}");
+            }
         }
     }
 }

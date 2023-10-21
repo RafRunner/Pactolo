@@ -31,10 +31,10 @@
 			this.tbInformacoes.BackColor = System.Drawing.SystemColors.Control;
 			this.tbInformacoes.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.tbInformacoes.Cursor = System.Windows.Forms.Cursors.IBeam;
-			this.tbInformacoes.Location = new System.Drawing.Point(13, 13);
+			this.tbInformacoes.Location = new System.Drawing.Point(13, 22);
 			this.tbInformacoes.Name = "tbInformacoes";
 			this.tbInformacoes.ReadOnly = true;
-			this.tbInformacoes.Size = new System.Drawing.Size(781, 596);
+			this.tbInformacoes.Size = new System.Drawing.Size(781, 627);
 			this.tbInformacoes.TabIndex = 0;
 			this.tbInformacoes.Text = "";
 			// 
@@ -42,7 +42,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(806, 621);
+			this.ClientSize = new System.Drawing.Size(806, 661);
 			this.Controls.Add(this.tbInformacoes);
 			this.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.Margin = new System.Windows.Forms.Padding(5);

@@ -25,7 +25,7 @@ namespace Pactolo.scr.services {
 
             relatorioSessao.FinalizarExperimento();
 
-            StringBuilder relatorio = new StringBuilder();
+            var relatorio = new StringBuilder();
             relatorio.Append(GetCabecalhoExperimento(relatorioSessao));
             relatorio.Append(GetInformacoesExperimentador(relatorioSessao.Experimentador));
             relatorio.Append(GetInformacoesParticipante(relatorioSessao.Participante));
@@ -36,7 +36,7 @@ namespace Pactolo.scr.services {
             foreach (var sessao in sessoes) {
                 List<ContingenciaColateral> contingeciasColaterais = sessao.CCs;
 
-                List<ContingenciaInstrucional> contingeciasInstrucionais = new List<ContingenciaInstrucional>();
+                var contingeciasInstrucionais = new List<ContingenciaInstrucional>();
 
                 foreach (ContingenciaColateral contingenciaColateral in contingeciasColaterais) {
                     if (contingenciaColateral.CI != null) {
@@ -51,7 +51,7 @@ namespace Pactolo.scr.services {
                 }
 
                 relatorio.Append(GetInformacoesCCs(contingeciasColaterais));
-                relatorio.Append(GetInformacoesEventos(sessao.Id, relatorioSessao));
+                relatorio.Append(GetInformacoesEventos(sessao, relatorioSessao));
                 relatorio.AppendLine("///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\n");
             }
 
@@ -59,7 +59,7 @@ namespace Pactolo.scr.services {
         }
 
         private static StringBuilder GetCabecalhoExperimento(RelatorioSessao relatorioSessao) {
-            StringBuilder cabeçalhoExperimento = new StringBuilder();
+            var cabeçalhoExperimento = new StringBuilder();
 
             string dataRealizacao = relatorioSessao.HoraInicio.ToString("dd/MM/yyyy");
             string horaInicio = relatorioSessao.HoraInicio.ToString(FORMATO_HORA);
@@ -74,7 +74,7 @@ namespace Pactolo.scr.services {
         }
 
         private static StringBuilder GetInformacoesExperimentador(Experimentador experimentador) {
-            StringBuilder informacoesExperimentador = new StringBuilder();
+            var informacoesExperimentador = new StringBuilder();
 
             informacoesExperimentador.AppendLine("Experimentador {");
             informacoesExperimentador.AppendLine("   -Nome: " + experimentador.Nome);
@@ -86,7 +86,7 @@ namespace Pactolo.scr.services {
         }
 
         private static StringBuilder GetInformacoesParticipante(Participante participante) {
-            StringBuilder informacoesParticipante = new StringBuilder();
+            var informacoesParticipante = new StringBuilder();
 
             informacoesParticipante.AppendLine("Participante {");
             informacoesParticipante.AppendLine("   -Nome: " + participante.Nome);
@@ -101,7 +101,7 @@ namespace Pactolo.scr.services {
 
 
         private static StringBuilder GetInformacoesCIs(List<ContingenciaInstrucional> ContingenciasInstrucionais) {
-            StringBuilder informacoesCIs = new StringBuilder();
+            var informacoesCIs = new StringBuilder();
             informacoesCIs.AppendLine("Estímulos Contexto {");
 
             foreach (ContingenciaInstrucional contingencia in ContingenciasInstrucionais) {
@@ -113,7 +113,7 @@ namespace Pactolo.scr.services {
         }
 
         private static StringBuilder GetInformacoesCCs(List<ContingenciaColateral> ContingenciasColaterais) {
-            StringBuilder informacoesCIs = new StringBuilder();
+            var informacoesCIs = new StringBuilder();
             informacoesCIs.AppendLine("Matches to Sample {");
 
             foreach (ContingenciaColateral contingencia in ContingenciasColaterais) {
@@ -135,7 +135,7 @@ namespace Pactolo.scr.services {
         }
 
         private static StringBuilder GetInformacoeSessoes(Sessao sessao) {
-            StringBuilder informacoesCIs = new StringBuilder();
+            var informacoesCIs = new StringBuilder();
             informacoesCIs.AppendLine("Sessão Atual {");
 
             informacoesCIs.AppendLine("   " + sessao.Nome + " {");
@@ -173,9 +173,14 @@ namespace Pactolo.scr.services {
             return informacoesCIs;
         }
 
-        private static StringBuilder GetInformacoesEventos(long sessaoId, RelatorioSessao relatorio) {
-            StringBuilder infoEventos = new StringBuilder();
-            List<Evento> eventos = relatorio.Eventos[sessaoId];
+        private static StringBuilder GetInformacoesEventos(Sessao sessao, RelatorioSessao relatorio) {
+            var infoEventos = new StringBuilder();
+            if (!relatorio.Eventos.ContainsKey(sessao.Id)) {
+                infoEventos.AppendLine($"Sessão {sessao.Nome} sem eventos, provavelmetne fechada prematuramente");
+                return infoEventos;
+            }
+
+            List<Evento> eventos = relatorio.Eventos[sessao.Id];
 
             int totalAcertos = 0;
             int totalErros = 0;

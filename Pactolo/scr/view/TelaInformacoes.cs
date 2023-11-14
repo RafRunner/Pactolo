@@ -5,7 +5,7 @@ namespace Pactolo.scr.view {
 		public TelaInformacoes() {
 			InitializeComponent();
 
-			var version = "2.2.3";
+			var version = "2.2.4";
 
 			tbInformacoes.Text = "O Pactolo é um software para estudo da relação entre contingências. A primeira contingência tem como consequência o acesso à tarefa de escolha de acordo com o modelo, a segunda contingência. Originalmente foi desenvolvido para estudo do efeito de estímulos verbais sobre o aprendizado de discriminações condicionais e formação de classes de equivalência, entretanto o software permite variações quanto aos parâmetros.\n" +
 "O nome Pactolo vem do mito do Rei Midas, uma alegoria sobre a ganância. Baco, a pedido do próprio Midas, concedera ao rei o dom de transformar tudo que tocava em ouro. Entretanto, Midas percebeu que seu desejo era uma maldição, e acabou por transformar sua própria filha, Phoebe, em uma estátua de ouro.  Midas, em desespero, pede a Baco para se livrar de seu \"dom\". Baco disse que Midas deveria se banhar na fonte do rio Pactolo, para que pudesse se livrar de sua maldição.\n" +

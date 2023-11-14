@@ -547,7 +547,10 @@ namespace Pactolo.scr.view {
             background.BackColor = Color.White;
             background.Show();
 
-            new TelaExperimento(sessoes, experimentador, participante).ShowDialog();
+            var telaExperimento = new TelaExperimento(sessoes, experimentador, participante);
+            telaExperimento.ShowDialog();
+            RelatorioSessao relatorioSessao = telaExperimento.RelatorioSessao;
+            RelatorioSessaoService.GeraRelatorio(relatorioSessao);
             background.Close();
         }
 

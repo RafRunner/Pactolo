@@ -1,11 +1,5 @@
-﻿using Dapper;
-using Pactolo.scr.dominio;
+﻿using Pactolo.scr.dominio;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SQLite;
-using System.IO;
-using System.Linq;
-
 namespace Pactolo.scr.services {
 
     class UnidadeDoExperimentoService : AbstractService {
@@ -14,7 +8,7 @@ namespace Pactolo.scr.services {
             if (id == 0) {
                 return null;
             }
-            UnidadeDoExperimento unidadeDoExperimeto = AbstractService.GetById<UnidadeDoExperimento>(id, "UnidadeDoExperimento");
+            var unidadeDoExperimeto = GetById<UnidadeDoExperimento>(id, "UnidadeDoExperimento");
             unidadeDoExperimeto.Feedback = FeedbackService.GetById(unidadeDoExperimeto.FeedbackId);
             return unidadeDoExperimeto;
         }
@@ -33,7 +27,7 @@ namespace Pactolo.scr.services {
 			unidadeDoExperimento.NomeImagem = ImagemService.CopiaImagemParaPasta(unidadeDoExperimento.NomeImagem);
 			unidadeDoExperimento.NomeAudio = AudioService.CopiaAudioParaPasta(unidadeDoExperimento.NomeAudio);
 
-            AbstractService.Salvar(unidadeDoExperimento,
+            Salvar(unidadeDoExperimento,
                 "UnidadeDoExperimento",
                 "INSERT INTO UnidadeDoExperimento (NomeImagem, FeedbackId, NomeAudio) VALUES (@NomeImagem, @FeedbackId, @NomeAudio); SELECT CAST(last_insert_rowid() as int)",
                 "UPDATE UnidadeDoExperimento SET NomeImagem = @NomeImagem, FeedbackId = @FeedbackId, NomeAudio = @NomeAudio WHERE Id = @Id");
@@ -42,25 +36,7 @@ namespace Pactolo.scr.services {
         public static void Deletar(UnidadeDoExperimento unidadeDoExperimeto) {
             Feedback feedback = FeedbackService.GetById(unidadeDoExperimeto.FeedbackId);
             FeedbackService.Deletar(feedback);
-            AbstractService.Deletar(unidadeDoExperimeto, "UnidadeDoExperimento");
-
-            string caiminhoImagem = ImagemService.GetFullPath(unidadeDoExperimeto.NomeImagem);
-            using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                IEnumerable<string> data = cnn.Query<string>("SELECT NomeImagem FROM UnidadeDoExperimento WHERE NomeImagem = @NomeImagem", unidadeDoExperimeto);
-                if (data.ToList<string>().Count == 0) {
-                    File.Delete(caiminhoImagem);
-                }
-            }
-
-            if (!string.IsNullOrEmpty(unidadeDoExperimeto.NomeAudio)) {
-                string caiminhoAudio = AudioService.GetFullPath(unidadeDoExperimeto.NomeAudio);
-                using (IDbConnection cnn = new SQLiteConnection(GetConnectionString())) {
-                    IEnumerable<string> data = cnn.Query<string>("SELECT NomeImagem FROM UnidadeDoExperimento WHERE NomeAudio = @NomeAudio", unidadeDoExperimeto);
-                    if (data.ToList<string>().Count == 0) {
-                        File.Delete(caiminhoAudio);
-                    }
-                }
-            }
+            Deletar(unidadeDoExperimeto, "UnidadeDoExperimento");
         }
 
         public static void DeletarAll(List<UnidadeDoExperimento> unidadesDoExperimento) {
@@ -70,7 +46,7 @@ namespace Pactolo.scr.services {
         }
 
 		public static List<UnidadeDoExperimento> GetAllByCI(ContingenciaInstrucional contingenciaInstrucional) {
-			return AbstractService.GetByObj<UnidadeDoExperimento>(
+			return GetByObj<UnidadeDoExperimento>(
 				"SELECT ue.* FROM UnidadeDoExperimento ue JOIN ContigenciaInstrucionalToTato CiTT ON ue.Id = CiTT.IdUnidadeExperimento WHERE CiTT.IdCI = @Id ORDER BY CiTT.Ordem",
 				contingenciaInstrucional);
 		}

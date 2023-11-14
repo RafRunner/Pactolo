@@ -1,19 +1,14 @@
-﻿using Dapper;
-using Pactolo.scr.dominio;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SQLite;
-using System.Linq;
+﻿using Pactolo.scr.dominio;
 
 namespace Pactolo.scr.services {
 	class FeedbackService : AbstractService {
 
 		public static Feedback GetById(long id) {
-			return AbstractService.GetById<Feedback>(id, "Feedback");
+			return GetById<Feedback>(id, "Feedback");
 		}
 
 		public static void Salvar(Feedback feedback) {
-			AbstractService.Salvar<Feedback>(
+			Salvar(
 				feedback,
 				"Feedback",
                 "INSERT INTO Feedback (ValorClick, Neutro, SemCor, ProbabilidadeComplementar) VALUES (@ValorClick, @Neutro, @SemCor, @ProbabilidadeComplementar); SELECT CAST(last_insert_rowid() as int)",
@@ -22,7 +17,7 @@ namespace Pactolo.scr.services {
 		}
 
 		public static void Deletar(Feedback feedback) {
-			AbstractService.Deletar(feedback, "Feedback");
+			Deletar(feedback, "Feedback");
 		}
 	}
 }

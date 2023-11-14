@@ -1,22 +1,19 @@
 ﻿using Dapper;
 using Pactolo.scr.dominio;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pactolo.scr.services {
     class InstrucaoService : AbstractService {
 
         public static Instrucao GetById(long id) {
-            return AbstractService.GetById<Instrucao>(id, "Instrucao");
+            return GetById<Instrucao>(id, "Instrucao");
         }
 
         public static List<object> GetAll() {
-            return AbstractService.GetAll<Instrucao>("Instrucao").Cast<object>().ToList();
+            return GetAll<Instrucao>("Instrucao").Cast<object>().ToList();
         }
 
         private static Instrucao GetByTexto(string texto) {
@@ -33,7 +30,7 @@ namespace Pactolo.scr.services {
                 return;
             }
 
-            AbstractService.Salvar<Instrucao>(
+            Salvar(
                 instrucao,
                 "Instrucao",
                 "INSERT INTO Instrucao (Texto) VALUES(@Texto); SELECT CAST(last_insert_rowid() as int)",
@@ -42,11 +39,11 @@ namespace Pactolo.scr.services {
         }
 
         public static void Deletar(Instrucao intrucao) {
-            AbstractService.Deletar(intrucao, "Instrucao");
+            Deletar(intrucao, "Instrucao");
         }
 
         public static void DeletarPorId(long id) {
-            AbstractService.DeletarPorId(id, "Instrucao");
+            DeletarPorId(id, "Instrucao");
         }
 
         public static List<object> FilterDataTable(List<object> objetos, string textoDeBusca) {

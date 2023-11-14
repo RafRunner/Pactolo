@@ -12,7 +12,7 @@ namespace Pactolo.scr.services {
             if (id <= 0) {
                 return null;
             }
-            ContingenciaInstrucional contingenciaInstrucional = AbstractService.GetById<ContingenciaInstrucional>(id, "ContingenciaInstrucional");
+            var contingenciaInstrucional = GetById<ContingenciaInstrucional>(id, "ContingenciaInstrucional");
             ObterObjetosFilhos(contingenciaInstrucional);
             return contingenciaInstrucional;
         }
@@ -30,7 +30,7 @@ namespace Pactolo.scr.services {
         }
 
         public static List<ContingenciaInstrucional> GetAll(){
-            List<ContingenciaInstrucional> contingenciasInstrucionais = AbstractService.GetAll<ContingenciaInstrucional>("ContingenciaInstrucional");
+            var contingenciasInstrucionais = GetAll<ContingenciaInstrucional>("ContingenciaInstrucional");
             for (int i = 0; i< contingenciasInstrucionais.Count; i++) {
                 ObterObjetosFilhos(contingenciasInstrucionais[i]);
             }
@@ -43,7 +43,7 @@ namespace Pactolo.scr.services {
 		}
 
         public static void Salvar(ContingenciaInstrucional contingenciaInstrucional) {
-			AbstractService.Salvar(contingenciaInstrucional,
+			Salvar(contingenciaInstrucional,
 				"ContingenciaInstrucional",
 				"INSERT INTO ContingenciaInstrucional (Nome, SemCor) VALUES (@Nome, @SemCor); SELECT CAST(last_insert_rowid() as int)",
 				"");
@@ -52,11 +52,12 @@ namespace Pactolo.scr.services {
 
         public static void Deletar(ContingenciaInstrucional contingenciaInstrucional) {
             List<ContingenciaColateral> CCsComEssaCI = ContingenciaColateralService.GetAllByCI(contingenciaInstrucional);
+            var nomesMTS = ListUtils.Join(CCsComEssaCI.Select(it => it.Nome).Cast<string>().ToList(), ", ");
             if (CCsComEssaCI.Count > 0) {
-                throw new System.Exception($"Esse EC está cadastrada nos seguintes MTSs: {ListUtils.Join(CCsComEssaCI.Select(it => it.Nome).Cast<string>().ToList(), ", ")}. Delete primeiro esses MTSs ou os associe a outro EC");
+                throw new System.Exception($"Esse EC está cadastrada nos seguintes MTSs: {nomesMTS}. Delete primeiro esses MTSs ou os associe a outro EC");
             }
 			DeletarObjetosFilhos(contingenciaInstrucional);
-            AbstractService.Deletar(contingenciaInstrucional, "ContingenciaInstrucional");
+			Deletar(contingenciaInstrucional, "ContingenciaInstrucional");
         }
     }
 }

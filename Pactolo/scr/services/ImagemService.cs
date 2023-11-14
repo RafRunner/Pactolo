@@ -1,12 +1,8 @@
 ﻿using Pactolo.scr.utils;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Pactolo.scr.services {
     class ImagemService {
@@ -38,11 +34,15 @@ namespace Pactolo.scr.services {
             string nome = Ambiente.GetNomeArquivo(caminhoImagem);
             string novoCaminho = GetFullPath(nome);
 
-            if (File.Exists(novoCaminho) && ImageUtils.ImageToByteArray(Image.FromFile(novoCaminho)).SequenceEqual(ImageUtils.ImageToByteArray(Image.FromFile(caminhoImagem)))) {
-                return nome;
-            }
             if (File.Exists(novoCaminho)) {
-                throw new Exception($"Já existe uma imagem com o nome {nome}! Por favor, a renomeie");
+                var imagemNovaBytes = ImageUtils.ImageToByteArray(Image.FromFile(caminhoImagem));
+                var imagemExistenteBytes = ImageUtils.ImageToByteArray(Image.FromFile(novoCaminho));
+
+                if (imagemNovaBytes.SequenceEqual(imagemExistenteBytes)) {
+                    return nome;
+                } else {
+                    throw new Exception($"Já existe uma imagem com o nome {nome}! Por favor, a renomeie");
+                }
             }
 
             File.Copy(caminhoImagem, novoCaminho);

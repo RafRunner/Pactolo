@@ -12,11 +12,11 @@ namespace Pactolo.scr.services {
 	class ParticipanteService : AbstractService {
 
 		public static Participante GetById(long id) {
-			return AbstractService.GetById<Participante>(id, "Participante");
+			return GetById<Participante>(id, "Participante");
 		}
 
 		public static List<object> GetAll() {
-			return AbstractService.GetAll<Participante>("Participante").Cast<object>().ToList();
+			return GetAll<Participante>("Participante").Cast<object>().ToList();
 		}
 
 		public static List<Participante> GetByNome(string nome) {
@@ -32,7 +32,7 @@ namespace Pactolo.scr.services {
 		}
 
 		public static Participante GetByPropriedades(Participante participante) {
-            IEnumerable<Participante> pessoa = AbstractService.GetByObj<Participante>("SELECT * FROM Participante WHERE Nome = @Nome AND Email = @Email", participante);
+            IEnumerable<Participante> pessoa = GetByObj<Participante>("SELECT * FROM Participante WHERE Nome = @Nome AND Email = @Email", participante);
 			return pessoa.Count() > 0 ? pessoa.Single() : null;
 		}
 
@@ -42,7 +42,7 @@ namespace Pactolo.scr.services {
                 throw new Exception("Participante já existe na base de dados!");
             }
 
-            AbstractService.Salvar<Participante>(
+            Salvar(
 				participante,
 				"Participante",
 				"INSERT INTO Participante (Nome, Email, Idade, Escolaridade, Sexo) VALUES (@Nome, @Email, @Idade, @Escolaridade, @Sexo); SELECT CAST(last_insert_rowid() as int)",
@@ -51,19 +51,18 @@ namespace Pactolo.scr.services {
 		}
 
 		public static void Deletar(Participante participante) {
-			AbstractService.Deletar(participante, "Participante");
+			Deletar(participante, "Participante");
         }
 
         public static void DeletarPorId(long id) {
-            AbstractService.DeletarPorId(id, "Participante");
+            DeletarPorId(id, "Participante");
         }
 
         public static List<object> FilterDataTable(List<object> objetos, string textoDeBusca) {
             List<Participante> experimentadores = objetos.Cast<Participante>().ToList();
 
             return experimentadores.FindAll(experimentador => {
-                if (experimentador.Nome.ToLower().Contains(textoDeBusca) ||
-                experimentador.Email.ToLower().Contains(textoDeBusca)) {
+                if (experimentador.Nome.ToLower().Contains(textoDeBusca) || experimentador.Email.ToLower().Contains(textoDeBusca)) {
                     return true;
                 }
                 return false;

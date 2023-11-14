@@ -9,7 +9,7 @@ namespace Pactolo.scr.services {
             if (id == 0) {
                 return null;
             }
-            Sessao sessao = AbstractService.GetById<Sessao>(id, "Sessao");
+            Sessao sessao = GetById<Sessao>(id, "Sessao");
             ObterObjetosFilhos(sessao);
             return sessao;
         }
@@ -20,7 +20,7 @@ namespace Pactolo.scr.services {
                 if (id == 0) {
                     return null;
                 }
-                Sessao sessao = AbstractService.GetById<Sessao>(id, "Sessao");
+                Sessao sessao = GetById<Sessao>(id, "Sessao");
                 ObterObjetosFilhos(sessao);
                 sessoes.Add(sessao);
             }           
@@ -33,7 +33,7 @@ namespace Pactolo.scr.services {
         }
 
         public static List<Sessao> GetAll() {
-            List<Sessao> sessoes = AbstractService.GetAll<Sessao>("Sessao");
+            List<Sessao> sessoes = GetAll<Sessao>("Sessao");
             foreach (Sessao sessao in sessoes) {
                 ObterObjetosFilhos(sessao);
             }
@@ -47,7 +47,7 @@ namespace Pactolo.scr.services {
             if (sessao.CCs.Count == 0) {
                 throw new Exception("Uma sessão deve possuir pelo menos um MTS");
             }
-            AbstractService.Salvar(sessao,
+            Salvar(sessao,
                 "Sessao",
                 "INSERT INTO Sessao (Nome, OrdemAleatoria, CriterioNumeroTentativas, CriterioDuracaoSegundos, CriterioAcertosConcecutivos, IdInstrucao) VALUES (@Nome, @OrdemAleatoria, @CriterioNumeroTentativas, @CriterioDuracaoSegundos, @CriterioAcertosConcecutivos, @IdInstrucao); SELECT CAST(last_insert_rowid() as int)",
                 "UPDATE Sessao SET Nome = @Nome, OrdemAleatoria = @OrdemAleatoria, CriterioNumeroTentativas = @CriterioNumeroTentativas, CriterioDuracaoSegundos = @CriterioDuracaoSegundos, CriterioAcertosConcecutivos = @CriterioAcertosConcecutivos IdInstrucao = @IdInstrucao WHERE Id = @Id");
@@ -55,7 +55,7 @@ namespace Pactolo.scr.services {
         }
 
         public static void Deletar(Sessao sessao) {
-            AbstractService.Deletar(sessao, "Sessao");
+            Deletar(sessao, "Sessao");
             CCPorSessaoService.DeletarAllBySessaoId(sessao.Id);
         }
     }

@@ -1,5 +1,4 @@
 ﻿using Pactolo.scr.dominio;
-using Pactolo.scr.services;
 using Pactolo.scr.utils;
 using System;
 using System.Collections.Generic;
@@ -26,11 +25,11 @@ namespace Pactolo.scr.view {
 		private Sessao sessaoAtual;
 		private ContingenciaColateral CCAtual;
 		private List<UnidadeDoExperimento> SCsEmbaralhados = new List<UnidadeDoExperimento>();
-		private System.Windows.Forms.Timer timerAtual;
+		private System.Windows.Forms.Timer timerSesaoAtual;
 
 		private readonly Random random = new Random();
 
-		private readonly RelatorioSessao relatorioSessao;
+		public RelatorioSessao RelatorioSessao { get; }
 
 		private List<ContingenciaColateral> pacoteCC;
 
@@ -47,7 +46,7 @@ namespace Pactolo.scr.view {
 
 			this.sessoesExecutadas = sessoesExecutadas;
 
-			relatorioSessao = new RelatorioSessao(sessoesExecutadas.Select(it => it.Id).Cast<long>().ToList(), experimentador, participante);
+			RelatorioSessao = new RelatorioSessao(sessoesExecutadas.Select(it => it.Id).Cast<long>().ToList(), experimentador, participante);
 
 			imageHeight = Convert.ToInt32(283 * ViewUtils.heightRatio);
 			imageWidth = Convert.ToInt32(333 * ViewUtils.widthRatio);
@@ -85,7 +84,7 @@ namespace Pactolo.scr.view {
 		}
 
 		private void MostrarTelaFimExperimento() {
-			timerAtual.Stop();
+			timerSesaoAtual.Stop();
 			new TelaMensagem("O Experimento foi finalizado! Por favor, chamar o experimentador.").ShowDialog();
 			Close();
 		}
@@ -94,13 +93,11 @@ namespace Pactolo.scr.view {
 			foreach (Sessao sessao in sessoesExecutadas) {
 				await ApresentarSessao(sessao);
 			}
-			RelatorioSessaoService.GeraRelatorio(relatorioSessao);
 			MostrarTelaFimExperimento();
 		}
 
 		private void EventoFimTempo(Object myObject, EventArgs myEventArgs) {
-			relatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"Sessão {sessaoAtual.Nome}; Fim do tempo limite, o experimento foi encerrado e mais nenhuma sessão apresentada"));
-			RelatorioSessaoService.GeraRelatorio(relatorioSessao);
+			RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"Sessão {sessaoAtual.Nome}; Fim do tempo limite, o experimento foi encerrado e mais nenhuma sessão apresentada"));
 			MostrarTelaFimExperimento();
 		}
 
@@ -112,14 +109,14 @@ namespace Pactolo.scr.view {
 				new TelaMensagem(sessaoAtual.Instrucao.Texto, false, true).ShowDialog();
 			}
 
-			timerAtual?.Stop();
+			timerSesaoAtual?.Stop();
 
 			if (sessaoAtual.CriterioDuracaoSegundos > 0) {
-				timerAtual = new System.Windows.Forms.Timer {
+				timerSesaoAtual = new System.Windows.Forms.Timer {
 					Interval = Convert.ToInt32(sessaoAtual.CriterioDuracaoSegundos) * 1000
 				};
-				timerAtual.Tick += new EventHandler(EventoFimTempo);
-				timerAtual.Start();
+				timerSesaoAtual.Tick += new EventHandler(EventoFimTempo);
+				timerSesaoAtual.Start();
 			}
 
 			bool encerrada = false;
@@ -262,7 +259,7 @@ namespace Pactolo.scr.view {
 
 			for (int i = 0; i < quantidadeTatos; i++) {
 				await tasksTato[i].Task;
-				relatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"Sessão {sessaoAtual.Nome}; EC {CI.Nome}; Tato da imagem {tatos[i].NomeImagem} Tocado"));
+				RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"Sessão {sessaoAtual.Nome}; EC {CI.Nome}; Tato da imagem {tatos[i].NomeImagem} Tocado"));
 				if (!CI.SemCor) {
 					tatoToPicture[i].BackColor = Color.Green;
 				}
@@ -318,19 +315,19 @@ namespace Pactolo.scr.view {
 			await taskSModelo.Task;
 			UnidadeDoExperimento sModelo = CC.sModelo;
 
-			relatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"Sessão {sessaoAtual.Nome}; MTS {CC.Nome}; SModelo da imagem {sModelo.NomeImagem} tocado"));
+			RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"Sessão {sessaoAtual.Nome}; MTS {CC.Nome}; SModelo da imagem {sModelo.NomeImagem} tocado"));
 
 			if (sModelo.Feedback != null && !sModelo.Feedback.SemCor) {
 				pictureSModelo.BackColor = Color.Green;
 			}
 			sModelo.PlayAudio();
 
-			pictureSC3.Visible = true;
 			if (!CC.SC1.Feedback.Neutro && !CC.SC2.Feedback.Neutro && !CC.SC3.Feedback.Neutro) {
 				panelPontos.Visible = true;
 			}
-			pictureSC2.Visible = true;
 			pictureSC1.Visible = true;
+			pictureSC2.Visible = true;
+			pictureSC3.Visible = true;
 
 			EmbaralhaSCs(SCs);
 
@@ -353,7 +350,7 @@ namespace Pactolo.scr.view {
 				sessaoAtual.NumeroTentativas++;
 
 				if (feedback.ProbabilidadeComplementar >= random.Next(0, 101)) {
-					relatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"{textoEvento}, valendo {feedback.ValorClick} pontos", positivo ? 1 : 0));
+					RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"{textoEvento}, valendo {feedback.ValorClick} pontos", positivo ? 1 : 0));
 
 					if (positivo) {
 						sessaoAtual.AcertosConcecutivos++;
@@ -378,7 +375,7 @@ namespace Pactolo.scr.view {
 					}
 				}
 				else {
-					relatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"{textoEvento}, porém não houve feedback por probabilidade", -1));
+					RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"{textoEvento}, porém não houve feedback por probabilidade", -1));
 				}
 
 				await Task.Delay(1000);
@@ -392,7 +389,7 @@ namespace Pactolo.scr.view {
 		}
 
 		private void FinalizarCC(string motivoFinalização) {
-			relatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"Sessão {sessaoAtual.Nome}; Fim da sessão. Critério: {motivoFinalização}"));
+			RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"Sessão {sessaoAtual.Nome}; Fim da sessão. Critério: {motivoFinalização}"));
 			taskCC.TrySetResult(true);
 		}
 

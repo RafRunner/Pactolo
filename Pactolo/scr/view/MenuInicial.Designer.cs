@@ -153,6 +153,8 @@ namespace Pactolo.scr.view {
 			this.picturePactolo = new System.Windows.Forms.PictureBox();
 			this.buttonMaisSobreSoftware = new System.Windows.Forms.Button();
 			this.panel7 = new System.Windows.Forms.Panel();
+			this.label14 = new System.Windows.Forms.Label();
+			this.numericTempoTentativa = new System.Windows.Forms.NumericUpDown();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericIdade)).BeginInit();
@@ -171,6 +173,7 @@ namespace Pactolo.scr.view {
 			this.panel6.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.picturePactolo)).BeginInit();
 			this.panel7.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericTempoTentativa)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// textBoxNomeExperimentador
@@ -1235,6 +1238,8 @@ namespace Pactolo.scr.view {
 			// panel5
 			// 
 			this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.panel5.Controls.Add(this.label14);
+			this.panel5.Controls.Add(this.numericTempoTentativa);
 			this.panel5.Controls.Add(this.buttonGerenciarInstrucoes);
 			this.panel5.Controls.Add(this.label39);
 			this.panel5.Controls.Add(this.textInstrucao);
@@ -1265,7 +1270,7 @@ namespace Pactolo.scr.view {
 			// buttonGerenciarInstrucoes
 			// 
 			this.buttonGerenciarInstrucoes.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonGerenciarInstrucoes.Location = new System.Drawing.Point(318, 510);
+			this.buttonGerenciarInstrucoes.Location = new System.Drawing.Point(318, 514);
 			this.buttonGerenciarInstrucoes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.buttonGerenciarInstrucoes.Name = "buttonGerenciarInstrucoes";
 			this.buttonGerenciarInstrucoes.Size = new System.Drawing.Size(263, 36);
@@ -1278,7 +1283,7 @@ namespace Pactolo.scr.view {
 			// 
 			this.label39.AutoSize = true;
 			this.label39.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label39.Location = new System.Drawing.Point(314, 283);
+			this.label39.Location = new System.Drawing.Point(314, 287);
 			this.label39.Name = "label39";
 			this.label39.Size = new System.Drawing.Size(64, 19);
 			this.label39.TabIndex = 81;
@@ -1286,7 +1291,7 @@ namespace Pactolo.scr.view {
 			// 
 			// textInstrucao
 			// 
-			this.textInstrucao.Location = new System.Drawing.Point(318, 307);
+			this.textInstrucao.Location = new System.Drawing.Point(318, 311);
 			this.textInstrucao.Name = "textInstrucao";
 			this.textInstrucao.Size = new System.Drawing.Size(263, 199);
 			this.textInstrucao.TabIndex = 83;
@@ -1317,7 +1322,7 @@ namespace Pactolo.scr.view {
 			// buttonCadastrarSessao
 			// 
 			this.buttonCadastrarSessao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.buttonCadastrarSessao.Location = new System.Drawing.Point(3, 510);
+			this.buttonCadastrarSessao.Location = new System.Drawing.Point(3, 514);
 			this.buttonCadastrarSessao.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.buttonCadastrarSessao.Name = "buttonCadastrarSessao";
 			this.buttonCadastrarSessao.Size = new System.Drawing.Size(101, 36);
@@ -1341,7 +1346,7 @@ namespace Pactolo.scr.view {
 			// 
 			this.label33.AutoSize = true;
 			this.label33.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label33.Location = new System.Drawing.Point(95, 468);
+			this.label33.Location = new System.Drawing.Point(96, 474);
 			this.label33.Name = "label33";
 			this.label33.Size = new System.Drawing.Size(183, 21);
 			this.label33.TabIndex = 73;
@@ -1351,7 +1356,7 @@ namespace Pactolo.scr.view {
 			// 
 			this.label32.AutoSize = true;
 			this.label32.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label32.Location = new System.Drawing.Point(95, 424);
+			this.label32.Location = new System.Drawing.Point(96, 439);
 			this.label32.Name = "label32";
 			this.label32.Size = new System.Drawing.Size(179, 21);
 			this.label32.TabIndex = 72;
@@ -1361,7 +1366,7 @@ namespace Pactolo.scr.view {
 			// 
 			this.label31.AutoSize = true;
 			this.label31.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label31.Location = new System.Drawing.Point(94, 378);
+			this.label31.Location = new System.Drawing.Point(95, 404);
 			this.label31.Name = "label31";
 			this.label31.Size = new System.Drawing.Size(172, 21);
 			this.label31.TabIndex = 71;
@@ -1370,7 +1375,7 @@ namespace Pactolo.scr.view {
 			// numericDuracao
 			// 
 			this.numericDuracao.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numericDuracao.Location = new System.Drawing.Point(7, 466);
+			this.numericDuracao.Location = new System.Drawing.Point(8, 472);
 			this.numericDuracao.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -1383,7 +1388,7 @@ namespace Pactolo.scr.view {
 			// numericNTentativas
 			// 
 			this.numericNTentativas.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numericNTentativas.Location = new System.Drawing.Point(8, 422);
+			this.numericNTentativas.Location = new System.Drawing.Point(9, 437);
 			this.numericNTentativas.Name = "numericNTentativas";
 			this.numericNTentativas.Size = new System.Drawing.Size(81, 29);
 			this.numericNTentativas.TabIndex = 69;
@@ -1391,7 +1396,7 @@ namespace Pactolo.scr.view {
 			// numericAcertosConsec
 			// 
 			this.numericAcertosConsec.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.numericAcertosConsec.Location = new System.Drawing.Point(7, 376);
+			this.numericAcertosConsec.Location = new System.Drawing.Point(8, 402);
 			this.numericAcertosConsec.Name = "numericAcertosConsec";
 			this.numericAcertosConsec.Size = new System.Drawing.Size(81, 29);
 			this.numericAcertosConsec.TabIndex = 66;
@@ -1400,7 +1405,7 @@ namespace Pactolo.scr.view {
 			// 
 			this.label30.AutoSize = true;
 			this.label30.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label30.Location = new System.Drawing.Point(8, 346);
+			this.label30.Location = new System.Drawing.Point(8, 376);
 			this.label30.Name = "label30";
 			this.label30.Size = new System.Drawing.Size(213, 21);
 			this.label30.TabIndex = 68;
@@ -1671,6 +1676,29 @@ namespace Pactolo.scr.view {
 			this.panel7.Size = new System.Drawing.Size(317, 238);
 			this.panel7.TabIndex = 18;
 			// 
+			// label14
+			// 
+			this.label14.AutoSize = true;
+			this.label14.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label14.Location = new System.Drawing.Point(95, 340);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(166, 21);
+			this.label14.TabIndex = 86;
+			this.label14.Text = "Tempo por tentativa";
+			// 
+			// numericTempoTentativa
+			// 
+			this.numericTempoTentativa.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.numericTempoTentativa.Location = new System.Drawing.Point(8, 338);
+			this.numericTempoTentativa.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+			this.numericTempoTentativa.Name = "numericTempoTentativa";
+			this.numericTempoTentativa.Size = new System.Drawing.Size(81, 29);
+			this.numericTempoTentativa.TabIndex = 85;
+			// 
 			// MenuInicial
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -1717,6 +1745,7 @@ namespace Pactolo.scr.view {
 			this.panel6.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.picturePactolo)).EndInit();
 			this.panel7.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.numericTempoTentativa)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -1850,6 +1879,8 @@ namespace Pactolo.scr.view {
 		private System.Windows.Forms.CheckBox checkBoxSemCorModelo;
 		private System.Windows.Forms.Button buttonCarregarAudioModelo;
 		private System.Windows.Forms.TextBox textBoxAudioModelo;
+		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.NumericUpDown numericTempoTentativa;
 	}
 }
 

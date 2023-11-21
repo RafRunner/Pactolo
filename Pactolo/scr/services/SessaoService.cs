@@ -49,8 +49,8 @@ namespace Pactolo.scr.services {
             }
             Salvar(sessao,
                 "Sessao",
-                "INSERT INTO Sessao (Nome, OrdemAleatoria, CriterioNumeroTentativas, CriterioDuracaoSegundos, CriterioAcertosConcecutivos, IdInstrucao) VALUES (@Nome, @OrdemAleatoria, @CriterioNumeroTentativas, @CriterioDuracaoSegundos, @CriterioAcertosConcecutivos, @IdInstrucao); SELECT CAST(last_insert_rowid() as int)",
-                "UPDATE Sessao SET Nome = @Nome, OrdemAleatoria = @OrdemAleatoria, CriterioNumeroTentativas = @CriterioNumeroTentativas, CriterioDuracaoSegundos = @CriterioDuracaoSegundos, CriterioAcertosConcecutivos = @CriterioAcertosConcecutivos IdInstrucao = @IdInstrucao WHERE Id = @Id");
+                "INSERT INTO Sessao (Nome, OrdemAleatoria, CriterioNumeroTentativas, CriterioDuracaoSegundos, CriterioAcertosConcecutivos, IdInstrucao, SegundosPorTentativa) VALUES (@Nome, @OrdemAleatoria, @CriterioNumeroTentativas, @CriterioDuracaoSegundos, @CriterioAcertosConcecutivos, @IdInstrucao, @SegundosPorTentativa); SELECT CAST(last_insert_rowid() as int)",
+                "UPDATE Sessao SET Nome = @Nome, OrdemAleatoria = @OrdemAleatoria, CriterioNumeroTentativas = @CriterioNumeroTentativas, CriterioDuracaoSegundos = @CriterioDuracaoSegundos, CriterioAcertosConcecutivos = @CriterioAcertosConcecutivos IdInstrucao = @IdInstrucao, SegundosPorTentativa = @SegundosPorTentativa WHERE Id = @Id");
             CCPorSessaoService.SalvarAll(sessao.Id, sessao.CCs);
         }
 

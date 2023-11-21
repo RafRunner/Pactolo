@@ -26,6 +26,7 @@ namespace Pactolo.scr.view {
 		private ContingenciaColateral CCAtual;
 		private List<UnidadeDoExperimento> SCsEmbaralhados = new List<UnidadeDoExperimento>();
 		private System.Windows.Forms.Timer timerSesaoAtual;
+		private System.Windows.Forms.Timer timerTentativaAtual;
 
 		private readonly Random random = new Random();
 
@@ -98,7 +99,27 @@ namespace Pactolo.scr.view {
 
 		private void EventoFimTempo(Object myObject, EventArgs myEventArgs) {
 			RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"Sessão {sessaoAtual.Nome}; Fim do tempo limite, o experimento foi encerrado e mais nenhuma sessão apresentada"));
+			timerSesaoAtual.Stop();
 			MostrarTelaFimExperimento();
+		}
+
+		private void EventoFimTempoTentativa(Object myObject, EventArgs myEventArgs) {
+			if (!lockCC.Wait(TimeSpan.Zero)) {
+				Console.WriteLine("Lock não obtido para fim de tentativa por tempo");
+				return;
+			}
+			try {
+				var evento = new Evento($"Sessão {sessaoAtual.Nome}; MTS {CCAtual.Nome}; Fim do tempo limite de {sessaoAtual.SegundosPorTentativa}s para tentativa, avançando para a próxima", 2);
+				RelatorioSessao.AdicionarEvento(sessaoAtual.Id, evento);
+
+				sessaoAtual.NumeroTentativas++;
+				sessaoAtual.AcertosConcecutivos = 0;
+				CCAtual.AcertosConcecutivos = 0;
+				timerTentativaAtual.Stop();
+				taskCC.TrySetResult(true);
+			} finally {
+				lockCC.Release();
+			}
 		}
 
 		private async Task ApresentarSessao(Sessao sessao) {
@@ -331,6 +352,15 @@ namespace Pactolo.scr.view {
 
 			EmbaralhaSCs(SCs);
 
+			timerTentativaAtual?.Stop();
+			if (sessaoAtual.SegundosPorTentativa > 0) {
+				timerTentativaAtual = new System.Windows.Forms.Timer {
+					Interval = sessaoAtual.SegundosPorTentativa * 1000
+				};
+				timerTentativaAtual.Tick += new EventHandler(EventoFimTempoTentativa);
+				timerTentativaAtual.Start();
+			}
+
 			await taskCC.Task;
 		}
 
@@ -339,6 +369,7 @@ namespace Pactolo.scr.view {
 				Console.WriteLine("Lock não obtido " + SC.NomeImagem);
 				return;
 			}
+			timerTentativaAtual?.Stop();
 
 			try {
 				Feedback feedback = SC.Feedback;

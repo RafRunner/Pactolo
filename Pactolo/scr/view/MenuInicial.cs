@@ -434,7 +434,8 @@ namespace Pactolo.scr.view {
                 CriterioAcertosConcecutivos = Convert.ToInt32(numericAcertosConsec.Value),
                 CriterioNumeroTentativas = Convert.ToInt32(numericNTentativas.Value),
                 CriterioDuracaoSegundos = Convert.ToInt32(numericDuracao.Value),
-                Instrucao = instrucao
+                Instrucao = instrucao,
+                SegundosPorTentativa = Convert.ToInt32(numericTempoTentativa.Value),
             };
             return sessao;
         }
@@ -481,6 +482,7 @@ namespace Pactolo.scr.view {
             numericNTentativas.Value = sessao.CriterioNumeroTentativas;
             checkBoxTentativasAgrp.Checked = !sessao.OrdemAleatoria;
             checkBoxTentativasRand.Checked = sessao.OrdemAleatoria;
+            numericTempoTentativa.Value = sessao.SegundosPorTentativa;
 
             if (sessao.Instrucao != null) {
                 textInstrucao.Text = sessao.Instrucao.Texto;

@@ -185,6 +185,7 @@ namespace Pactolo.scr.services {
             int totalAcertos = 0;
             int totalErros = 0;
             int totalNeutros = 0;
+            int totalEstouroTempo = 0;
             double latenciaTotal = 0.0;
 
             infoEventos.AppendLine("Eventos Realizados pelo participante {");
@@ -202,6 +203,7 @@ namespace Pactolo.scr.services {
                         case -1: totalNeutros++; break;
                         case 0: totalErros++; break;
                         case 1: totalAcertos++; break;
+                        case 2: totalEstouroTempo++; break;
 					}
 
                     latenciaTotal += diferencaDoEventoAnterior;
@@ -215,11 +217,14 @@ namespace Pactolo.scr.services {
 
             infoEventos.AppendLine("}\n");
 
+            int totalToques = totalAcertos + totalErros + totalNeutros + totalEstouroTempo;
+
             infoEventos.AppendLine("Resumo dos eventos {");
-            infoEventos.Append("   Total de Acetos: ").AppendLine(totalAcertos.ToString());
+            infoEventos.Append("   Total de Acertos: ").AppendLine(totalAcertos.ToString());
             infoEventos.Append("   Total de Erros: ").AppendLine(totalErros.ToString());
             infoEventos.Append("   Total de Neutros: ").AppendLine(totalNeutros.ToString());
-            infoEventos.Append("   Latência média: ").Append(latenciaTotal / (totalAcertos + totalErros + totalNeutros)).AppendLine("s");
+            infoEventos.Append("   Total de Excedentes de Tempo: ").AppendLine(totalEstouroTempo.ToString());
+            infoEventos.Append("   Latência média: ").Append(latenciaTotal / totalToques).AppendLine("s");
             infoEventos.AppendLine("}\n");
 
             return infoEventos;

@@ -1,9 +1,4 @@
-﻿using System;
-using Pactolo.scr.enums;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Pactolo.scr.utils;
 
 namespace Pactolo.scr.dominio {
@@ -32,5 +27,11 @@ namespace Pactolo.scr.dominio {
         public int NumeroPontos { get; set;  }
         public long DuracaoSegundos { get; set; }
         public int AcertosConcecutivos { get; set; }
+
+        private int segundosPorTentativa;
+        public int SegundosPorTentativa {
+            get => segundosPorTentativa;
+            set => segundosPorTentativa = NumericUtils.ValidarInteiroPositivoDentroDeLimite(value, int.MaxValue, "segundos por tentativa");
+        }
     }
 }

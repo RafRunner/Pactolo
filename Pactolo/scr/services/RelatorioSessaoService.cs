@@ -1,4 +1,5 @@
 ﻿using Pactolo.scr.dominio;
+using Pactolo.scr.dominio.eventos;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -195,15 +196,15 @@ namespace Pactolo.scr.services {
                 infoEventos.Append("   ").Append(evento.MontaMensagem());
 
                 // É um evento de SC, registramos o intervalo
-                if (evento.Acerto != -2) {
+                if (evento.Tipo != TipoEvento.Outros) {
                     double diferencaDoEventoAnterior = (evento.HoraEvento - eventoAnterior).TotalSeconds;
                     infoEventos.Append(" | Intervalo do último evento: ").Append(diferencaDoEventoAnterior).AppendLine("s");
 
-                    switch (evento.Acerto) {
-                        case -1: totalNeutros++; break;
-                        case 0: totalErros++; break;
-                        case 1: totalAcertos++; break;
-                        case 2: totalEstouroTempo++; break;
+                    switch (evento.Tipo) {
+                        case TipoEvento.Neutro: totalNeutros++; break;
+                        case TipoEvento.Erro: totalErros++; break;
+                        case TipoEvento.Acerto: totalAcertos++; break;
+                        case TipoEvento.TempoEstourado: totalEstouroTempo++; break;
 					}
 
                     latenciaTotal += diferencaDoEventoAnterior;

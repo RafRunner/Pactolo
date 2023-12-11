@@ -1,4 +1,5 @@
-﻿using Pactolo.scr.services;
+﻿using Pactolo.scr.dominio.eventos;
+using Pactolo.scr.services;
 using System;
 
 namespace Pactolo.scr.dominio {
@@ -7,16 +8,16 @@ namespace Pactolo.scr.dominio {
         public Evento(string mensagem) {
             Mensagem = mensagem;
             HoraEvento = DateTime.Now;
-            Acerto = -2;
+            Tipo = TipoEvento.Outros;
         }
 
-        public Evento(string mensagem, int acerto) : this(mensagem) {
-            Acerto = acerto;
+        public Evento(string mensagem, TipoEvento tipo) : this(mensagem) {
+            Tipo = tipo;
         }
 
         public DateTime HoraEvento { get; set; }
         // -2 não é evento de toque em SC, -1 neutro, 0 erro, 1 acerto
-        public int Acerto { get; set; }
+        public TipoEvento Tipo { get; set; }
         public string Mensagem { get; set; }
 
         public string MontaMensagem() {

@@ -1,4 +1,5 @@
 ﻿using Pactolo.scr.dominio;
+using Pactolo.scr.dominio.eventos;
 using Pactolo.scr.utils;
 using System;
 using System.Collections.Generic;
@@ -98,7 +99,9 @@ namespace Pactolo.scr.view {
 		}
 
 		private void EventoFimTempo(Object myObject, EventArgs myEventArgs) {
-			RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"Sessão {sessaoAtual.Nome}; Fim do tempo limite, o experimento foi encerrado e mais nenhuma sessão apresentada"));
+			RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento(
+				$"Sessão {sessaoAtual.Nome}; Fim do tempo limite, o experimento foi encerrado e mais nenhuma sessão apresentada"
+			));
 			timerSesaoAtual.Stop();
 			MostrarTelaFimExperimento();
 		}
@@ -109,7 +112,10 @@ namespace Pactolo.scr.view {
 				return;
 			}
 			try {
-				var evento = new Evento($"Sessão {sessaoAtual.Nome}; MTS {CCAtual.Nome}; Fim do tempo limite de {sessaoAtual.SegundosPorTentativa}s para tentativa, avançando para a próxima", 2);
+				var evento = new Evento(
+					$"Sessão {sessaoAtual.Nome}; MTS {CCAtual.Nome}; Fim do tempo limite de {sessaoAtual.SegundosPorTentativa}s para tentativa, avançando para a próxima",
+					TipoEvento.TempoEstourado
+				);
 				RelatorioSessao.AdicionarEvento(sessaoAtual.Id, evento);
 
 				sessaoAtual.NumeroTentativas++;
@@ -381,7 +387,10 @@ namespace Pactolo.scr.view {
 				sessaoAtual.NumeroTentativas++;
 
 				if (feedback.ProbabilidadeComplementar >= random.Next(0, 101)) {
-					RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"{textoEvento}, valendo {feedback.ValorClick} pontos", positivo ? 1 : 0));
+					RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento(
+						$"{textoEvento}, valendo {feedback.ValorClick} pontos",
+						positivo ? TipoEvento.Acerto : TipoEvento.Erro
+					));
 
 					if (positivo) {
 						sessaoAtual.AcertosConcecutivos++;
@@ -406,7 +415,10 @@ namespace Pactolo.scr.view {
 					}
 				}
 				else {
-					RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento($"{textoEvento}, porém não houve feedback por probabilidade", -1));
+					RelatorioSessao.AdicionarEvento(sessaoAtual.Id, new Evento(
+						$"{textoEvento}, porém não houve feedback por probabilidade",
+						TipoEvento.Neutro
+					));
 				}
 
 				await Task.Delay(1000);
